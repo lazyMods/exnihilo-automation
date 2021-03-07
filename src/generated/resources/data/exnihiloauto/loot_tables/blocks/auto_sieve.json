@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "name": "auto_sieve",
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "exnihiloauto:auto_sieve"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+package lazy.exnihiloauto.inventory.container;
+
+import lazy.exnihiloauto.inventory.slot.ValidSlot;
+import lazy.exnihiloauto.setup.ModContainers;
+import lazy.exnihiloauto.tiles.AutoSieveTile;
+import lombok.var;
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIntArray;
+import net.minecraft.util.IntArray;
+import novamachina.exnihilosequentia.api.ExNihiloRegistries;
+import novamachina.exnihilosequentia.common.item.mesh.EnumMesh;
+import novamachina.exnihilosequentia.common.item.mesh.MeshItem;
+import novamachina.exnihilosequentia.common.item.tools.hammer.HammerBaseItem;
+
+public class AutoSieveContainer extends Container {
+
+    private final IIntArray data;
+
+    public AutoSieveContainer(int windowID, PlayerInventory inventory, IInventory tileInv, IIntArray data) {
+        super(ModContainers.AUTO_SIEVE.get(), windowID);
+
+        this.data = data;
+
+        this.addSlot(new ValidSlot(tileInv, 0, 35, 34, this::isSiftable));
+
+        this.addSlot(new ValidSlot(tileInv, 1, 71, 34, stack -> stack.getItem() instanceof MeshItem));
+
+        for (int j = 0; j < 3; ++j) {
+            for (int k = 0; k < 4; ++k) {
+                this.addSlot(new Slot(tileInv, k + j * 4 + 2, 98 + k * 18, 16 + j * 18));
+            }
+        }
+
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 9; ++j) {
+                this.addSlot(new Slot(inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+            }
+        }
+
+        for (int k = 0; k < 9; ++k) {
+            this.addSlot(new Slot(inventory, k, 8 + k * 18, 142));
+        }
+
+        this.trackIntArray(this.data);
+    }
+
+    public AutoSieveContainer(int windowID, PlayerInventory inventory) {
+        this(windowID, inventory, new Inventory(AutoSieveTile.INV_SIZE), new IntArray(AutoSieveTile.DATA_SIZE));
+    }
+
+    @Override
+    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+        var itemstack = ItemStack.EMPTY;
+        var slot = this.inventorySlots.get(index);
+        if(slot != null && slot.getHasStack()) {
+            var stackInSlot = slot.getStack();
+            itemstack = stackInSlot.copy();
+
+            if(index >= 3 && index <= 14) {
+                if(!this.mergeItemStack(stackInSlot, 14, 50, true)) {
+                    return ItemStack.EMPTY;
+                }
+                slot.onSlotChange(stackInSlot, itemstack);
+            } else if(index != 2 && index != 1 && index != 0) {
+                if(this.isSiftable(stackInSlot)) {
+                    if(!this.mergeItemStack(stackInSlot, 0, 1, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if(stackInSlot.getItem() instanceof MeshItem) {
+                    if(!this.mergeItemStack(stackInSlot, 1, 2, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if(index >= 14 && index < 41) {
+                    if(!this.mergeItemStack(stackInSlot, 41, 50, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if(index >= 41 && index < 50 && !this.mergeItemStack(stackInSlot, 14, 41, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if(!this.mergeItemStack(stackInSlot, 14, 50, false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if(stackInSlot.isEmpty()) {
+                slot.putStack(ItemStack.EMPTY);
+            } else {
+                slot.onSlotChanged();
+            }
+
+            if(stackInSlot.getCount() == itemstack.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onTake(playerIn, stackInSlot);
+        }
+
+        return itemstack;
+    }
+
+    private boolean isSiftable(ItemStack stack){
+        if(stack.getItem() instanceof BlockItem) {
+            boolean isSiftable = false;
+            for (EnumMesh mesh : EnumMesh.values()) {
+                if(ExNihiloRegistries.SIEVE_REGISTRY.isBlockSiftable(Block.getBlockFromItem(stack.getItem()), mesh, false)) {
+                    isSiftable = true;
+                    break;
+                }
+            }
+            return isSiftable;
+        }
+        return false;
+    }
+
+    public IIntArray getData() {
+        return this.data;
+    }
+
+    @Override
+    public boolean canInteractWith(PlayerEntity playerIn) {
+        return true;
+    }
+}

@@ -17,6 +17,7 @@ public class ModBlocks {
     public static RegistryObject<Block> AUTO_HAMMER = BLOCKS.register("auto_hammer", AutoHammerBlock::new);
 
     public static void init() {
+        CompressedBlocksSetup.init();
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 }

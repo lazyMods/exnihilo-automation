@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "exnihiloauto:compressed_cobble"
+    ]
+  },
+  "criteria": {
+    "canCraft": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:cobblestone"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "exnihiloauto:compressed_cobble"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "canCraft",
+      "has_the_recipe"
+    ]
+  ]
+}

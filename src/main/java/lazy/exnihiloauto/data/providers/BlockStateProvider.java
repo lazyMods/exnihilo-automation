@@ -2,6 +2,7 @@ package lazy.exnihiloauto.data.providers;
 
 import lazy.exnihiloauto.Ref;
 import lazy.exnihiloauto.setup.ModBlocks;
+import lazy.exnihiloauto.setup.other.CompressedBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -33,5 +34,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
                 this.modLoc("block/auto_side"),
                 this.modLoc("block/auto_side")
         ));
+
+        CompressedBlocks.COMPRESSED_BLOCKS.forEach(b -> this.simpleBlock(b.get(), this.cubeAll(b.get())));
     }
 }

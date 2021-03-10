@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:decompress_atomic_compressed_cobble"
+    ]
+  },
+  "criteria": {
+    "can": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "exnihiloauto:atomic_compressed_cobble"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:decompress_atomic_compressed_cobble"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "can",
+      "has_the_recipe"
+    ]
+  ]
+}

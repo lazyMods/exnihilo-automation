@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:decompress_compressed_sand"
+    ]
+  },
+  "criteria": {
+    "can": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "exnihiloauto:compressed_sand"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:decompress_compressed_sand"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "can",
+      "has_the_recipe"
+    ]
+  ]
+}

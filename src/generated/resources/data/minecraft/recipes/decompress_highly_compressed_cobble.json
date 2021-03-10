@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "exnihiloauto:highly_compressed_cobble"
+    }
+  ],
+  "result": {
+    "item": "exnihiloauto:compressed_cobble",
+    "count": 9
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "name": "exnihiloauto:highly_compressed_gravel",
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 9.0
+            }
+          ],
+          "name": "exnihiloauto:compressed_gravel"
+        }
+      ]
+    }
+  ]
+}

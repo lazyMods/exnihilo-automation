@@ -1,6 +1,7 @@
 package lazy.exnihiloauto.setup;
 
 import lazy.exnihiloauto.Ref;
+import lazy.exnihiloauto.setup.other.ReinforcedHammers;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
@@ -18,6 +19,7 @@ public class ModItems {
             () -> new BlockItem(ModBlocks.AUTO_HAMMER.get(), new Item.Properties().group(Ref.GROUP)));
 
     public static void init() {
+        ReinforcedHammers.init();
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 }

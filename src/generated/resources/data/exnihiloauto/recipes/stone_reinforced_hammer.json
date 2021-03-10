@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "exnihilosequentia:hammer_stone"
+  },
+  "addition": {
+    "tag": "forge:obsidian"
+  },
+  "result": {
+    "item": "exnihiloauto:stone_reinforced_hammer"
+  }
+}

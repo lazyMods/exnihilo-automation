@@ -2,12 +2,16 @@ package lazy.exnihiloauto.data.providers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lazy.exnihiloauto.block.CompressedBlock;
+import lazy.exnihiloauto.utils.CompressionTier;
+import lombok.var;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
 import net.minecraft.data.LootTableProvider;
 import net.minecraft.loot.*;
+import net.minecraft.loot.functions.SetCount;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +22,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 //Modified version of: https://github.com/McJty/YouTubeModding14/blob/06097eee7db535d55c6cbe0bb4a523b07335fa33/src/main/java/com/mcjty/mytutorial/datagen/BaseLootTableProvider.java#L23
 public abstract class BaseLootTableProvider extends LootTableProvider {
@@ -37,6 +42,13 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
 
     public void lootTableWithOneOfItself(String regName, RegistryObject<Block> block) {
         this.blockLootTables.put(block.get(), LootTable.builder().addLootPool(new LootPool.Builder().name(regName).addEntry(ItemLootEntry.builder(block.get()))));
+    }
+
+    public void compressedBlockTables(String regName, RegistryObject<CompressedBlock> block, Block toDrop){
+        int tierAmt = block.get().getTier().tierBelow != null ? Objects.requireNonNull(block.get().getTier().tierBelow).tierAmt : 9;
+        this.blockLootTables.put(block.get(), LootTable.builder().addLootPool(new LootPool.Builder().name(regName)
+                .addEntry(ItemLootEntry.builder(toDrop)
+                        .acceptFunction(SetCount.builder(RandomValueRange.of(tierAmt, tierAmt))))));
     }
 
     @Override

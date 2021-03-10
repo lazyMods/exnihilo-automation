@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aaa",
+    "aaa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:sand"
+    }
+  },
+  "result": {
+    "item": "exnihiloauto:compressed_sand"
+  }
+}

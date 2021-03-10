@@ -1,4 +1,22 @@
 {
+  "block.exnihiloauto.atomic_compressed_cobble": "Atomic Compressed Cobblestone",
+  "block.exnihiloauto.atomic_compressed_dust": "Atomic Compressed Dust",
+  "block.exnihiloauto.atomic_compressed_gravel": "Atomic Compressed Gravel",
+  "block.exnihiloauto.atomic_compressed_sand": "Atomic Compressed Sand",
   "block.exnihiloauto.auto_hammer": "Automatic Hammer",
-  "block.exnihiloauto.auto_sieve": "Automatic Sieve"
+  "block.exnihiloauto.auto_sieve": "Automatic Sieve",
+  "block.exnihiloauto.compressed_cobble": "Compressed Cobblestone",
+  "block.exnihiloauto.compressed_dust": "Compressed Dust",
+  "block.exnihiloauto.compressed_gravel": "Compressed Gravel",
+  "block.exnihiloauto.compressed_sand": "Compressed Sand",
+  "block.exnihiloauto.highly_compressed_cobble": "Highly Compressed Cobblestone",
+  "block.exnihiloauto.highly_compressed_dust": "Highly Compressed Dust",
+  "block.exnihiloauto.highly_compressed_gravel": "Highly Compressed Gravel",
+  "block.exnihiloauto.highly_compressed_sand": "Highly Compressed Sand",
+  "item.exnihiloauto.diamond_reinforced_hammer": "Diamond Reinforced Hammer",
+  "item.exnihiloauto.golden_reinforced_hammer": "Golden Reinforced Hammer",
+  "item.exnihiloauto.iron_reinforced_hammer": "Iron Reinforced Hammer",
+  "item.exnihiloauto.netherite_reinforced_hammer": "Netherite Reinforced Hammer",
+  "item.exnihiloauto.stone_reinforced_hammer": "Stone Reinforced Hammer",
+  "item.exnihiloauto.wooden_reinforced_hammer": "Wooden Reinforced Hammer"
 }

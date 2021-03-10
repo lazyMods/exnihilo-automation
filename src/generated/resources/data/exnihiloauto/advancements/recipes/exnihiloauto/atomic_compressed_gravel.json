@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "exnihiloauto:atomic_compressed_gravel"
+    ]
+  },
+  "criteria": {
+    "canCraft": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "exnihiloauto:highly_compressed_gravel"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "exnihiloauto:atomic_compressed_gravel"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "canCraft",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -2,10 +2,7 @@ package lazy.exnihiloauto;
 
 import lazy.exnihiloauto.client.screen.AutoHammerScreen;
 import lazy.exnihiloauto.client.screen.AutoSieveScreen;
-import lazy.exnihiloauto.setup.ModBlocks;
-import lazy.exnihiloauto.setup.ModContainers;
-import lazy.exnihiloauto.setup.ModItems;
-import lazy.exnihiloauto.setup.ModTiles;
+import lazy.exnihiloauto.setup.*;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -19,6 +16,7 @@ public class ExNihiloAutomation {
         ModItems.init();
         ModTiles.init();
         ModContainers.init();
+        ModToolTypes.init();
         Configs.registerAndLoadConfig();
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);

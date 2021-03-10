@@ -1,5 +1,6 @@
 package lazy.exnihiloauto.block;
 
+import lazy.exnihiloauto.setup.ModToolTypes;
 import lazy.exnihiloauto.utils.CompressionTier;
 import lombok.Getter;
 import lombok.var;
@@ -20,9 +21,11 @@ public class CompressedBlock extends Block {
     private final CompressionTier tier;
     @Getter
     private final Block compressedBlock;
+    private final String compressedBlockName;
 
-    public CompressedBlock(Block compressedBlock, CompressionTier tier) {
-        super(Properties.from(compressedBlock));
+    public CompressedBlock(Block compressedBlock, String compressedBlockName, CompressionTier tier) {
+        super(Properties.from(compressedBlock).setRequiresTool().harvestTool(ModToolTypes.REINFORCED_HAMMER));
+        this.compressedBlockName = compressedBlockName;
         this.tier = tier;
         this.compressedBlock = compressedBlock;
     }
@@ -36,6 +39,6 @@ public class CompressedBlock extends Block {
     }
 
     public String getDisplayName() {
-        return String.format("%s%s", this.tier.name, new ItemStack(this.compressedBlock).getDisplayName().getString());
+        return String.format("%s%s", this.tier.name, this.compressedBlockName);
     }
 }

@@ -10,3 +10,9 @@ Legend that created the logo: https://github.com/NoraTheGamer
 _**ExNihilo Sequentia:**_ https://github.com/NovaMachina-Mods/ExNihiloSequentia
 
 **_Current version supported:_** 2.0.2.3
+
+### Content:
+
+- Auto Sieve and Hammer;
+- Compressed Blocks;
+- Reinforced Hammers;

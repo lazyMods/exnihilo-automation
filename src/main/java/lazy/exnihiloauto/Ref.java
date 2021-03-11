@@ -3,7 +3,6 @@ package lazy.exnihiloauto;
 import lazy.exnihiloauto.setup.ModItems;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 
 import javax.annotation.Nonnull;
 

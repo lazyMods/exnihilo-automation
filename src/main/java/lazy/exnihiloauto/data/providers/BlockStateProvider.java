@@ -3,8 +3,10 @@ package lazy.exnihiloauto.data.providers;
 import lazy.exnihiloauto.Ref;
 import lazy.exnihiloauto.setup.ModBlocks;
 import lazy.exnihiloauto.setup.other.CompressedBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.fml.RegistryObject;
 
 import java.util.Objects;
 
@@ -35,6 +37,25 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
                 this.modLoc("block/auto_side")
         ));
 
-        CompressedBlocks.COMPRESSED_BLOCKS.forEach(b -> this.simpleBlock(b.get(), this.cubeAll(b.get())));
+        this.registerCompressedModels();
+    }
+
+    private void registerCompressedModels() {
+        this.simplerBlock(CompressedBlocks.COMPRESSED_COBBLE.getBlock());
+        this.simplerBlock(CompressedBlocks.HIGHLY_COMPRESSED_COBBLE.getBlock());
+        this.simplerBlock(CompressedBlocks.ATOMIC_COMPRESSION_COBBLE.getBlock());
+        this.simplerBlock(CompressedBlocks.COMPRESSED_GRAVEL.getBlock());
+        this.simplerBlock(CompressedBlocks.HIGHLY_COMPRESSED_GRAVEL.getBlock());
+        this.simplerBlock(CompressedBlocks.ATOMIC_COMPRESSION_GRAVEL.getBlock());
+        this.simplerBlock(CompressedBlocks.COMPRESSED_SAND.getBlock());
+        this.simplerBlock(CompressedBlocks.HIGHLY_COMPRESSED_SAND.getBlock());
+        this.simplerBlock(CompressedBlocks.ATOMIC_COMPRESSION_SAND.getBlock());
+        this.simplerBlock(CompressedBlocks.COMPRESSED_DUST.getBlock());
+        this.simplerBlock(CompressedBlocks.HIGHLY_COMPRESSED_DUST.getBlock());
+        this.simplerBlock(CompressedBlocks.ATOMIC_COMPRESSION_DUST.getBlock());
+    }
+
+    private <T extends Block> void simplerBlock(RegistryObject<T> registryObject) {
+        this.simpleBlock(registryObject.get(), this.cubeAll(registryObject.get()));
     }
 }

@@ -24,8 +24,23 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
     protected void registerModels() {
         this.parentBlock(ModBlocks.AUTO_SIEVE);
         this.parentBlock(ModBlocks.AUTO_HAMMER);
-        CompressedBlocks.COMPRESSED_BLOCKS.forEach(this::parentBlock);
+        this.registerCompressedModels();
         ReinforcedHammers.HAMMERS.forEach(this::handheld);
+    }
+
+    private void registerCompressedModels() {
+        this.parentBlock(CompressedBlocks.COMPRESSED_COBBLE.getBlock());
+        this.parentBlock(CompressedBlocks.HIGHLY_COMPRESSED_COBBLE.getBlock());
+        this.parentBlock(CompressedBlocks.ATOMIC_COMPRESSION_COBBLE.getBlock());
+        this.parentBlock(CompressedBlocks.COMPRESSED_GRAVEL.getBlock());
+        this.parentBlock(CompressedBlocks.HIGHLY_COMPRESSED_GRAVEL.getBlock());
+        this.parentBlock(CompressedBlocks.ATOMIC_COMPRESSION_GRAVEL.getBlock());
+        this.parentBlock(CompressedBlocks.COMPRESSED_SAND.getBlock());
+        this.parentBlock(CompressedBlocks.HIGHLY_COMPRESSED_SAND.getBlock());
+        this.parentBlock(CompressedBlocks.ATOMIC_COMPRESSION_SAND.getBlock());
+        this.parentBlock(CompressedBlocks.COMPRESSED_DUST.getBlock());
+        this.parentBlock(CompressedBlocks.HIGHLY_COMPRESSED_DUST.getBlock());
+        this.parentBlock(CompressedBlocks.ATOMIC_COMPRESSION_DUST.getBlock());
     }
 
     private <T extends Block> void parentBlock(RegistryObject<T> blockRegistryObject) {

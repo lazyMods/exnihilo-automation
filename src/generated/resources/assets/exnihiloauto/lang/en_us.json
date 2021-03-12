@@ -18,5 +18,6 @@
   "item.exnihiloauto.iron_reinforced_hammer": "Iron Reinforced Hammer",
   "item.exnihiloauto.netherite_reinforced_hammer": "Netherite Reinforced Hammer",
   "item.exnihiloauto.stone_reinforced_hammer": "Stone Reinforced Hammer",
-  "item.exnihiloauto.wooden_reinforced_hammer": "Wooden Reinforced Hammer"
+  "item.exnihiloauto.wooden_reinforced_hammer": "Wooden Reinforced Hammer",
+  "itemGroup.exnihiloauto": "Ex Nihilo: Automation"
 }

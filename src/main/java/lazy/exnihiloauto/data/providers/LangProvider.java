@@ -15,6 +15,7 @@ public class LangProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
+        this.add("itemGroup.exnihiloauto", "Ex Nihilo: Automation");
         this.add(ModBlocks.AUTO_HAMMER.get(), "Automatic Hammer");
         this.add(ModBlocks.AUTO_SIEVE.get(), "Automatic Sieve");
         CompressedBlocks.COMPRESSED_BLOCKS.forEach(blockObj -> this.add(blockObj.get(), blockObj.get().getDisplayName()));

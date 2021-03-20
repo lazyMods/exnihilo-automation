@@ -20,7 +20,7 @@ public class LangProvider extends LanguageProvider {
         this.add("itemGroup.exnihiloauto", "Ex Nihilo: Automation");
         this.add(ModBlocks.AUTO_HAMMER.get(), "Automatic Hammer");
         this.add(ModBlocks.AUTO_SIEVE.get(), "Automatic Sieve");
-        this.add(ModBlocks.AUTO_SILKER.get(), "Automatic Sieve");
+        this.add(ModBlocks.AUTO_SILKER.get(), "Automatic Silker");
 
         this.add("compressed.cobblestone", "Cobblestone");
         this.add("compressed.gravel", "Gravel");

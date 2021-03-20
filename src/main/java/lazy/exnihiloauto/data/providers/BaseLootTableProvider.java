@@ -2,8 +2,7 @@ package lazy.exnihiloauto.data.providers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import lazy.exnihiloauto.block.CompressedBlock;
-import lazy.exnihiloauto.utils.CompressionTier;
+import lazy.exnihiloauto.block.compressed.CompressedBlock;
 import lombok.var;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
@@ -44,7 +43,8 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
         this.blockLootTables.put(block.get(), LootTable.builder().addLootPool(new LootPool.Builder().name(regName).addEntry(ItemLootEntry.builder(block.get()))));
     }
 
-    public void compressedBlockTables(String regName, RegistryObject<CompressedBlock> block, Block toDrop){
+    public void compressedBlockTables(RegistryObject<CompressedBlock> block, Block toDrop) {
+        var regName = Objects.requireNonNull(block.get().getRegistryName()).toString();
         int tierAmt = block.get().getTier().tierBelow != null ? Objects.requireNonNull(block.get().getTier().tierBelow).tierAmt : 9;
         this.blockLootTables.put(block.get(), LootTable.builder().addLootPool(new LootPool.Builder().name(regName)
                 .addEntry(ItemLootEntry.builder(toDrop)

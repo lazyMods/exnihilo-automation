@@ -1,13 +1,10 @@
 package lazy.exnihiloauto.data.providers;
 
-import lazy.exnihiloauto.block.CompressedBlock;
 import lazy.exnihiloauto.setup.ModBlocks;
 import lazy.exnihiloauto.setup.other.CompressedBlocks;
-import lombok.var;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraftforge.fml.RegistryObject;
-
-import java.util.Objects;
+import novamachina.exnihilosequentia.common.init.ExNihiloBlocks;
 
 public class LootTableProvider extends BaseLootTableProvider {
 
@@ -19,9 +16,21 @@ public class LootTableProvider extends BaseLootTableProvider {
     protected void createTables() {
         this.lootTableWithOneOfItself("auto_hammer", ModBlocks.AUTO_HAMMER);
         this.lootTableWithOneOfItself("auto_sieve", ModBlocks.AUTO_SIEVE);
-        for (RegistryObject<CompressedBlock> compressedBlock : CompressedBlocks.COMPRESSED_BLOCKS) {
-            var registryName = Objects.requireNonNull(compressedBlock.get().getRegistryName());
-            this.compressedBlockTables(registryName.toString(), compressedBlock, compressedBlock.get().getCompressedBlock());
-        }
+        this.createCompressedBlocksTables();
+    }
+
+    private void createCompressedBlocksTables() {
+        this.compressedBlockTables(CompressedBlocks.COMPRESSED_COBBLE.getBlock(), Blocks.COBBLESTONE);
+        this.compressedBlockTables(CompressedBlocks.HIGHLY_COMPRESSED_COBBLE.getBlock(), Blocks.COBBLESTONE);
+        this.compressedBlockTables(CompressedBlocks.ATOMIC_COMPRESSION_COBBLE.getBlock(), Blocks.COBBLESTONE);
+        this.compressedBlockTables(CompressedBlocks.COMPRESSED_GRAVEL.getBlock(), Blocks.GRAVEL);
+        this.compressedBlockTables(CompressedBlocks.HIGHLY_COMPRESSED_GRAVEL.getBlock(), Blocks.GRAVEL);
+        this.compressedBlockTables(CompressedBlocks.ATOMIC_COMPRESSION_GRAVEL.getBlock(), Blocks.GRAVEL);
+        this.compressedBlockTables(CompressedBlocks.COMPRESSED_SAND.getBlock(), Blocks.SAND);
+        this.compressedBlockTables(CompressedBlocks.HIGHLY_COMPRESSED_SAND.getBlock(), Blocks.SAND);
+        this.compressedBlockTables(CompressedBlocks.ATOMIC_COMPRESSION_SAND.getBlock(), Blocks.SAND);
+        this.compressedBlockTables(CompressedBlocks.COMPRESSED_DUST.getBlock(), ExNihiloBlocks.DUST.get());
+        this.compressedBlockTables(CompressedBlocks.HIGHLY_COMPRESSED_DUST.getBlock(), ExNihiloBlocks.DUST.get());
+        this.compressedBlockTables(CompressedBlocks.ATOMIC_COMPRESSION_DUST.getBlock(), ExNihiloBlocks.DUST.get());
     }
 }

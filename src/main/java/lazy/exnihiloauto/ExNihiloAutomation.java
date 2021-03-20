@@ -2,6 +2,7 @@ package lazy.exnihiloauto;
 
 import lazy.exnihiloauto.client.screen.AutoHammerScreen;
 import lazy.exnihiloauto.client.screen.AutoSieveScreen;
+import lazy.exnihiloauto.client.screen.AutoSilkerScreen;
 import lazy.exnihiloauto.setup.*;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.fml.common.Mod;
@@ -25,5 +26,6 @@ public class ExNihiloAutomation {
     private void setupClient(FMLClientSetupEvent event) {
         ScreenManager.registerFactory(ModContainers.AUTO_SIEVE.get(), AutoSieveScreen::new);
         ScreenManager.registerFactory(ModContainers.AUTO_HAMMER.get(), AutoHammerScreen::new);
+        ScreenManager.registerFactory(ModContainers.AUTO_SILKER.get(), AutoSilkerScreen::new);
     }
 }

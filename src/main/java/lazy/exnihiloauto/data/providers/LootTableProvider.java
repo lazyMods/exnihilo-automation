@@ -16,6 +16,7 @@ public class LootTableProvider extends BaseLootTableProvider {
     protected void createTables() {
         this.lootTableWithOneOfItself("auto_hammer", ModBlocks.AUTO_HAMMER);
         this.lootTableWithOneOfItself("auto_sieve", ModBlocks.AUTO_SIEVE);
+        this.lootTableWithOneOfItself("auto_silker", ModBlocks.AUTO_SILKER);
         this.createCompressedBlocksTables();
     }
 

@@ -14,5 +14,6 @@ _**ExNihilo Sequentia:**_ https://github.com/NovaMachina-Mods/ExNihiloSequentia
 ### Content:
 
 - Auto Sieve and Hammer;
+- Auto Silker;
 - Compressed Blocks;
 - Reinforced Hammers;

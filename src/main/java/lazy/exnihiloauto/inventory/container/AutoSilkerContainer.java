@@ -3,6 +3,7 @@ package lazy.exnihiloauto.inventory.container;
 import lazy.exnihiloauto.inventory.slot.ValidSlot;
 import lazy.exnihiloauto.setup.ModContainers;
 import lazy.exnihiloauto.tiles.AutoHammerTile;
+import lazy.exnihiloauto.tiles.AutoSilkerTile;
 import lombok.var;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,26 +14,28 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.IntArray;
 import novamachina.exnihilosequentia.api.ExNihiloRegistries;
+import novamachina.exnihilosequentia.common.item.resources.EnumResource;
 import novamachina.exnihilosequentia.common.item.tools.hammer.HammerBaseItem;
 
 import javax.annotation.Nonnull;
 
-public class AutoHammerContainer extends Container {
+public class AutoSilkerContainer extends Container {
 
     private final IIntArray data;
 
-    public AutoHammerContainer(int windowID, PlayerInventory inventory, IInventory tileInv, IIntArray data) {
-        super(ModContainers.AUTO_HAMMER.get(), windowID);
+    public AutoSilkerContainer(int windowID, PlayerInventory inventory, IInventory tileInv, IIntArray data) {
+        super(ModContainers.AUTO_SILKER.get(), windowID);
 
         this.data = data;
 
-        this.addSlot(new ValidSlot(tileInv, 0, 54, 34, stack -> stack.getItem() instanceof HammerBaseItem));
+        this.addSlot(new ValidSlot(tileInv, 0, 54, 34, stack -> stack.getItem() == EnumResource.SILKWORM.getRegistryObject().get()));
 
         this.addSlot(new ValidSlot(tileInv, 1, 98, 34, stack ->
-                stack.getItem() instanceof BlockItem && ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(Block.getBlockFromItem(stack.getItem()))));
+                stack.getItem() instanceof BlockItem && Block.getBlockFromItem(stack.getItem()).isIn(BlockTags.LEAVES)));
 
         this.addSlot(new Slot(tileInv, 2, 134, 34));
 
@@ -49,11 +52,10 @@ public class AutoHammerContainer extends Container {
         this.trackIntArray(this.data);
     }
 
-    public AutoHammerContainer(int windowID, PlayerInventory inventory) {
-        this(windowID, inventory, new Inventory(AutoHammerTile.INV_SIZE), new IntArray(AutoHammerTile.DATA_SIZE));
+    public AutoSilkerContainer(int windowID, PlayerInventory inventory) {
+        this(windowID, inventory, new Inventory(AutoSilkerTile.INV_SIZE), new IntArray(AutoSilkerTile.DATA_SIZE));
     }
 
-    @SuppressWarnings("ConstantConditions")
     @Override
     @Nonnull
     public ItemStack transferStackInSlot(@Nonnull PlayerEntity playerIn, int index) {
@@ -62,20 +64,18 @@ public class AutoHammerContainer extends Container {
         if (slot != null && slot.getHasStack()) {
             var stackInSlot = slot.getStack();
             itemstack = stackInSlot.copy();
-            boolean isHammerable = stackInSlot.getItem() instanceof BlockItem
-                    && ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(Block.getBlockFromItem(stackInSlot.getItem()));
-
+            boolean isLeaves = stackInSlot.getItem() instanceof BlockItem && Block.getBlockFromItem(stackInSlot.getItem()).isIn(BlockTags.LEAVES);
             if (index == 2) {
                 if (!this.mergeItemStack(stackInSlot, 3, 39, true)) {
                     return ItemStack.EMPTY;
                 }
                 slot.onSlotChange(stackInSlot, itemstack);
             } else if (index != 1 && index != 0) {
-                if (stackInSlot.getItem() instanceof HammerBaseItem) {
+                if (stackInSlot.getItem() == EnumResource.SILKWORM.getRegistryObject().get()) {
                     if (!this.mergeItemStack(stackInSlot, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (isHammerable) {
+                } else if (isLeaves) {
                     if (!this.mergeItemStack(stackInSlot, 1, 2, false)) {
                         return ItemStack.EMPTY;
                     }

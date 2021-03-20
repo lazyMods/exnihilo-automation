@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.Objects;
 
@@ -18,26 +19,14 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
 
     @Override
     protected void registerStatesAndModels() {
-        this.simpleBlock(ModBlocks.AUTO_SIEVE.get(), this.models().cube(
-                Objects.requireNonNull(ModBlocks.AUTO_SIEVE.get().getRegistryName()).toString(),
-                this.modLoc("block/auto_bottom"),
-                this.modLoc("block/auto_top"),
-                this.modLoc("block/auto_side"),
-                this.modLoc("block/auto_side"),
-                this.modLoc("block/auto_side"),
-                this.modLoc("block/auto_side")
-        ));
-        this.simpleBlock(ModBlocks.AUTO_HAMMER.get(), this.models().cube(
-                Objects.requireNonNull(ModBlocks.AUTO_HAMMER.get().getRegistryName()).toString(),
-                this.modLoc("block/auto_bottom"),
-                this.modLoc("block/auto_top"),
-                this.modLoc("block/auto_side"),
-                this.modLoc("block/auto_side"),
-                this.modLoc("block/auto_side"),
-                this.modLoc("block/auto_side")
-        ));
-
+        this.registerAutoModels();
         this.registerCompressedModels();
+    }
+
+    private void registerAutoModels(){
+        this.modAutoBlock(ModBlocks.AUTO_SIEVE);
+        this.modAutoBlock(ModBlocks.AUTO_HAMMER);
+        this.modAutoBlock(ModBlocks.AUTO_SILKER);
     }
 
     private void registerCompressedModels() {
@@ -57,5 +46,17 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
 
     private <T extends Block> void simplerBlock(RegistryObject<T> registryObject) {
         this.simpleBlock(registryObject.get(), this.cubeAll(registryObject.get()));
+    }
+
+    private <T extends Block> void modAutoBlock(RegistryObject<T> registryObject) {
+        this.simpleBlock(registryObject.get(), this.models().cube(
+                Objects.requireNonNull(registryObject.get().getRegistryName()).toString(),
+                this.modLoc("block/auto_bottom"),
+                this.modLoc("block/auto_top"),
+                this.modLoc("block/auto_side"),
+                this.modLoc("block/auto_side"),
+                this.modLoc("block/auto_side"),
+                this.modLoc("block/auto_side")
+        ));
     }
 }

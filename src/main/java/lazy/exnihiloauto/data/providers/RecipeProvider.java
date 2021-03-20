@@ -18,6 +18,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.RegistryObject;
 import novamachina.exnihilosequentia.common.init.ExNihiloBlocks;
 import novamachina.exnihilosequentia.common.init.ExNihiloItems;
+import novamachina.exnihilosequentia.common.item.tools.crook.EnumCrook;
 import novamachina.exnihilosequentia.common.item.tools.hammer.EnumHammer;
 
 import javax.annotation.Nonnull;
@@ -56,6 +57,20 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
                         Items.IRON_INGOT,
                         Items.REDSTONE,
                         EnumHammer.STONE.getRegistryObject().get())
+                )
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.AUTO_SILKER.get())
+                .patternLine("iri")
+                .patternLine("rcr")
+                .patternLine("iri")
+                .key('r', Tags.Items.DUSTS_REDSTONE)
+                .key('c', EnumCrook.DIAMOND.getRegistryObject().get())
+                .key('i', Tags.Items.INGOTS_IRON)
+                .addCriterion("canCraft", InventoryChangeTrigger.Instance.forItems(
+                        Items.IRON_INGOT,
+                        Items.REDSTONE,
+                        EnumCrook.STONE.getRegistryObject().get())
                 )
                 .build(consumer);
 

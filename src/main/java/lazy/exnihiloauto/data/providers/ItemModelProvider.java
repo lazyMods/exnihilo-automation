@@ -24,6 +24,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
     protected void registerModels() {
         this.parentBlock(ModBlocks.AUTO_SIEVE);
         this.parentBlock(ModBlocks.AUTO_HAMMER);
+        this.parentBlock(ModBlocks.AUTO_SILKER);
         this.registerCompressedModels();
         ReinforcedHammers.HAMMERS.forEach(this::handheld);
     }

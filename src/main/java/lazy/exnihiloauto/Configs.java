@@ -19,6 +19,9 @@ public class Configs {
     public static ForgeConfigSpec.IntValue AUTO_SIEVE_SPEED;
     public static ForgeConfigSpec.IntValue AUTO_SIEVE_ENERGY_CAPACITY;
 
+    public static ForgeConfigSpec.IntValue AUTO_SILKER_SPEED;
+    public static ForgeConfigSpec.IntValue AUTO_SILKER_ENERGY_CAPACITY;
+
     static {
         var builder = new ForgeConfigSpec.Builder();
 
@@ -27,6 +30,8 @@ public class Configs {
         AUTO_HAMMER_ENERGY_CAPACITY = builder.comment("Energy Capacity.").defineInRange("auto_sieve_energy_capacity", 10000, 1000, Integer.MAX_VALUE);
         AUTO_SIEVE_SPEED = builder.comment("Speed - Time it takes to handle the job.").defineInRange("auto_hammer_job_time", 100, 1, Integer.MAX_VALUE);
         AUTO_SIEVE_ENERGY_CAPACITY = builder.comment("Energy Capacity.").defineInRange("auto_hammer_energy_capacity", 10000, 1000, Integer.MAX_VALUE);
+        AUTO_SILKER_SPEED = builder.comment("Speed - Time it takes to handle the job.").defineInRange("auto_silker_job_time", 100, 1, Integer.MAX_VALUE);
+        AUTO_SILKER_ENERGY_CAPACITY = builder.comment("Energy Capacity.").defineInRange("auto_silker_energy_capacity", 10000, 1000, Integer.MAX_VALUE);
         builder.pop();
 
         COMMON = builder.build();

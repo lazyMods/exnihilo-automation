@@ -3,6 +3,7 @@ package lazy.exnihiloauto.setup;
 import lazy.exnihiloauto.Ref;
 import lazy.exnihiloauto.inventory.container.AutoHammerContainer;
 import lazy.exnihiloauto.inventory.container.AutoSieveContainer;
+import lazy.exnihiloauto.inventory.container.AutoSilkerContainer;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.fml.RegistryObject;
@@ -18,6 +19,8 @@ public class ModContainers {
             () -> IForgeContainerType.create(((windowId, inv, data) -> new AutoSieveContainer(windowId, inv))));
     public static RegistryObject<ContainerType<AutoHammerContainer>> AUTO_HAMMER = CONTAINERS.register("auto_hammer",
             () -> IForgeContainerType.create(((windowId, inv, data) -> new AutoHammerContainer(windowId, inv))));
+    public static RegistryObject<ContainerType<AutoSilkerContainer>> AUTO_SILKER = CONTAINERS.register("auto_silker",
+            () -> IForgeContainerType.create(((windowId, inv, data) -> new AutoSilkerContainer(windowId, inv))));
 
     public static void init() {
         CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());

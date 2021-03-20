@@ -17,6 +17,8 @@ public class ModItems {
             () -> new BlockItem(ModBlocks.AUTO_SIEVE.get(), new Item.Properties().group(Ref.GROUP)));
     public static RegistryObject<Item> AUTO_HAMMER = ITEMS.register("auto_hammer",
             () -> new BlockItem(ModBlocks.AUTO_HAMMER.get(), new Item.Properties().group(Ref.GROUP)));
+    public static RegistryObject<Item> AUTO_SILKER = ITEMS.register("auto_silker",
+            () -> new BlockItem(ModBlocks.AUTO_SILKER.get(), new Item.Properties().group(Ref.GROUP)));
 
     public static void init() {
         ReinforcedHammers.init();

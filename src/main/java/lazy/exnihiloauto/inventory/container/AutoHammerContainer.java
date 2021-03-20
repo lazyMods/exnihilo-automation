@@ -29,7 +29,7 @@ public class AutoHammerContainer extends Container {
 
         this.data = data;
 
-        this.addSlot(new ValidSlot(tileInv, 0, 53, 34, stack -> stack.getItem() instanceof HammerBaseItem));
+        this.addSlot(new ValidSlot(tileInv, 0, 54, 34, stack -> stack.getItem() instanceof HammerBaseItem));
 
         this.addSlot(new ValidSlot(tileInv, 1, 98, 34, stack ->
                 stack.getItem() instanceof BlockItem && ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(Block.getBlockFromItem(stack.getItem()))));
@@ -53,6 +53,7 @@ public class AutoHammerContainer extends Container {
         this(windowID, inventory, new Inventory(AutoHammerTile.INV_SIZE), new IntArray(AutoHammerTile.DATA_SIZE));
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     @Nonnull
     public ItemStack transferStackInSlot(@Nonnull PlayerEntity playerIn, int index) {

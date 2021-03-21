@@ -81,26 +81,26 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 
     private void createCompressedBlockRecipe(Consumer<IFinishedRecipe> c) {
         this.compressedBlockRecipes(CompressedBlocks.COMPRESSED_COBBLE.getBlock(), Blocks.COBBLESTONE, c);
-        this.compressedBlockRecipes(CompressedBlocks.HIGHLY_COMPRESSED_COBBLE.getBlock(), Blocks.COBBLESTONE, c);
-        this.compressedBlockRecipes(CompressedBlocks.ATOMIC_COMPRESSION_COBBLE.getBlock(), Blocks.COBBLESTONE, c);
+        this.compressedBlockRecipes(CompressedBlocks.HIGHLY_COMPRESSED_COBBLE.getBlock(), CompressedBlocks.COMPRESSED_COBBLE.getBlock().get(), c);
+        this.compressedBlockRecipes(CompressedBlocks.ATOMIC_COMPRESSION_COBBLE.getBlock(), CompressedBlocks.HIGHLY_COMPRESSED_COBBLE.getBlock().get(), c);
         this.compressedBlockRecipes(CompressedBlocks.COMPRESSED_GRAVEL.getBlock(), Blocks.GRAVEL, c);
-        this.compressedBlockRecipes(CompressedBlocks.HIGHLY_COMPRESSED_GRAVEL.getBlock(), Blocks.GRAVEL, c);
-        this.compressedBlockRecipes(CompressedBlocks.ATOMIC_COMPRESSION_GRAVEL.getBlock(), Blocks.GRAVEL, c);
+        this.compressedBlockRecipes(CompressedBlocks.HIGHLY_COMPRESSED_GRAVEL.getBlock(), CompressedBlocks.COMPRESSED_GRAVEL.getBlock().get(), c);
+        this.compressedBlockRecipes(CompressedBlocks.ATOMIC_COMPRESSION_GRAVEL.getBlock(), CompressedBlocks.HIGHLY_COMPRESSED_GRAVEL.getBlock().get(), c);
         this.compressedBlockRecipes(CompressedBlocks.COMPRESSED_SAND.getBlock(), Blocks.SAND, c);
-        this.compressedBlockRecipes(CompressedBlocks.HIGHLY_COMPRESSED_SAND.getBlock(), Blocks.SAND, c);
-        this.compressedBlockRecipes(CompressedBlocks.ATOMIC_COMPRESSION_SAND.getBlock(), Blocks.SAND, c);
+        this.compressedBlockRecipes(CompressedBlocks.HIGHLY_COMPRESSED_SAND.getBlock(), CompressedBlocks.COMPRESSED_SAND.getBlock().get(), c);
+        this.compressedBlockRecipes(CompressedBlocks.ATOMIC_COMPRESSION_SAND.getBlock(), CompressedBlocks.HIGHLY_COMPRESSED_SAND.getBlock().get(), c);
         this.compressedBlockRecipes(CompressedBlocks.COMPRESSED_DUST.getBlock(), ExNihiloBlocks.DUST.get(), c);
-        this.compressedBlockRecipes(CompressedBlocks.HIGHLY_COMPRESSED_DUST.getBlock(), ExNihiloBlocks.DUST.get(), c);
-        this.compressedBlockRecipes(CompressedBlocks.ATOMIC_COMPRESSION_DUST.getBlock(), ExNihiloBlocks.DUST.get(), c);
+        this.compressedBlockRecipes(CompressedBlocks.HIGHLY_COMPRESSED_DUST.getBlock(), CompressedBlocks.COMPRESSED_DUST.getBlock().get(), c);
+        this.compressedBlockRecipes(CompressedBlocks.ATOMIC_COMPRESSION_DUST.getBlock(), CompressedBlocks.HIGHLY_COMPRESSED_DUST.getBlock().get(), c);
     }
 
     private void compressedBlockRecipes(RegistryObject<CompressedBlock> block, Block compressed, Consumer<IFinishedRecipe> consumer) {
         var compressedBlock = block.get();
         ShapedRecipeBuilder.shapedRecipe(compressedBlock).patternLine("aaa").patternLine("aaa").patternLine("aaa")
-                .key('a', compressedBlock)
+                .key('a', compressed)
                 .addCriterion("canCraft", InventoryChangeTrigger.Instance.forItems(compressed))
                 .build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(compressedBlock, 9)
+        ShapelessRecipeBuilder.shapelessRecipe(compressed, 9)
                 .addIngredient(compressedBlock)
                 .addCriterion("can", InventoryChangeTrigger.Instance.forItems(compressedBlock))
                 .build(consumer, "decompress_".concat(Objects.requireNonNull(compressedBlock.getRegistryName(), "Compressed block is null!").getPath()));

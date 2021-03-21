@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "minecraft:cobblestone"
+            "item": "exnihiloauto:compressed_cobble"
           }
         ]
       }

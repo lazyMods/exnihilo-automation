@@ -17,3 +17,4 @@ _**ExNihilo Sequentia:**_ https://github.com/NovaMachina-Mods/ExNihiloSequentia
 - Auto Silker;
 - Compressed Blocks;
 - Reinforced Hammers;
+- More comming soon.

@@ -4,7 +4,7 @@
     "down": "exnihiloauto:block/auto_bottom",
     "up": "exnihiloauto:block/auto_top",
     "north": "exnihiloauto:block/auto_side",
-    "south": "exnihiloauto:block/auto_side",
+    "south": "exnihiloauto:block/auto_silker_insert",
     "east": "exnihiloauto:block/auto_side",
     "west": "exnihiloauto:block/auto_side"
   }

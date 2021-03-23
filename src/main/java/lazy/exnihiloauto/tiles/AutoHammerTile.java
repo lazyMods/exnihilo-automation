@@ -2,9 +2,13 @@ package lazy.exnihiloauto.tiles;
 
 import com.google.common.base.Preconditions;
 import lazy.exnihiloauto.Configs;
+import lazy.exnihiloauto.block.compressed.CompressedBlock;
 import lazy.exnihiloauto.inventory.InvHandler;
 import lazy.exnihiloauto.inventory.container.AutoHammerContainer;
+import lazy.exnihiloauto.items.ReinforcedHammerItem;
+import lazy.exnihiloauto.setup.ModItems;
 import lazy.exnihiloauto.setup.ModTiles;
+import lazy.exnihiloauto.utils.EnumCompressedBlocks;
 import lazy.exnihiloauto.utils.ExNihiloUtils;
 import lombok.var;
 import net.minecraft.block.Block;
@@ -21,32 +25,35 @@ import novamachina.exnihilosequentia.common.item.tools.hammer.HammerBaseItem;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class AutoHammerTile extends AutoTileEntity implements ITickableTileEntity {
 
-    public static final int INV_SIZE = 3;
+    public static final int INV_SIZE = 6;
 
     public AutoHammerTile() {
-        super(ModTiles.AUTO_HAMMER.get(), "Auto Hammer");
+        super(ModTiles.AUTO_HAMMER.get(), "tiles.title.hammer");
     }
 
     @Override
     public void tick() {
         Preconditions.checkNotNull(this.world);
-        if(!this.world.isRemote) {
+        if (!this.world.isRemote) {
             this.setFakePlayer((ServerWorld) this.world, "FakeHammer");
 
-            boolean hasHammer = !this.tileInv.isSlotEmpty(0);
+            boolean hasHammer = !this.tileInv.isSlotEmpty(0) && this.hasTheCorrectHammer();
             boolean hasBlockToHammer = !this.tileInv.isSlotEmpty(1);
-            if(hasHammer && hasBlockToHammer) {
-                if(ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(this.tileInv.getBlockItem(1))) {
-                    var drop = ExNihiloUtils.getHammeredOutput(this.tileInv.getBlockItem(1));
-                    if(this.tileInv.canInsertItemOnSlot(2, drop)) {
-                        if(this.storage.canExtractAmount(1)) {
+            if (hasHammer && hasBlockToHammer) {
+                boolean canHammer = this.canHammerCompressedBlocks() || ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(this.tileInv.getBlockItem(1));
+                System.out.println(this.canHammerCompressedBlocks());
+                if (canHammer) {
+                    var drop = this.getDrop();
+                    if (this.tileInv.canInsertItemOnSlot(2, drop)) {
+                        if (this.storage.canExtractAmount(1)) {
                             this.incrementTimer();
                             this.storage.decreaseEnergy(1);
                         }
-                        if(this.isDone()) {
+                        if (this.isDone()) {
                             this.tileInv.insertItem(2, drop, false);
                             this.tileInv.extractItem(1, 1, false);
                             this.tileInv.getStackInSlot(0).damageItem(1, this.fakePlayer, player -> {
@@ -80,9 +87,9 @@ public class AutoHammerTile extends AutoTileEntity implements ITickableTileEntit
             @Override
             @Nonnull
             public int[] getSlotsForFace(@Nonnull Direction side) {
-                if(side == Direction.UP) {
+                if (side == Direction.UP) {
                     return new int[]{0, 1};
-                } else if(side == Direction.DOWN) {
+                } else if (side == Direction.DOWN) {
                     return new int[]{2};
                 }
                 return new int[0];
@@ -90,10 +97,10 @@ public class AutoHammerTile extends AutoTileEntity implements ITickableTileEntit
 
             @Override
             public boolean canInsertItem(int index, @Nonnull ItemStack itemStackIn, Direction direction) {
-                if(index == 2) return false;
+                if (index == 2) return false;
                 return index == 0 && itemStackIn.getItem() instanceof HammerBaseItem
-                        || index == 1 && itemStackIn.getItem() instanceof BlockItem
-                        && ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(Block.getBlockFromItem(itemStackIn.getItem()));
+                        || index == 1 && (itemStackIn.getItem() instanceof BlockItem
+                        && ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(Block.getBlockFromItem(itemStackIn.getItem())) || canHammerCompressedBlocks());
             }
 
             @Override
@@ -103,9 +110,32 @@ public class AutoHammerTile extends AutoTileEntity implements ITickableTileEntit
         };
     }
 
+    @Override
+    public List<ItemStack> getUpgradeSlots() {
+        return this.tileInv.getStackFromTo(3, 5);
+    }
+
     @Nullable
     @Override
     public Container createMenu(int id, @Nonnull PlayerInventory playerInventory, @Nonnull PlayerEntity player) {
         return new AutoHammerContainer(id, playerInventory, this.tileInv, this.data);
+    }
+
+
+    private boolean canHammerCompressedBlocks() {
+        return this.hasUpgrade(ModItems.REINFORCED_UPGRADE) && this.tileInv.getBlockItem(1) instanceof CompressedBlock;
+    }
+
+    private ItemStack getDrop() {
+        Preconditions.checkNotNull(this.world);
+        int count = this.hasUpgrade(ModItems.BONUS_UPGRADE) && this.world.rand.nextFloat() < .25f ? 2 : 1;
+        if (this.canHammerCompressedBlocks() && this.tileInv.getBlockItem(1) instanceof CompressedBlock)
+            return new ItemStack(EnumCompressedBlocks.getCompressed((CompressedBlock) this.tileInv.getBlockItem(1)), count);
+        return new ItemStack(ExNihiloUtils.getHammeredOutput(this.tileInv.getBlockItem(1)).getItem(), count);
+    }
+
+    private boolean hasTheCorrectHammer() {
+        return this.canHammerCompressedBlocks() ? this.tileInv.getItem(0) instanceof ReinforcedHammerItem
+                : this.tileInv.getItem(0) instanceof HammerBaseItem;
     }
 }

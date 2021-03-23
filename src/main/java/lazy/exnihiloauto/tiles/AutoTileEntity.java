@@ -2,29 +2,35 @@ package lazy.exnihiloauto.tiles;
 
 import com.mojang.authlib.GameProfile;
 import lazy.exnihiloauto.inventory.InvHandler;
+import lazy.exnihiloauto.setup.ModItems;
 import lazy.exnihiloauto.utils.EnergyData;
 import lombok.var;
 import net.minecraft.block.BlockState;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.UUID;
 
 public abstract class AutoTileEntity extends TileEntity implements INamedContainerProvider {
@@ -55,7 +61,7 @@ public abstract class AutoTileEntity extends TileEntity implements INamedContain
                 case 2:
                     return timer;
                 case 3:
-                    return getFinishTime();
+                    return calcTime();
                 default:
                     return -1;
             }
@@ -83,6 +89,10 @@ public abstract class AutoTileEntity extends TileEntity implements INamedContain
 
     public abstract int getEnergyCapacity();
 
+    public InvHandler getTileInv() {
+        return this.tileInv;
+    }
+
     public void incrementTimer() {
         this.timer++;
         this.markDirty();
@@ -94,7 +104,7 @@ public abstract class AutoTileEntity extends TileEntity implements INamedContain
     }
 
     public boolean isDone() {
-        return this.timer >= this.getFinishTime();
+        return this.timer >= this.calcTime();
     }
 
     public FakePlayer createFakePlayer(ServerWorld world, String name) {
@@ -102,8 +112,36 @@ public abstract class AutoTileEntity extends TileEntity implements INamedContain
     }
 
     public void setFakePlayer(ServerWorld world, String name) {
-        if(this.fakePlayer != null) return;
+        if (this.fakePlayer != null) return;
         this.fakePlayer = this.createFakePlayer(world, name);
+    }
+
+    public abstract List<ItemStack> getUpgradeSlots();
+
+    public boolean addUpgrade(ItemStack stack) {
+        if (stack.getItem() == Items.AIR) return false;
+        this.getUpgradeSlots().add(stack);
+        return true;
+    }
+
+    public boolean hasUpgrade(ItemStack stack) {
+        return this.getUpgradeSlots().stream().map(ItemStack::getItem).anyMatch(item -> item == stack.getItem());
+    }
+
+    public boolean hasUpgrade(RegistryObject<Item> upgradeObj) {
+        return this.hasUpgrade(new ItemStack(upgradeObj.get()));
+    }
+
+    public int getCountOf(RegistryObject<Item> upgradeObj) {
+        return (int) this.getUpgradeSlots().stream().map(ItemStack::getItem).filter(i -> i == upgradeObj.get()).count();
+    }
+
+    public boolean canApplyUpgrade() {
+        return this.getUpgradeSlots().size() == this.getMaxUpgrades();
+    }
+
+    public int getMaxUpgrades() {
+        return 3;
     }
 
     @Override
@@ -127,10 +165,10 @@ public abstract class AutoTileEntity extends TileEntity implements INamedContain
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if(!this.isRemoved() && side != null) {
-            if(cap == CapabilityEnergy.ENERGY && Direction.Plane.HORIZONTAL.test(side)) {
+        if (!this.isRemoved() && side != null) {
+            if (cap == CapabilityEnergy.ENERGY && Direction.Plane.HORIZONTAL.test(side)) {
                 return this.energyCap.cast();
-            } else if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            } else if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
                 switch (side) {
                     case UP:
                         return this.invCap[0].cast();
@@ -154,6 +192,11 @@ public abstract class AutoTileEntity extends TileEntity implements INamedContain
     @Override
     @Nonnull
     public ITextComponent getDisplayName() {
-        return new StringTextComponent(this.containerTitle);
+        return new TranslationTextComponent(this.containerTitle);
+    }
+
+    private int calcTime() {
+        int speedBonus = this.hasUpgrade(ModItems.SPEED_UPGRADE) ? getCountOf(ModItems.SPEED_UPGRADE) * 20 : 0;
+        return this.getFinishTime() - speedBonus;
     }
 }

@@ -1,8 +1,8 @@
 package lazy.exnihiloauto.inventory.container;
 
+import lazy.exnihiloauto.inventory.slot.UpgradeSlot;
 import lazy.exnihiloauto.inventory.slot.ValidSlot;
 import lazy.exnihiloauto.setup.ModContainers;
-import lazy.exnihiloauto.tiles.AutoHammerTile;
 import lazy.exnihiloauto.tiles.AutoSilkerTile;
 import lombok.var;
 import net.minecraft.block.Block;
@@ -17,9 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.IntArray;
-import novamachina.exnihilosequentia.api.ExNihiloRegistries;
 import novamachina.exnihilosequentia.common.item.resources.EnumResource;
-import novamachina.exnihilosequentia.common.item.tools.hammer.HammerBaseItem;
 
 import javax.annotation.Nonnull;
 
@@ -39,6 +37,10 @@ public class AutoSilkerContainer extends Container {
 
         this.addSlot(new Slot(tileInv, 2, 134, 34));
 
+        for (int i = 0; i < 3; i++) {
+            this.addSlot(new UpgradeSlot(tileInv, 3 + i, 182, 6 + i * 18, AutoSilkerTile.class));
+        }
+
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
                 this.addSlot(new Slot(inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -56,6 +58,7 @@ public class AutoSilkerContainer extends Container {
         this(windowID, inventory, new Inventory(AutoSilkerTile.INV_SIZE), new IntArray(AutoSilkerTile.DATA_SIZE));
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     @Nonnull
     public ItemStack transferStackInSlot(@Nonnull PlayerEntity playerIn, int index) {

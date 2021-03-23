@@ -2,6 +2,7 @@ package lazy.exnihiloauto.data.providers;
 
 import lazy.exnihiloauto.Ref;
 import lazy.exnihiloauto.setup.ModBlocks;
+import lazy.exnihiloauto.setup.ModItems;
 import lazy.exnihiloauto.setup.other.CompressedBlocks;
 import lazy.exnihiloauto.setup.other.ReinforcedHammers;
 import lombok.var;
@@ -25,6 +26,11 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         this.parentBlock(ModBlocks.AUTO_SIEVE);
         this.parentBlock(ModBlocks.AUTO_HAMMER);
         this.parentBlock(ModBlocks.AUTO_SILKER);
+
+        this.zeroLayered(ModItems.REINFORCED_UPGRADE, "item/generated", "items/reinforcement_upgrade");
+        this.zeroLayered(ModItems.SPEED_UPGRADE, "item/generated", "items/speed_upgrade");
+        this.zeroLayered(ModItems.BONUS_UPGRADE, "item/generated", "items/bonus_upgrade");
+
         this.registerCompressedModels();
         ReinforcedHammers.HAMMERS.forEach(this::handheld);
     }

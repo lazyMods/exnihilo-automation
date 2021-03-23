@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iri",
+    "rcr",
+    "iri"
+  ],
+  "key": {
+    "r": {
+      "item": "minecraft:sugar"
+    },
+    "c": {
+      "tag": "forge:dusts/redstone"
+    },
+    "i": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "result": {
+    "item": "exnihiloauto:speed_upgrade"
+  }
+}

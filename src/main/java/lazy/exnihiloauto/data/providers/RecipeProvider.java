@@ -4,6 +4,7 @@ import lazy.exnihiloauto.Ref;
 import lazy.exnihiloauto.block.compressed.CompressedBlock;
 import lazy.exnihiloauto.items.ReinforcedHammerItem;
 import lazy.exnihiloauto.setup.ModBlocks;
+import lazy.exnihiloauto.setup.ModItems;
 import lazy.exnihiloauto.setup.other.CompressedBlocks;
 import lazy.exnihiloauto.setup.other.ReinforcedHammers;
 import lombok.var;
@@ -73,6 +74,49 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
                         EnumCrook.STONE.getRegistryObject().get())
                 )
                 .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModItems.SPEED_UPGRADE.get())
+                .patternLine("iri")
+                .patternLine("rcr")
+                .patternLine("iri")
+                .key('r', Items.SUGAR)
+                .key('c', Tags.Items.DUSTS_REDSTONE)
+                .key('i', Tags.Items.INGOTS_IRON)
+                .addCriterion("canCraft", InventoryChangeTrigger.Instance.forItems(
+                        Items.IRON_INGOT,
+                        Items.REDSTONE,
+                        Items.SUGAR)
+                )
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModItems.REINFORCED_UPGRADE.get())
+                .patternLine("iri")
+                .patternLine("rcr")
+                .patternLine("iri")
+                .key('r', Items.OBSIDIAN)
+                .key('c', Tags.Items.DUSTS_REDSTONE)
+                .key('i', Tags.Items.INGOTS_IRON)
+                .addCriterion("canCraft", InventoryChangeTrigger.Instance.forItems(
+                        Items.IRON_INGOT,
+                        Items.REDSTONE,
+                        Items.OBSIDIAN)
+                )
+                .build(consumer);
+
+        ShapedRecipeBuilder.shapedRecipe(ModItems.BONUS_UPGRADE.get())
+                .patternLine("iri")
+                .patternLine("rcr")
+                .patternLine("iri")
+                .key('r', Items.EMERALD)
+                .key('c', Tags.Items.DUSTS_REDSTONE)
+                .key('i', Tags.Items.INGOTS_IRON)
+                .addCriterion("canCraft", InventoryChangeTrigger.Instance.forItems(
+                        Items.IRON_INGOT,
+                        Items.REDSTONE,
+                        Items.EMERALD)
+                )
+                .build(consumer);
+
 
         this.createCompressedBlockRecipe(consumer);
         ReinforcedHammers.HAMMERS.forEach(itemObj -> this.createSmithingRecipe(itemObj.get().getBase(), itemObj, consumer));

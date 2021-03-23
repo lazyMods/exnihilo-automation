@@ -1,7 +1,10 @@
 package lazy.exnihiloauto.inventory.container;
 
+import lazy.exnihiloauto.inventory.slot.UpgradeSlot;
 import lazy.exnihiloauto.inventory.slot.ValidSlot;
+import lazy.exnihiloauto.items.ReinforcedHammerItem;
 import lazy.exnihiloauto.setup.ModContainers;
+import lazy.exnihiloauto.setup.ModItems;
 import lazy.exnihiloauto.tiles.AutoHammerTile;
 import lombok.var;
 import net.minecraft.block.Block;
@@ -23,18 +26,29 @@ import javax.annotation.Nonnull;
 public class AutoHammerContainer extends Container {
 
     private final IIntArray data;
+    private final IInventory tileInv;
 
     public AutoHammerContainer(int windowID, PlayerInventory inventory, IInventory tileInv, IIntArray data) {
         super(ModContainers.AUTO_HAMMER.get(), windowID);
 
         this.data = data;
+        this.tileInv = tileInv;
 
-        this.addSlot(new ValidSlot(tileInv, 0, 54, 34, stack -> stack.getItem() instanceof HammerBaseItem));
+        this.addSlot(new ValidSlot(tileInv, 0, 54, 34, stack ->
+                this.hasUpgrade(new ItemStack(ModItems.REINFORCED_UPGRADE.get())) ? stack.getItem() instanceof ReinforcedHammerItem :
+                        stack.getItem() instanceof HammerBaseItem));
 
-        this.addSlot(new ValidSlot(tileInv, 1, 98, 34, stack ->
-                stack.getItem() instanceof BlockItem && ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(Block.getBlockFromItem(stack.getItem()))));
+        this.addSlot(new ValidSlot(tileInv, 1, 98, 34, stack -> {
+            if (stack.getItem() instanceof BlockItem && ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(Block.getBlockFromItem(stack.getItem())))
+                return true;
+            return stack.getItem() instanceof BlockItem && hasUpgrade(new ItemStack(ModItems.REINFORCED_UPGRADE.get()));
+        }));
 
         this.addSlot(new Slot(tileInv, 2, 134, 34));
+
+        for (int i = 0; i < 3; i++) {
+            this.addSlot(new UpgradeSlot(tileInv, 3 + i, 182, 6 + i * 18, AutoHammerTile.class));
+        }
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
@@ -113,5 +127,11 @@ public class AutoHammerContainer extends Container {
     @Override
     public boolean canInteractWith(@Nonnull PlayerEntity playerIn) {
         return true;
+    }
+
+    public boolean hasUpgrade(ItemStack stack) {
+        return this.tileInv.getStackInSlot(AutoHammerTile.INV_SIZE - 3).getItem() == stack.getItem()
+                || this.tileInv.getStackInSlot(AutoHammerTile.INV_SIZE - 2).getItem() == stack.getItem()
+                || this.tileInv.getStackInSlot(AutoHammerTile.INV_SIZE - 1).getItem() == stack.getItem();
     }
 }

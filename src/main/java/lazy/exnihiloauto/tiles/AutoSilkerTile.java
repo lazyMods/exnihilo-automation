@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import lazy.exnihiloauto.Configs;
 import lazy.exnihiloauto.inventory.InvHandler;
 import lazy.exnihiloauto.inventory.container.AutoSilkerContainer;
+import lazy.exnihiloauto.setup.ModItems;
 import lazy.exnihiloauto.setup.ModTiles;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,18 +16,26 @@ import net.minecraft.item.Items;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import novamachina.exnihilosequentia.common.item.resources.EnumResource;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.List;
 
 public class AutoSilkerTile extends AutoTileEntity implements ITickableTileEntity {
 
-    public static final int INV_SIZE = 3;
+    public static final int INV_SIZE = 6;
+    protected final LazyOptional<IItemHandlerModifiable>[] invCap = SidedInvWrapper.create(tileInv, Direction.UP, Direction.DOWN, Direction.SOUTH);
 
     public AutoSilkerTile() {
-        super(ModTiles.AUTO_SILKER.get(), "Auto Silker");
+        super(ModTiles.AUTO_SILKER.get(), "tiles.title.silker");
     }
 
     @Override
@@ -44,7 +53,8 @@ public class AutoSilkerTile extends AutoTileEntity implements ITickableTileEntit
                     if (this.isDone()) {
                         this.tileInv.extractItem(0, 1, false);
                         this.tileInv.extractItem(1, 1, false);
-                        this.tileInv.insertItem(2, new ItemStack(Items.STRING), false);
+                        int count = this.hasUpgrade(ModItems.BONUS_UPGRADE) && this.world.rand.nextFloat() < .25f ? 2 : 1;
+                        this.tileInv.insertItem(2, new ItemStack(Items.STRING, count), false);
                         this.resetTimer();
                     }
                 }
@@ -65,14 +75,17 @@ public class AutoSilkerTile extends AutoTileEntity implements ITickableTileEntit
             @ParametersAreNonnullByDefault
             public int[] getSlotsForFace(Direction side) {
                 if (side == Direction.DOWN) return new int[]{2};
-                if (side == Direction.UP) return new int[]{0, 1};
+                if (side == Direction.UP) return new int[]{1};
+                if (side == Direction.SOUTH) return new int[]{0};
                 return new int[0];
             }
 
             @Override
-            public boolean canInsertItem(int index, ItemStack itemStackIn, @Nullable Direction direction) {
-                if (direction != Direction.UP) return false;
-                if (index == 0 && itemStackIn.getItem() == EnumResource.SILKWORM.getRegistryObject().get()) return true;
+            public boolean canInsertItem(int index, @Nonnull ItemStack itemStackIn, @Nullable Direction direction) {
+                if (direction == Direction.UP || direction == Direction.SOUTH) {
+                    if (index == 0 && itemStackIn.getItem() == EnumResource.SILKWORM.getRegistryObject().get())
+                        return true;
+                }
                 return index == 1 && itemStackIn.getItem() instanceof BlockItem && Block.getBlockFromItem(itemStackIn.getItem()).isIn(BlockTags.LEAVES);
             }
 
@@ -94,10 +107,35 @@ public class AutoSilkerTile extends AutoTileEntity implements ITickableTileEntit
         return Configs.AUTO_SILKER_ENERGY_CAPACITY.get();
     }
 
+    @Override
+    public List<ItemStack> getUpgradeSlots() {
+        return this.tileInv.getStackFromTo(3, 5);
+    }
+
     @Nullable
     @Override
     @ParametersAreNonnullByDefault
     public Container createMenu(int windowId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
         return new AutoSilkerContainer(windowId, playerInventory, this.tileInv, this.data);
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        if (!this.isRemoved() && side != null) {
+            if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+                switch (side) {
+                    case UP:
+                        return this.invCap[0].cast();
+                    case DOWN:
+                        return this.invCap[1].cast();
+                    case SOUTH:
+                        return this.invCap[2].cast();
+                }
+            } else if (cap == CapabilityEnergy.ENERGY && side != Direction.SOUTH && Direction.Plane.HORIZONTAL.test(side)) {
+                return this.energyCap.cast();
+            }
+        }
+        return super.getCapability(cap, side);
     }
 }

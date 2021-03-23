@@ -16,6 +16,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class InvHandler implements ISidedInventory, INBTSerializable<CompoundNBT> {
@@ -27,6 +28,14 @@ public abstract class InvHandler implements ISidedInventory, INBTSerializable<Co
     }
 
     public abstract boolean canInsertOn(int slot);
+
+    public List<ItemStack> getStackFromTo(int fromIndex, int toIndex) {
+        var itemStacks = new ArrayList<ItemStack>();
+        for (int i = fromIndex; i < toIndex + 1; i++) {
+            itemStacks.add(this.getStackInSlot(i));
+        }
+        return itemStacks;
+    }
 
     public Item getItem(int slot) {
         return this.getStackInSlot(slot).getItem();

@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nonnull;
 
@@ -18,6 +19,7 @@ public class AutoSilkerScreen extends ContainerScreen<AutoSilkerContainer> {
 
     public AutoSilkerScreen(AutoSilkerContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
+        this.xSize = 204;
     }
 
     @Override
@@ -27,16 +29,16 @@ public class AutoSilkerScreen extends ContainerScreen<AutoSilkerContainer> {
         if (this.hoveredSlot != null) {
             if (!this.hoveredSlot.getHasStack()) {
                 if (this.hoveredSlot.slotNumber == 1) {
-                    this.renderTooltip(matrixStack, new StringTextComponent("Leaves"), mouseX, mouseY);
+                    this.renderTooltip(matrixStack, new TranslationTextComponent("silker.leaves"), mouseX, mouseY);
                 } else if (this.hoveredSlot.slotNumber == 0) {
-                    this.renderTooltip(matrixStack, new StringTextComponent("Silk Worm"), mouseX, mouseY);
+                    this.renderTooltip(matrixStack, new TranslationTextComponent("silker.silk_worm"), mouseX, mouseY);
                 }
             } else {
                 this.renderTooltip(matrixStack, this.hoveredSlot.getStack(), mouseX, mouseY);
             }
         }
         if (mouseX > this.guiLeft + 7 && mouseX < this.guiLeft + 7 + 18 && mouseY > this.guiTop + 15 && mouseY < this.guiTop + 15 + 54) {
-            this.renderTooltip(matrixStack, new StringTextComponent("Energy: " + this.container.getData().get(0) + "/" + this.container.getData().get(1)), mouseX, mouseY);
+            this.renderTooltip(matrixStack, new TranslationTextComponent("tiles.energy").append(new StringTextComponent(this.container.getData().get(0) + "/" + this.container.getData().get(1))), mouseX, mouseY);
         }
     }
 
@@ -55,11 +57,11 @@ public class AutoSilkerScreen extends ContainerScreen<AutoSilkerContainer> {
     private void renderEnergyBar(MatrixStack matrixStack) {
         float energyPer = this.container.getData().get(0) / (float) this.container.getData().get(1);
         int startY = this.guiTop + 16 + 52 - (int) (energyPer * 52);
-        this.blit(matrixStack, this.guiLeft + 8, startY, 176, 14, 16, (int) (energyPer * 52));
+        this.blit(matrixStack, this.guiLeft + 8, startY, 204, 14, 16, (int) (energyPer * 52));
     }
 
     private void renderSilkerTimer(MatrixStack matrixStack) {
         float timePer = this.container.getData().get(2) / (float) this.container.getData().get(3);
-        this.blit(matrixStack, this.guiLeft + 73, this.guiTop + 33, 192, 0, (int) (timePer * 22), 16);
+        this.blit(matrixStack, this.guiLeft + 73, this.guiTop + 33, 220, 0, (int) (timePer * 22), 16);
     }
 }

@@ -7,7 +7,6 @@ import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.Objects;
 
@@ -23,7 +22,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
         this.registerCompressedModels();
     }
 
-    private void registerAutoModels(){
+    private void registerAutoModels() {
         this.modAutoBlock(ModBlocks.AUTO_SIEVE);
         this.modAutoBlock(ModBlocks.AUTO_HAMMER);
         this.modAutoBlock(ModBlocks.AUTO_SILKER);
@@ -54,7 +53,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
                 this.modLoc("block/auto_bottom"),
                 this.modLoc("block/auto_top"),
                 this.modLoc("block/auto_side"),
-                this.modLoc("block/auto_side"),
+                this.modLoc("block/auto_silker_insert"),
                 this.modLoc("block/auto_side"),
                 this.modLoc("block/auto_side")
         ));

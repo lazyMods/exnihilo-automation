@@ -20,42 +20,45 @@ import novamachina.exnihilosequentia.common.utility.Config;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class AutoSieveTile extends AutoTileEntity implements ITickableTileEntity, INamedContainerProvider {
 
-    public static final int INV_SIZE = 14;
+    public static final int INV_SIZE = 17;
 
     public AutoSieveTile() {
-        super(ModTiles.AUTO_SIEVE.get(), "Auto Sieve");
+        super(ModTiles.AUTO_SIEVE.get(), "tiles.title.sieve");
     }
 
     @Override
     public void tick() {
         Preconditions.checkNotNull(this.world);
-        if(!this.world.isRemote) {
+        if (!this.world.isRemote) {
             this.setFakePlayer((ServerWorld) this.world, "FakeSiever");
             boolean hasSiftable = !this.tileInv.isSlotEmpty(0);
             boolean hasMesh = !this.tileInv.isSlotEmpty(1);
-            if(hasSiftable && hasMesh) {
+            if (hasSiftable && hasMesh) {
                 var siftable = this.tileInv.getItem(0);
                 var mesh = ((MeshItem) this.tileInv.getItem(1)).getMesh();
                 var sieveDrops = ExNihiloUtils.getWithMeshChance(siftable, mesh, this.world.rand);
-                if(this.tileInv.canInsertAll(sieveDrops)) {
-                    if(this.storage.canExtractAmount(1)) {
+                if (this.tileInv.canInsertAll(sieveDrops)) {
+                    if (this.storage.canExtractAmount(1)) {
                         this.incrementTimer();
                         this.storage.decreaseEnergy(1);
                     }
-                    if(this.isDone()) {
+                    if (this.isDone()) {
                         for (ItemStack stack : sieveDrops) {
-                            if(this.tileInv.hasStack(stack)) {
+                            if (this.tileInv.hasStack(stack)) {
                                 int slot = this.tileInv.checkAndGetStack(stack);
                                 this.tileInv.insertItem(slot, stack, false);
-                            } else if(tileInv.hasEmptySlot()) {
+                            } else if (tileInv.hasEmptySlot()) {
                                 int slot = this.tileInv.checkAndGetEmptySlot();
                                 this.tileInv.insertItem(slot, stack, false);
                             }
                         }
-                        if(Config.enableMeshDurability()) this.tileInv.getStackInSlot(2).damageItem(1, this.fakePlayer, player -> {});
+                        if (Config.enableMeshDurability())
+                            this.tileInv.getStackInSlot(2).damageItem(1, this.fakePlayer, player -> {
+                            });
                         this.tileInv.extractItem(0, 1, false);
                         this.resetTimer();
                     }
@@ -84,9 +87,9 @@ public class AutoSieveTile extends AutoTileEntity implements ITickableTileEntity
             @Override
             @Nonnull
             public int[] getSlotsForFace(@Nonnull Direction side) {
-                if(side == Direction.DOWN) {
+                if (side == Direction.DOWN) {
                     return new int[]{2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
-                } else if(side == Direction.UP) {
+                } else if (side == Direction.UP) {
                     return new int[]{0};
                 }
                 return new int[0];
@@ -102,6 +105,11 @@ public class AutoSieveTile extends AutoTileEntity implements ITickableTileEntity
                 return direction == Direction.DOWN && index > 1;
             }
         };
+    }
+
+    @Override
+    public List<ItemStack> getUpgradeSlots() {
+        return this.tileInv.getStackFromTo(13, 15);
     }
 
     @Nullable

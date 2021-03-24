@@ -1,5 +1,6 @@
 package lazy.exnihiloauto.inventory.container;
 
+import lazy.exnihiloauto.inventory.slot.UpgradeSlot;
 import lazy.exnihiloauto.inventory.slot.ValidSlot;
 import lazy.exnihiloauto.setup.ModContainers;
 import lazy.exnihiloauto.tiles.AutoSieveTile;
@@ -18,7 +19,8 @@ import net.minecraft.util.IntArray;
 import novamachina.exnihilosequentia.api.ExNihiloRegistries;
 import novamachina.exnihilosequentia.common.item.mesh.EnumMesh;
 import novamachina.exnihilosequentia.common.item.mesh.MeshItem;
-import novamachina.exnihilosequentia.common.item.tools.hammer.HammerBaseItem;
+
+import javax.annotation.Nonnull;
 
 public class AutoSieveContainer extends Container {
 
@@ -33,10 +35,15 @@ public class AutoSieveContainer extends Container {
 
         this.addSlot(new ValidSlot(tileInv, 1, 71, 34, stack -> stack.getItem() instanceof MeshItem));
 
+
         for (int j = 0; j < 3; ++j) {
             for (int k = 0; k < 4; ++k) {
                 this.addSlot(new Slot(tileInv, k + j * 4 + 2, 98 + k * 18, 16 + j * 18));
             }
+        }
+
+        for (int i = 0; i < 3; i++) {
+            this.addSlot(new UpgradeSlot(tileInv, 14 + i, 182, 6 + i * 18, AutoSieveTile.class));
         }
 
         for (int i = 0; i < 3; ++i) {
@@ -56,46 +63,48 @@ public class AutoSieveContainer extends Container {
         this(windowID, inventory, new Inventory(AutoSieveTile.INV_SIZE), new IntArray(AutoSieveTile.DATA_SIZE));
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+    @Nonnull
+    public ItemStack transferStackInSlot(@Nonnull PlayerEntity playerIn, int index) {
         var itemstack = ItemStack.EMPTY;
         var slot = this.inventorySlots.get(index);
-        if(slot != null && slot.getHasStack()) {
+        if (slot != null && slot.getHasStack()) {
             var stackInSlot = slot.getStack();
             itemstack = stackInSlot.copy();
 
-            if(index >= 3 && index <= 14) {
-                if(!this.mergeItemStack(stackInSlot, 14, 50, true)) {
+            if (index >= 3 && index <= 14) {
+                if (!this.mergeItemStack(stackInSlot, 14, 50, true)) {
                     return ItemStack.EMPTY;
                 }
                 slot.onSlotChange(stackInSlot, itemstack);
-            } else if(index != 2 && index != 1 && index != 0) {
-                if(this.isSiftable(stackInSlot)) {
-                    if(!this.mergeItemStack(stackInSlot, 0, 1, false)) {
+            } else if (index != 2 && index != 1 && index != 0) {
+                if (this.isSiftable(stackInSlot)) {
+                    if (!this.mergeItemStack(stackInSlot, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if(stackInSlot.getItem() instanceof MeshItem) {
-                    if(!this.mergeItemStack(stackInSlot, 1, 2, false)) {
+                } else if (stackInSlot.getItem() instanceof MeshItem) {
+                    if (!this.mergeItemStack(stackInSlot, 1, 2, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if(index >= 14 && index < 41) {
-                    if(!this.mergeItemStack(stackInSlot, 41, 50, false)) {
+                } else if (index >= 14 && index < 41) {
+                    if (!this.mergeItemStack(stackInSlot, 41, 50, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if(index >= 41 && index < 50 && !this.mergeItemStack(stackInSlot, 14, 41, false)) {
+                } else if (index >= 41 && index < 50 && !this.mergeItemStack(stackInSlot, 14, 41, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if(!this.mergeItemStack(stackInSlot, 14, 50, false)) {
+            } else if (!this.mergeItemStack(stackInSlot, 14, 50, false)) {
                 return ItemStack.EMPTY;
             }
 
-            if(stackInSlot.isEmpty()) {
+            if (stackInSlot.isEmpty()) {
                 slot.putStack(ItemStack.EMPTY);
             } else {
                 slot.onSlotChanged();
             }
 
-            if(stackInSlot.getCount() == itemstack.getCount()) {
+            if (stackInSlot.getCount() == itemstack.getCount()) {
                 return ItemStack.EMPTY;
             }
 
@@ -105,11 +114,11 @@ public class AutoSieveContainer extends Container {
         return itemstack;
     }
 
-    private boolean isSiftable(ItemStack stack){
-        if(stack.getItem() instanceof BlockItem) {
+    private boolean isSiftable(ItemStack stack) {
+        if (stack.getItem() instanceof BlockItem) {
             boolean isSiftable = false;
             for (EnumMesh mesh : EnumMesh.values()) {
-                if(ExNihiloRegistries.SIEVE_REGISTRY.isBlockSiftable(Block.getBlockFromItem(stack.getItem()), mesh, false)) {
+                if (ExNihiloRegistries.SIEVE_REGISTRY.isBlockSiftable(Block.getBlockFromItem(stack.getItem()), mesh, false)) {
                     isSiftable = true;
                     break;
                 }
@@ -124,7 +133,7 @@ public class AutoSieveContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
+    public boolean canInteractWith(@Nonnull PlayerEntity playerIn) {
         return true;
     }
 }

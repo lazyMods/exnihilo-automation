@@ -27,6 +27,8 @@ minecraft {
         client {
             workingDirectory project.file('run')
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 exnihilo {
@@ -70,6 +72,7 @@ repositories {
     maven {
         url = "https://repo.jacob-williams.me/repository/maven-releases/"
     }
+    maven { url 'https://maven.blamejared.com' }
 }
 
 dependencies {
@@ -81,8 +84,12 @@ dependencies {
     //Tests
     runtimeOnly fg.deobf("curse.maven:mekanism-268560:3206392")
     runtimeOnly fg.deobf("curse.maven:refined-pipes-370696:3113506")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 
     implementation fg.deobf("novamachina:exnihilosequentia:${exnihilo_version}")
+
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
+
 }
 
 jar {

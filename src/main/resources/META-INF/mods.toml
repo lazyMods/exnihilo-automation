@@ -43,6 +43,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
 [[dependencies.exnihiloauto]]
 modId="exnihilosequentia"
 mandatory=true
-versionRange="[1.16-2.0.2.3]"
+versionRange="[1.16-2.0.2.6,)"
 ordering="NONE"
 side="BOTH"

@@ -9,7 +9,7 @@ Legend that created the logo: https://github.com/NoraTheGamer
 
 _**ExNihilo Sequentia:**_ https://github.com/NovaMachina-Mods/ExNihiloSequentia
 
-**_Current version supported:_** 2.0.2.3
+**_Current version supported:_** 2.0.2.6
 
 ### Content:
 

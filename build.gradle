@@ -68,6 +68,7 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    maven { url 'https://maven.blamejared.com' }
     maven { url "https://www.cursemaven.com" }
     /*maven {
         url = "https://repo.jacob-williams.me/repository/maven-releases/"
@@ -83,7 +84,9 @@ dependencies {
     //Tests
     runtimeOnly fg.deobf("curse.maven:mekanism-268560:3206392")
     runtimeOnly fg.deobf("curse.maven:refined-pipes-370696:3113506")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
     //TODO: For some reason gradle can't download from the repo
     compile fg.deobf("curse.maven:exnihilosequentia-${exnihilo_version_curse}")
     //implementation 'novamachina:exnihilosequentia:1.16-2.0.2.6'

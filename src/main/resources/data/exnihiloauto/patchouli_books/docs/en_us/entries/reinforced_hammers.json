@@ -1,0 +1,20 @@
+{
+  "name": "Reinforced Hammers",
+  "category": "exnihiloauto:tools",
+  "icon": "exnihiloauto:wooden_reinforced_hammer",
+  "pages": [
+    {
+      "type": "text",
+      "text": "When trying to hammer compressed blocks, you will need one of this. Stronger that regular hammers, they can hammer compressed blocks."
+    },
+    {
+      "type": "image",
+      "images": [
+        "exnihiloauto:textures/book/hammer_recipe_example.png"
+      ],
+      "title": "Recipe",
+      "border": true,
+      "text": "The reinforced hammer can be made in the smithing table when applied with obsidian."
+    }
+  ]
+}

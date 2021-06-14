@@ -13,13 +13,16 @@ public class DataGen {
 
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent event) {
+        DataGenerator generator = event.getGenerator();
+        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         if (event.includeClient()) {
-            DataGenerator generator = event.getGenerator();
-            ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
             generator.addProvider(new LangProvider(generator));
-            generator.addProvider(new LootTableProvider(generator));
             generator.addProvider(new BlockStateProvider(generator, existingFileHelper));
             generator.addProvider(new ItemModelProvider(generator, existingFileHelper));
+
+        }
+        if(event.includeServer()){
+            generator.addProvider(new LootTableProvider(generator));
             generator.addProvider(new RecipeProvider(generator));
         }
     }

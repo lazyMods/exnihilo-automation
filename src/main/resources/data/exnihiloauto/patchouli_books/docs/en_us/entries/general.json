@@ -40,7 +40,7 @@
     },
     {
       "type": "text",
-      "text": "$(br) Upgrade slots is another thing that all machines contain. You are limited to 3 slots, and each slot can only contain one upgrade. $(br2) Read more about in $(l:exnihiloauto:reinforced_hammers)$(l)$(6)here$(/l)"
+      "text": "$(br) Upgrade slots is another thing that all machines contain. You are limited to 3 slots, and each slot can only contain one upgrade. $(br2) Read more about in $(l:exnihiloauto:upgrades)$(l)$(6)here$(/l)"
     }
   ]
 }

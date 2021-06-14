@@ -21,9 +21,9 @@ public class LangProvider extends LanguageProvider {
         this.add("itemGroup.exnihiloauto", "Ex Nihilo: Automation");
 
         //Book
-        /*this.add("docs.name", "Ex Nihilo: Automation");
+        this.add("docs.name", "Ex Nihilo: Automation");
         this.add("docs.landing_text", "Things you need to know.");
-        this.add("docs.subtitle", "You actually read the tooltips. Amazing! *Claps*");*/
+        this.add("docs.subtitle", "You actually read the tooltips. Amazing! *Claps*");
 
         this.add(ModBlocks.AUTO_HAMMER.get(), "Automatic Hammer");
         this.add("tiles.title.hammer", "Auto Hammer");

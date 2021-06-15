@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "custom",
+      "class": "lazy.exnihiloauto.compat.patchouli.MachineProperties",
+      "x": 5,
+      "y": 5
+    }
+  ]
+}

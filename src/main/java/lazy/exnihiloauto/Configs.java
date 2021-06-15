@@ -2,6 +2,7 @@ package lazy.exnihiloauto;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
+import com.google.common.collect.Maps;
 import lombok.val;
 import lombok.var;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -9,9 +10,14 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.loading.FMLPaths;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Configs {
 
     public static ForgeConfigSpec COMMON;
+
+    public static Map<String, Map<String, ForgeConfigSpec.ConfigValue>> machineConfigs = Maps.newHashMap();
 
     public static ForgeConfigSpec.IntValue AUTO_HAMMER_SPEED;
     public static ForgeConfigSpec.IntValue AUTO_HAMMER_ENERGY_CAPACITY;
@@ -35,6 +41,13 @@ public class Configs {
         builder.pop();
 
         COMMON = builder.build();
+
+        new MachineConfigEntry("autohammer", "speed", AUTO_HAMMER_SPEED);
+        new MachineConfigEntry("autohammer", "energy_capacity", AUTO_HAMMER_ENERGY_CAPACITY);
+        new MachineConfigEntry("autosieve", "speed", AUTO_SIEVE_SPEED);
+        new MachineConfigEntry("autosieve", "energy_capacity", AUTO_SIEVE_ENERGY_CAPACITY);
+        new MachineConfigEntry("autosilker", "speed", AUTO_SILKER_SPEED);
+        new MachineConfigEntry("autosilker", "energy_capacity", AUTO_SILKER_ENERGY_CAPACITY);
     }
 
     public static void registerAndLoadConfig() {
@@ -42,5 +55,28 @@ public class Configs {
         val config = CommentedFileConfig.builder(FMLPaths.CONFIGDIR.get().resolve(Ref.MOD_ID.concat("-common.toml"))).sync().writingMode(WritingMode.REPLACE).build();
         config.load();
         COMMON.setConfig(config);
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static class MachineConfigEntry {
+
+        public String machineType;
+        public String name;
+        public ForgeConfigSpec.ConfigValue configSpec;
+
+        public MachineConfigEntry(String machineType, String name, ForgeConfigSpec.ConfigValue configSpec) {
+            this.machineType = machineType;
+            this.name = name;
+            this.configSpec = configSpec;
+
+            if (!Configs.machineConfigs.containsKey(machineType)) {
+                Map<String, ForgeConfigSpec.ConfigValue> map = new HashMap<>();
+                map.put(name, configSpec);
+                Configs.machineConfigs.put(machineType, map);
+            } else {
+                Map<String, ForgeConfigSpec.ConfigValue> machineTypeConfigs = Configs.machineConfigs.get(this.machineType);
+                machineTypeConfigs.put(name, configSpec);
+            }
+        }
     }
 }

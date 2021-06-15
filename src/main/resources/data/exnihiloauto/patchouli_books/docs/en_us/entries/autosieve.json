@@ -1,0 +1,21 @@
+{
+  "name": "Auto Sieve",
+  "category": "exnihiloauto:machines",
+  "icon": "exnihiloauto:auto_sieve",
+  "pages": [
+    {
+      "type": "text",
+      "text": " $(l)$(6)Function:$() Sieves the blocks provided when a mesh is available. $(br2) $(l)$(6)Same as:$() Right clicking a sieve with a sievable block and pick the drops."
+    },
+    {
+      "type": "crafting",
+      "title": "Recipe",
+      "recipe": "exnihiloauto:auto_sieve",
+      "text": "$(li)$(l)$(6)Extra info:$() This uses two slots, magenta and blue for input. Magenta is the mesh input and blue is for blocks that can be sieved."
+    },
+    {
+      "type": "machine_props",
+      "machine_type": "autosieve"
+    }
+  ]
+}

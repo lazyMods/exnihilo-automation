@@ -4,5 +4,7 @@
   "subtitle": "docs.subtitle",
   "version": "1",
   "creative_tab": "exnihiloauto",
-  "show_progress": false
+  "show_progress": false,
+  "book_texture": "patchouli:textures/gui/book_blue.png",
+  "model": "exnihiloauto:patchouli_book"
 }

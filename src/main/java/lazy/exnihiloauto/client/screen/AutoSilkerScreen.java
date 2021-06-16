@@ -10,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import javax.annotation.Nonnull;
 
@@ -40,6 +41,9 @@ public class AutoSilkerScreen extends ContainerScreen<AutoSilkerContainer> {
         if (mouseX > this.guiLeft + 7 && mouseX < this.guiLeft + 7 + 18 && mouseY > this.guiTop + 15 && mouseY < this.guiTop + 15 + 54) {
             this.renderTooltip(matrixStack, new TranslationTextComponent("tiles.energy").append(new StringTextComponent(this.container.getData().get(0) + "/" + this.container.getData().get(1))), mouseX, mouseY);
         }
+        if(mouseX > this.guiLeft + 181 && mouseX < this.guiLeft + 181 + 18 && mouseY > this.guiTop + 69 && mouseY < this.guiTop + 69 + 16){
+            this.renderTooltip(matrixStack, new TranslationTextComponent("tiles.openbookentry"), mouseX, mouseY);
+        }
     }
 
     @SuppressWarnings("deprecation")
@@ -63,5 +67,15 @@ public class AutoSilkerScreen extends ContainerScreen<AutoSilkerContainer> {
     private void renderSilkerTimer(MatrixStack matrixStack) {
         float timePer = this.container.getData().get(2) / (float) this.container.getData().get(3);
         this.blit(matrixStack, this.guiLeft + 73, this.guiTop + 33, 220, 0, (int) (timePer * 22), 16);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if(mouseX > this.guiLeft + 181 && mouseX < this.guiLeft + 181 + 18 && mouseY > this.guiTop + 69 && mouseY < this.guiTop + 69 + 16){
+            if(button != 0) return super.mouseClicked(mouseX, mouseY, button);
+            PatchouliAPI.get().openBookEntry(new ResourceLocation(Ref.MOD_ID, "docs"), new ResourceLocation(Ref.MOD_ID, "autosilker"), 0);
+            return true;
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 }

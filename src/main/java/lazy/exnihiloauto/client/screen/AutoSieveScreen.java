@@ -10,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import javax.annotation.Nonnull;
 
@@ -40,6 +41,9 @@ public class AutoSieveScreen extends ContainerScreen<AutoSieveContainer> {
         if (mouseX > this.guiLeft + 7 && mouseX < this.guiLeft + 7 + 18 && mouseY > this.guiTop + 15 && mouseY < this.guiTop + 15 + 54) {
             this.renderTooltip(matrixStack, new TranslationTextComponent("tiles.energy").append(new StringTextComponent(this.container.getData().get(0) + "/" + this.container.getData().get(1))), mouseX, mouseY);
         }
+        if(mouseX > this.guiLeft + 181 && mouseX < this.guiLeft + 181 + 18 && mouseY > this.guiTop + 69 && mouseY < this.guiTop + 69 + 16){
+            this.renderTooltip(matrixStack, new TranslationTextComponent("tiles.openbookentry"), mouseX, mouseY);
+        }
     }
 
     @SuppressWarnings("deprecation")
@@ -65,4 +69,13 @@ public class AutoSieveScreen extends ContainerScreen<AutoSieveContainer> {
         this.blit(matrixStack, this.guiLeft + 54, this.guiTop + 36, 220, 0, 14, (int) (timePer * 14));
     }
 
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if(mouseX > this.guiLeft + 181 && mouseX < this.guiLeft + 181 + 18 && mouseY > this.guiTop + 69 && mouseY < this.guiTop + 69 + 16){
+            if(button != 0) return super.mouseClicked(mouseX, mouseY, button);
+            PatchouliAPI.get().openBookEntry(new ResourceLocation(Ref.MOD_ID, "docs"), new ResourceLocation(Ref.MOD_ID, "autosieve"), 0);
+            return true;
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
 }

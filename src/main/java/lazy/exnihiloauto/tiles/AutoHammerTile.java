@@ -45,7 +45,6 @@ public class AutoHammerTile extends AutoTileEntity implements ITickableTileEntit
             boolean hasBlockToHammer = !this.tileInv.isSlotEmpty(1);
             if (hasHammer && hasBlockToHammer) {
                 boolean canHammer = this.canHammerCompressedBlocks() || ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(this.tileInv.getBlockItem(1));
-                System.out.println(this.canHammerCompressedBlocks());
                 if (canHammer) {
                     var drop = this.getDrop();
                     if (this.tileInv.canInsertItemOnSlot(2, drop)) {

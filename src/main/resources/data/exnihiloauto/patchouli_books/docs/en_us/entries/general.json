@@ -1,0 +1,46 @@
+{
+  "name": "General Information",
+  "category": "exnihiloauto:machines",
+  "icon": "exnihiloauto:auto_sieve",
+  "pages": [
+    {
+      "type": "text",
+      "text": " The first thing you need to know is that all the machines in Ex Nihilo: Automation require power to run."
+    },
+    {
+      "type": "image",
+      "images": [
+        "exnihiloauto:textures/book/example_gui.png"
+      ],
+      "title": "Input and output",
+      "border": true,
+      "text": " Every machine has a minimum of two types of slots, §aGreen§r for output and §9Blue§r for input."
+    },
+    {
+      "type": "image",
+      "images": [
+        "exnihiloauto:textures/book/machine_sides.png"
+      ],
+      "title": "Input and output",
+      "border": true,
+      "text": " Each side of the machines as a color representing an input or output."
+    },
+    {
+      "type": "text",
+      "text": "$(br) Currently we have 4 colors representing inputs and outputs: $(br) $(li) §4Power:§r placed on the horizontal sides of the block; $(li) §9Input:§r represented with blue on the top side of the block; $(li) §aOutput:§r represented with green on the bottom side of the block; $(li) §dInput:§r represented with magenta on one of the sides of the block is a secondary input slot;"
+    },
+    {
+      "type": "image",
+      "images": [
+        "exnihiloauto:textures/book/example_slots.png"
+      ],
+      "title": "Upgrades",
+      "border": true,
+      "text": " Upgrades to improve the Ex Nihilo Automation machines."
+    },
+    {
+      "type": "text",
+      "text": "$(br) Upgrade slots is another thing that all machines contain. You are limited to 3 slots, and each slot can only contain one upgrade. $(br2) Read more about in $(l:exnihiloauto:upgrades)$(l)$(6)here$(/l)"
+    }
+  ]
+}

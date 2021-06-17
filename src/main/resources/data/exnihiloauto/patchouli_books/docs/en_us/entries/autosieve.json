@@ -1,0 +1,20 @@
+{
+  "name": "Auto Sieve",
+  "category": "exnihiloauto:machines",
+  "icon": "exnihiloauto:auto_sieve",
+  "pages": [
+    {
+      "type": "text",
+      "text": " $(l)$(6)Function:$() Sieves the blocks provided when a mesh is available. $(br2) $(l)$(6)Same as:$() Right clicking a sieve with a sievable block and pick the drops."
+    },
+    {
+      "type": "crafting",
+      "title": "Recipe",
+      "recipe": "exnihiloauto:auto_sieve"
+    },
+    {
+      "type": "machine_props",
+      "machine_type": "autosieve"
+    }
+  ]
+}

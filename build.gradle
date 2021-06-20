@@ -20,7 +20,7 @@ archivesBaseName = "exnihiloauto"
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: mcp_version
+    mappings channel: mcp_channel, version: mcp_version
 
     runs {
         client {

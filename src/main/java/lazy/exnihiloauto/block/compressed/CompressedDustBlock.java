@@ -18,13 +18,13 @@ import java.util.List;
 public class CompressedDustBlock extends CompressedBlock {
 
     public CompressedDustBlock(CompressionTier tier) {
-        super(Properties.create(Material.SAND).sound(SoundType.CLOTH).hardnessAndResistance(0.7F), tier);
+        super(Properties.of(Material.SAND).sound(SoundType.WOOL).strength(0.7F), tier);
     }
 
     @Override
-    public void addInformation(@Nonnull ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
         var toDisplay = String.format("Contains %s of %s.", this.getTier().tierAmt, new TranslationTextComponent("compressed.dust").getString());
         tooltip.add(new StringTextComponent(toDisplay));
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 }

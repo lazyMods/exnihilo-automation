@@ -16,11 +16,11 @@ public class ModTiles {
     public static final DeferredRegister<TileEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Ref.MOD_ID);
 
     public static RegistryObject<TileEntityType<AutoSieveTile>> AUTO_SIEVE = TILES.register("auto_sieve",
-            () -> TileEntityType.Builder.create(AutoSieveTile::new, ModBlocks.AUTO_SIEVE.get()).build(null));
+            () -> TileEntityType.Builder.of(AutoSieveTile::new, ModBlocks.AUTO_SIEVE.get()).build(null));
     public static RegistryObject<TileEntityType<AutoHammerTile>> AUTO_HAMMER = TILES.register("auto_hammer",
-            () -> TileEntityType.Builder.create(AutoHammerTile::new, ModBlocks.AUTO_HAMMER.get()).build(null));
+            () -> TileEntityType.Builder.of(AutoHammerTile::new, ModBlocks.AUTO_HAMMER.get()).build(null));
     public static RegistryObject<TileEntityType<AutoSilkerTile>> AUTO_SILKER = TILES.register("auto_silker",
-            () -> TileEntityType.Builder.create(AutoSilkerTile::new, ModBlocks.AUTO_SILKER.get()).build(null));
+            () -> TileEntityType.Builder.of(AutoSilkerTile::new, ModBlocks.AUTO_SILKER.get()).build(null));
 
     public static void init() {
         TILES.register(FMLJavaModLoadingContext.get().getModEventBus());

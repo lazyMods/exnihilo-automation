@@ -17,13 +17,13 @@ import java.util.List;
 public class CompressedCobbleBlock extends CompressedBlock {
 
     public CompressedCobbleBlock(CompressionTier tier) {
-        super(Properties.from(Blocks.COBBLESTONE), tier);
+        super(Properties.copy(Blocks.COBBLESTONE), tier);
     }
 
     @Override
-    public void addInformation(@Nonnull ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
         var toDisplay = String.format("Contains %s of %s.", this.getTier().tierAmt, new TranslationTextComponent("compressed.cobblestone").getString());
         tooltip.add(new StringTextComponent(toDisplay));
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 }

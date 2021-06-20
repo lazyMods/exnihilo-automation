@@ -11,7 +11,7 @@ public abstract class CompressedBlock extends Block {
     private final CompressionTier tier;
 
     public CompressedBlock(Properties properties, CompressionTier tier) {
-        super(properties.setRequiresTool().harvestTool(ModToolTypes.REINFORCED_HAMMER));
+        super(properties.requiresCorrectToolForDrops().harvestTool(ModToolTypes.REINFORCED_HAMMER));
         this.tier = tier;
     }
 }

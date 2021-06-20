@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 public abstract class UpgradeItem extends Item {
 
     public UpgradeItem() {
-        super(new Properties().maxStackSize(1).group(Ref.GROUP));
+        super(new Properties().stacksTo(1).tab(Ref.GROUP));
     }
 
     public abstract boolean canApplyOn(Class<? extends AutoTileEntity> toApply);

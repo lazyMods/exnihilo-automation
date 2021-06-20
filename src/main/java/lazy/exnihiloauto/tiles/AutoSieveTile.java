@@ -32,15 +32,15 @@ public class AutoSieveTile extends AutoTileEntity implements ITickableTileEntity
 
     @Override
     public void tick() {
-        Preconditions.checkNotNull(this.world);
-        if (!this.world.isRemote) {
-            this.setFakePlayer((ServerWorld) this.world, "FakeSiever");
+        Preconditions.checkNotNull(this.level);
+        if (!this.level.isClientSide) {
+            this.setFakePlayer((ServerWorld) this.level, "FakeSiever");
             boolean hasSiftable = !this.tileInv.isSlotEmpty(0);
             boolean hasMesh = !this.tileInv.isSlotEmpty(1);
             if (hasSiftable && hasMesh) {
-                var siftable = this.tileInv.getItem(0);
-                var mesh = ((MeshItem) this.tileInv.getItem(1)).getMesh();
-                var sieveDrops = ExNihiloUtils.getWithMeshChance(siftable, mesh, this.world.rand);
+                var siftable = this.tileInv.get(0);
+                var mesh = ((MeshItem) this.tileInv.get(1)).getMesh();
+                var sieveDrops = ExNihiloUtils.getWithMeshChance(siftable, mesh, this.level.random);
                 if (this.tileInv.canInsertAll(sieveDrops)) {
                     if (this.storage.canExtractAmount(1)) {
                         this.incrementTimer();
@@ -57,7 +57,7 @@ public class AutoSieveTile extends AutoTileEntity implements ITickableTileEntity
                             }
                         }
                         if (Config.enableMeshDurability())
-                            this.tileInv.getStackInSlot(2).damageItem(1, this.fakePlayer, player -> {
+                            this.tileInv.getItem(2).hurtAndBreak(1, this.fakePlayer, player -> {
                             });
                         this.tileInv.extractItem(0, 1, false);
                         this.resetTimer();
@@ -96,12 +96,12 @@ public class AutoSieveTile extends AutoTileEntity implements ITickableTileEntity
             }
 
             @Override
-            public boolean canInsertItem(int index, @Nonnull ItemStack itemStackIn, @Nullable Direction direction) {
+            public boolean canPlaceItemThroughFace(int index, @Nonnull ItemStack itemStackIn, @Nullable Direction direction) {
                 return direction == Direction.UP && index == 0;
             }
 
             @Override
-            public boolean canExtractItem(int index, @Nonnull ItemStack stack, @Nonnull Direction direction) {
+            public boolean canTakeItemThroughFace(int index, @Nonnull ItemStack stack, @Nonnull Direction direction) {
                 return direction == Direction.DOWN && index > 1;
             }
         };

@@ -73,7 +73,7 @@ public abstract class AutoTileEntity extends TileEntity implements INamedContain
         }
 
         @Override
-        public int size() {
+        public int getCount() {
             return DATA_SIZE;
         }
     };
@@ -95,12 +95,12 @@ public abstract class AutoTileEntity extends TileEntity implements INamedContain
 
     public void incrementTimer() {
         this.timer++;
-        this.markDirty();
+        this.setChanged();
     }
 
     public void resetTimer() {
         this.timer = 0;
-        this.markDirty();
+        this.setChanged();
     }
 
     public boolean isDone() {
@@ -146,8 +146,8 @@ public abstract class AutoTileEntity extends TileEntity implements INamedContain
 
     @Override
     @Nonnull
-    public CompoundNBT write(@Nonnull CompoundNBT compound) {
-        var nbt = super.write(compound);
+    public CompoundNBT save(@Nonnull CompoundNBT compound) {
+        var nbt = super.save(compound);
         nbt.putInt(TAG_SIEVE_TIME, this.timer);
         nbt.put(TAG_INV, this.tileInv.serializeNBT());
         nbt.put(TAG_ENERGY, this.storage.writeNBT());
@@ -155,8 +155,8 @@ public abstract class AutoTileEntity extends TileEntity implements INamedContain
     }
 
     @Override
-    public void read(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
-        super.read(state, nbt);
+    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
+        super.load(state, nbt);
         this.timer = nbt.getInt(TAG_SIEVE_TIME);
         this.tileInv.deserializeNBT(nbt.getCompound(TAG_INV));
         this.storage.readNBT(nbt.getCompound(TAG_ENERGY));

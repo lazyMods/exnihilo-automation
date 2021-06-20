@@ -40,8 +40,8 @@ public class AutoSilkerTile extends AutoTileEntity implements ITickableTileEntit
 
     @Override
     public void tick() {
-        Preconditions.checkNotNull(this.world);
-        if (!this.world.isRemote) {
+        Preconditions.checkNotNull(this.level);
+        if (!this.level.isClientSide) {
             boolean hasSilk = !this.tileInv.isSlotEmpty(0);
             boolean hasLeaves = !this.tileInv.isSlotEmpty(1);
             if (hasSilk && hasLeaves) {
@@ -53,7 +53,7 @@ public class AutoSilkerTile extends AutoTileEntity implements ITickableTileEntit
                     if (this.isDone()) {
                         this.tileInv.extractItem(0, 1, false);
                         this.tileInv.extractItem(1, 1, false);
-                        int count = this.hasUpgrade(ModItems.BONUS_UPGRADE) && this.world.rand.nextFloat() < .25f ? 2 : 1;
+                        int count = this.hasUpgrade(ModItems.BONUS_UPGRADE) && this.level.random.nextFloat() < .25f ? 2 : 1;
                         this.tileInv.insertItem(2, new ItemStack(Items.STRING, count), false);
                         this.resetTimer();
                     }
@@ -81,17 +81,17 @@ public class AutoSilkerTile extends AutoTileEntity implements ITickableTileEntit
             }
 
             @Override
-            public boolean canInsertItem(int index, @Nonnull ItemStack itemStackIn, @Nullable Direction direction) {
+            public boolean canPlaceItemThroughFace(int index, @Nonnull ItemStack itemStackIn, @Nullable Direction direction) {
                 if (direction == Direction.UP || direction == Direction.SOUTH) {
                     if (index == 0 && itemStackIn.getItem() == EnumResource.SILKWORM.getRegistryObject().get())
                         return true;
                 }
-                return index == 1 && itemStackIn.getItem() instanceof BlockItem && Block.getBlockFromItem(itemStackIn.getItem()).isIn(BlockTags.LEAVES);
+                return index == 1 && itemStackIn.getItem() instanceof BlockItem && Block.byItem(itemStackIn.getItem()).is(BlockTags.LEAVES);
             }
 
             @Override
             @ParametersAreNonnullByDefault
-            public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+            public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
                 return direction == Direction.DOWN && index == 2;
             }
         };

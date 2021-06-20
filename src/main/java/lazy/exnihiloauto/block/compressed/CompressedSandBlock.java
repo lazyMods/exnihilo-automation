@@ -17,13 +17,13 @@ import java.util.List;
 public class CompressedSandBlock extends CompressedBlock {
 
     public CompressedSandBlock(CompressionTier tier) {
-        super(Properties.from(Blocks.SAND), tier);
+        super(Properties.copy(Blocks.SAND), tier);
     }
 
     @Override
-    public void addInformation(@Nonnull ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
         var toDisplay = String.format("Contains %s of %s.", this.getTier().tierAmt, new TranslationTextComponent("compressed.sand").getString());
         tooltip.add(new StringTextComponent(toDisplay));
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 }

@@ -37,9 +37,9 @@ public class AutoHammerTile extends AutoTileEntity implements ITickableTileEntit
 
     @Override
     public void tick() {
-        Preconditions.checkNotNull(this.world);
-        if (!this.world.isRemote) {
-            this.setFakePlayer((ServerWorld) this.world, "FakeHammer");
+        Preconditions.checkNotNull(this.level);
+        if (!this.level.isClientSide) {
+            this.setFakePlayer((ServerWorld) this.level, "FakeHammer");
 
             boolean hasHammer = !this.tileInv.isSlotEmpty(0) && this.hasTheCorrectHammer();
             boolean hasBlockToHammer = !this.tileInv.isSlotEmpty(1);
@@ -55,7 +55,7 @@ public class AutoHammerTile extends AutoTileEntity implements ITickableTileEntit
                         if (this.isDone()) {
                             this.tileInv.insertItem(2, drop, false);
                             this.tileInv.extractItem(1, 1, false);
-                            this.tileInv.getStackInSlot(0).damageItem(1, this.fakePlayer, player -> {
+                            this.tileInv.getItem(0).hurtAndBreak(1, this.fakePlayer, player -> {
                             });
                             this.resetTimer();
                         }
@@ -95,15 +95,15 @@ public class AutoHammerTile extends AutoTileEntity implements ITickableTileEntit
             }
 
             @Override
-            public boolean canInsertItem(int index, @Nonnull ItemStack itemStackIn, Direction direction) {
+            public boolean canPlaceItemThroughFace(int index, @Nonnull ItemStack itemStackIn, Direction direction) {
                 if (index == 2) return false;
                 return index == 0 && itemStackIn.getItem() instanceof HammerBaseItem
                         || index == 1 && (itemStackIn.getItem() instanceof BlockItem
-                        && ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(Block.getBlockFromItem(itemStackIn.getItem())) || canHammerCompressedBlocks());
+                        && ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(Block.byItem(itemStackIn.getItem())) || canHammerCompressedBlocks());
             }
 
             @Override
-            public boolean canExtractItem(int index, @Nonnull ItemStack stack, @Nonnull Direction direction) {
+            public boolean canTakeItemThroughFace(int index, @Nonnull ItemStack stack, @Nonnull Direction direction) {
                 return index == 2;
             }
         };
@@ -126,15 +126,15 @@ public class AutoHammerTile extends AutoTileEntity implements ITickableTileEntit
     }
 
     private ItemStack getDrop() {
-        Preconditions.checkNotNull(this.world);
-        int count = this.hasUpgrade(ModItems.BONUS_UPGRADE) && this.world.rand.nextFloat() < .25f ? 2 : 1;
+        Preconditions.checkNotNull(this.level);
+        int count = this.hasUpgrade(ModItems.BONUS_UPGRADE) && this.level.random.nextFloat() < .25f ? 2 : 1;
         if (this.canHammerCompressedBlocks() && this.tileInv.getBlockItem(1) instanceof CompressedBlock)
             return new ItemStack(EnumCompressedBlocks.getCompressed((CompressedBlock) this.tileInv.getBlockItem(1)), count);
         return new ItemStack(ExNihiloUtils.getHammeredOutput(this.tileInv.getBlockItem(1)).getItem(), count);
     }
 
     private boolean hasTheCorrectHammer() {
-        return this.canHammerCompressedBlocks() ? this.tileInv.getItem(0) instanceof ReinforcedHammerItem
-                : this.tileInv.getItem(0) instanceof HammerBaseItem;
+        return this.canHammerCompressedBlocks() ? this.tileInv.get(0) instanceof ReinforcedHammerItem
+                : this.tileInv.get(0) instanceof HammerBaseItem;
     }
 }

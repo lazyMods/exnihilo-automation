@@ -56,7 +56,7 @@ public class AutoSieveContainer extends Container {
             this.addSlot(new Slot(inventory, k, 8 + k * 18, 142));
         }
 
-        this.trackIntArray(this.data);
+        this.addDataSlots(this.data);
     }
 
     public AutoSieveContainer(int windowID, PlayerInventory inventory) {
@@ -66,42 +66,42 @@ public class AutoSieveContainer extends Container {
     @SuppressWarnings("ConstantConditions")
     @Override
     @Nonnull
-    public ItemStack transferStackInSlot(@Nonnull PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(@Nonnull PlayerEntity playerIn, int index) {
         var itemstack = ItemStack.EMPTY;
-        var slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            var stackInSlot = slot.getStack();
+        var slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
+            var stackInSlot = slot.getItem();
             itemstack = stackInSlot.copy();
 
             if (index >= 3 && index <= 14) {
-                if (!this.mergeItemStack(stackInSlot, 14, 50, true)) {
+                if (!this.moveItemStackTo(stackInSlot, 14, 50, true)) {
                     return ItemStack.EMPTY;
                 }
-                slot.onSlotChange(stackInSlot, itemstack);
+                slot.onQuickCraft(stackInSlot, itemstack);
             } else if (index != 2 && index != 1 && index != 0) {
                 if (this.isSiftable(stackInSlot)) {
-                    if (!this.mergeItemStack(stackInSlot, 0, 1, false)) {
+                    if (!this.moveItemStackTo(stackInSlot, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (stackInSlot.getItem() instanceof MeshItem) {
-                    if (!this.mergeItemStack(stackInSlot, 1, 2, false)) {
+                    if (!this.moveItemStackTo(stackInSlot, 1, 2, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (index >= 14 && index < 41) {
-                    if (!this.mergeItemStack(stackInSlot, 41, 50, false)) {
+                    if (!this.moveItemStackTo(stackInSlot, 41, 50, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index >= 41 && index < 50 && !this.mergeItemStack(stackInSlot, 14, 41, false)) {
+                } else if (index >= 41 && index < 50 && !this.moveItemStackTo(stackInSlot, 14, 41, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.mergeItemStack(stackInSlot, 14, 50, false)) {
+            } else if (!this.moveItemStackTo(stackInSlot, 14, 50, false)) {
                 return ItemStack.EMPTY;
             }
 
             if (stackInSlot.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             } else {
-                slot.onSlotChanged();
+                slot.setChanged();
             }
 
             if (stackInSlot.getCount() == itemstack.getCount()) {
@@ -118,7 +118,7 @@ public class AutoSieveContainer extends Container {
         if (stack.getItem() instanceof BlockItem) {
             boolean isSiftable = false;
             for (EnumMesh mesh : EnumMesh.values()) {
-                if (ExNihiloRegistries.SIEVE_REGISTRY.isBlockSiftable(Block.getBlockFromItem(stack.getItem()), mesh, false)) {
+                if (ExNihiloRegistries.SIEVE_REGISTRY.isBlockSiftable(Block.byItem(stack.getItem()), mesh, false)) {
                     isSiftable = true;
                     break;
                 }
@@ -133,7 +133,7 @@ public class AutoSieveContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(@Nonnull PlayerEntity playerIn) {
+    public boolean stillValid(@Nonnull PlayerEntity playerIn) {
         return true;
     }
 }

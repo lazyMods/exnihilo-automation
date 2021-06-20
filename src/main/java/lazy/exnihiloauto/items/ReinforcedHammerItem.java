@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import novamachina.exnihilosequentia.common.item.tools.hammer.EnumHammer;
 
@@ -38,22 +39,27 @@ public class ReinforcedHammerItem extends ToolItem {
 
     public ReinforcedHammerItem(IItemTier tier, EnumHammer base, String displayName, int maxDamage) {
         super(0.5F, 0.5F, tier, EFFECTIVE_ON, new Item.Properties()
-                .defaultMaxDamage(maxDamage)
-                .group(Ref.GROUP)
-                .addToolType(ModToolTypes.REINFORCED_HAMMER, tier.getHarvestLevel())
+                .defaultDurability(maxDamage)
+                .tab(Ref.GROUP)
+                .addToolType(ModToolTypes.REINFORCED_HAMMER, tier.getLevel())
         );
         this.displayName = displayName;
         this.base = base;
     }
-    
+
     @Override
-    public boolean canHarvestBlock(BlockState blockIn) {
+    public boolean canHarvestBlock(ItemStack stack, BlockState state) {
+        return super.canHarvestBlock(stack, state);
+    }
+
+    @Override
+    public boolean isCorrectToolForDrops(BlockState blockIn) {
         if (blockIn.getBlock() instanceof CompressedBlock) {
             if (EFFECTIVE_ON.contains(blockIn.getBlock())) {
                 return true;
             }
         }
-        return super.canHarvestBlock(blockIn);
+        return super.isCorrectToolForDrops(blockIn);
     }
 
     public String getDisplayName() {

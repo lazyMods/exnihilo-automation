@@ -18,4 +18,5 @@ _**ExNihilo Sequentia:**_ https://github.com/NovaMachina-Mods/ExNihiloSequentia
 - Compressed Blocks;
 - Reinforced Hammers;
 - Upgrading system.
+- Patchouli support.
 - More comming soon.

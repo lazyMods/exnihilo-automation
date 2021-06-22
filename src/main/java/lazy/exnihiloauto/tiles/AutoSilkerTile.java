@@ -53,7 +53,7 @@ public class AutoSilkerTile extends AutoTileEntity implements ITickableTileEntit
                     if (this.isDone()) {
                         this.tileInv.extractItem(0, 1, false);
                         this.tileInv.extractItem(1, 1, false);
-                        int count = this.hasUpgrade(ModItems.BONUS_UPGRADE) && this.level.random.nextFloat() < .25f ? 2 : 1;
+                        int count = this.hasUpgrade(ModItems.BONUS_UPGRADE) && this.level.random.nextFloat() < (.25f * this.getCountOf(ModItems.BONUS_UPGRADE)) ? 2 : 1;
                         this.tileInv.insertItem(2, new ItemStack(Items.STRING, count), false);
                         this.resetTimer();
                     }

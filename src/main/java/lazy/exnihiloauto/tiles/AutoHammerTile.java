@@ -127,7 +127,7 @@ public class AutoHammerTile extends AutoTileEntity implements ITickableTileEntit
 
     private ItemStack getDrop() {
         Preconditions.checkNotNull(this.level);
-        int count = this.hasUpgrade(ModItems.BONUS_UPGRADE) && this.level.random.nextFloat() < .25f ? 2 : 1;
+        int count = this.hasUpgrade(ModItems.BONUS_UPGRADE) && this.level.random.nextFloat() < (.25f * this.getCountOf(ModItems.BONUS_UPGRADE)) ? 2 : 1;
         if (this.canHammerCompressedBlocks() && this.tileInv.getBlockItem(1) instanceof CompressedBlock)
             return new ItemStack(EnumCompressedBlocks.getCompressed((CompressedBlock) this.tileInv.getBlockItem(1)), count);
         return new ItemStack(ExNihiloUtils.getHammeredOutput(this.tileInv.getBlockItem(1)).getItem(), count);

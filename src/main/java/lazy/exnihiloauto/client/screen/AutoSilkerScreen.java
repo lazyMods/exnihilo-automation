@@ -45,7 +45,7 @@ public class AutoSilkerScreen extends ContainerScreen<AutoSilkerContainer> {
             this.renderTooltip(matrixStack, new TranslationTextComponent("tiles.openbookentry"), mouseX, mouseY);
         }
         if(mouseX > this.leftPos + 73 && mouseX < this.leftPos + 73 + 22 && mouseY > this.topPos + 52 && mouseY < this.topPos + 52 + 5){
-            this.renderTooltip(matrixStack, new TranslationTextComponent("tiles.openbookentry"), mouseX, mouseY);
+            this.renderTooltip(matrixStack, new TranslationTextComponent("silker.silkworm_timer"), mouseX, mouseY);
         }
     }
 

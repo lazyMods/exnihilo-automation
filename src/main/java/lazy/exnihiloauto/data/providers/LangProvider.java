@@ -36,6 +36,7 @@ public class LangProvider extends LanguageProvider {
         this.add("tiles.openbookentry", "Open Documentation Entry");
         this.add("silker.leaves", "Leaves");
         this.add("silker.silk_worm", "Silk Worm");
+        this.add("silker.silkworm_timer", "Silk Worm Work Timer");
         this.add("sieve.input", "Input(Siftable Block)");
         this.add("sieve.mesh", "Mesh");
         this.add("hammer.input", "Input(Hammarable Block)");

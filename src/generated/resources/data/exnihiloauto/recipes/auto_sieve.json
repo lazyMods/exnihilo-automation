@@ -10,7 +10,7 @@
       "tag": "forge:dusts/redstone"
     },
     "s": {
-      "item": "exnihilosequentia:sieve"
+      "tag": "exnihilosequentia:sieves"
     },
     "i": {
       "tag": "forge:ingots/iron"

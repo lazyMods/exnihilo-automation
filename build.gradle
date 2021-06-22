@@ -68,9 +68,9 @@ repositories {
     maven { url 'https://maven.blamejared.com' }
     maven { url "https://www.cursemaven.com" }
 
-//    maven {
-//        url = "https://repo.jacob-williams.me/repository/maven-releases/"
-//    }
+/*    maven {
+        url = "https://repo.jacob-williams.me/repository/maven-releases/"
+    }*/
 }
 
 dependencies {
@@ -86,8 +86,8 @@ dependencies {
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
 
     //TODO: For some reason gradle can't download from the repo
-//    implementation 'novamachina:exnihilosequentia:1.16-2.0.2.6'
-//    implementation fg.deobf("novamachina:exnihilosequentia:${exnihilo_version}")
+    //runtimeOnly fg.deobf("novamachina:exnihilosequentia:${exnihilo_version}")
+    //compileOnly fg.deobf("novamachina:exnihilosequentia:${exnihilo_version}")
 
     compile fg.deobf("curse.maven:exnihilosequentia-${exnihilo_version_curse}")
 

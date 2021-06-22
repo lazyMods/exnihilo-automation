@@ -22,7 +22,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
-import novamachina.exnihilosequentia.common.item.resources.EnumResource;
+import novamachina.exnihilosequentia.common.init.ExNihiloItems;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -83,7 +83,7 @@ public class AutoSilkerTile extends AutoTileEntity implements ITickableTileEntit
             @Override
             public boolean canPlaceItemThroughFace(int index, @Nonnull ItemStack itemStackIn, @Nullable Direction direction) {
                 if (direction == Direction.UP || direction == Direction.SOUTH) {
-                    if (index == 0 && itemStackIn.getItem() == EnumResource.SILKWORM.getRegistryObject().get())
+                    if (index == 0 && itemStackIn.getItem() == ExNihiloItems.SILKWORM.get())
                         return true;
                 }
                 return index == 1 && itemStackIn.getItem() instanceof BlockItem && Block.byItem(itemStackIn.getItem()).is(BlockTags.LEAVES);

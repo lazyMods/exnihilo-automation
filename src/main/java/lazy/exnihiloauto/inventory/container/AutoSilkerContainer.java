@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.IntArray;
-import novamachina.exnihilosequentia.common.item.resources.EnumResource;
+import novamachina.exnihilosequentia.common.init.ExNihiloItems;
 
 import javax.annotation.Nonnull;
 
@@ -30,7 +30,7 @@ public class AutoSilkerContainer extends Container {
 
         this.data = data;
 
-        this.addSlot(new ValidSlot(tileInv, 0, 54, 34, stack -> stack.getItem() == EnumResource.SILKWORM.getRegistryObject().get()));
+        this.addSlot(new ValidSlot(tileInv, 0, 54, 34, stack -> stack.getItem() == ExNihiloItems.SILKWORM.get()));
 
         this.addSlot(new ValidSlot(tileInv, 1, 98, 34, stack ->
                 stack.getItem() instanceof BlockItem && Block.byItem(stack.getItem()).is(BlockTags.LEAVES)));
@@ -74,7 +74,7 @@ public class AutoSilkerContainer extends Container {
                 }
                 slot.onQuickCraft(stackInSlot, itemstack);
             } else if (index != 1 && index != 0) {
-                if (stackInSlot.getItem() == EnumResource.SILKWORM.getRegistryObject().get()) {
+                if (stackInSlot.getItem() == ExNihiloItems.SILKWORM.get()) {
                     if (!this.moveItemStackTo(stackInSlot, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }

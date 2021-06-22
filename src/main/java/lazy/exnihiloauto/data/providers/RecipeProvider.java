@@ -17,6 +17,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.RegistryObject;
+import novamachina.exnihilosequentia.api.ExNihiloTags;
 import novamachina.exnihilosequentia.common.init.ExNihiloBlocks;
 import novamachina.exnihilosequentia.common.init.ExNihiloItems;
 import novamachina.exnihilosequentia.common.item.tools.crook.EnumCrook;
@@ -39,12 +40,12 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
                 .pattern("rsr")
                 .pattern("iri")
                 .define('r', Tags.Items.DUSTS_REDSTONE)
-                .define('s', ExNihiloBlocks.SIEVE.get())
+                .define('s', ExNihiloTags.SIEVE)
                 .define('i', Tags.Items.INGOTS_IRON)
                 .unlockedBy("canCraft", InventoryChangeTrigger.Instance.hasItems(
                         Items.IRON_INGOT,
                         Items.REDSTONE,
-                        ExNihiloItems.SIEVE.get())
+                        ExNihiloItems.SIEVE_OAK.get())
                 )
                 .save(consumer);
         ShapedRecipeBuilder.shaped(ModBlocks.AUTO_HAMMER.get())

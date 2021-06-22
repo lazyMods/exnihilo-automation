@@ -20,7 +20,7 @@ public class AutoSieveScreen extends ContainerScreen<AutoSieveContainer> {
 
     public AutoSieveScreen(AutoSieveContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
-        this.width = 204;
+        this.imageWidth = 204;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class AutoSieveScreen extends ContainerScreen<AutoSieveContainer> {
         GlStateManager._color4f(1f, 1f, 1f, 1f);
         if (this.minecraft != null) {
             this.minecraft.getTextureManager().bind(BACK);
-            this.blit(matrixStack, this.leftPos, this.topPos, 0, 0, this.width, this.height);
+            this.blit(matrixStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
             this.renderEnergyBar(matrixStack);
             this.renderSieveTimer(matrixStack);
         }

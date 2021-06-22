@@ -42,16 +42,16 @@ public class LangProvider extends LanguageProvider {
         this.add("hammer.input", "Input(Hammarable Block)");
         this.add("hammer.hammer", "Hammer");
 
-        this.add("upgrade.bonus.effect", "Effect: Bonus chance of getting a double output.");
-        this.add("upgrade.bonus.apply_to", "Apply to: Auto Hammer, Auto Silker.");
-        this.add("upgrade.speed.effect", "Effect: Pretty much explanatory.");
-        this.add("upgrade.speed.apply_to", "Apply to: All.");
-        this.add("upgrade.reinforcement.effect", "Effect: Ability to hammer the compressed blocks.");
-        this.add("upgrade.reinforcement.apply_to", "Apply to: Auto Hammer.");
+        this.add(ModItems.REINFORCED_UPGRADE.get(), "\u00a79Reinforcement Upgrade");
+        this.add(ModItems.SPEED_UPGRADE.get(), "\u00a79Speed Upgrade");
+        this.add(ModItems.BONUS_UPGRADE.get(), "\u00a79Bonus Drop Upgrade");
 
-        this.add(ModItems.REINFORCED_UPGRADE.get(), "Reinforcement Upgrade");
-        this.add(ModItems.SPEED_UPGRADE.get(), "Speed Upgrade");
-        this.add(ModItems.BONUS_UPGRADE.get(), "Bonus Drop Upgrade");
+        this.add("upgrade.bonus.effect", "\u00a76Effect:\u00a7r Bonus chance of getting a double output.");
+        this.add("upgrade.bonus.apply_to", "\u00a7eApply to:\u00a7r Auto Hammer, Auto Silker.");
+        this.add("upgrade.speed.effect", "\u00a76Effect:\u00a7r Pretty much explanatory.");
+        this.add("upgrade.speed.apply_to", "\u00a7eApply to:\u00a7r All.");
+        this.add("upgrade.reinforcement.effect", "\u00a76Effect:\u00a7r Ability to hammer the compressed blocks.");
+        this.add("upgrade.reinforcement.apply_to", "\u00a7eApply to:\u00a7r Auto Hammer.");
 
         this.add("compressed.cobblestone", "Cobblestone");
         this.add("compressed.gravel", "Gravel");

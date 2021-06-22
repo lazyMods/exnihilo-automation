@@ -44,6 +44,9 @@ public class AutoSilkerScreen extends ContainerScreen<AutoSilkerContainer> {
         if(mouseX > this.leftPos + 181 && mouseX < this.leftPos + 181 + 18 && mouseY > this.topPos + 69 && mouseY < this.topPos + 69 + 16){
             this.renderTooltip(matrixStack, new TranslationTextComponent("tiles.openbookentry"), mouseX, mouseY);
         }
+        if(mouseX > this.leftPos + 73 && mouseX < this.leftPos + 73 + 22 && mouseY > this.topPos + 52 && mouseY < this.topPos + 52 + 5){
+            this.renderTooltip(matrixStack, new TranslationTextComponent("tiles.openbookentry"), mouseX, mouseY);
+        }
     }
 
     @SuppressWarnings("deprecation")
@@ -55,6 +58,7 @@ public class AutoSilkerScreen extends ContainerScreen<AutoSilkerContainer> {
             this.blit(matrixStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
             this.renderEnergyBar(matrixStack);
             this.renderSilkerTimer(matrixStack);
+            this.renderSilkwormTimer(matrixStack);
         }
     }
 
@@ -67,6 +71,11 @@ public class AutoSilkerScreen extends ContainerScreen<AutoSilkerContainer> {
     private void renderSilkerTimer(MatrixStack matrixStack) {
         float timePer = this.menu.getData().get(2) / (float) this.menu.getData().get(3);
         this.blit(matrixStack, this.leftPos + 73, this.topPos + 33, 220, 0, (int) (timePer * 22), 16);
+    }
+
+    private void renderSilkwormTimer(MatrixStack matrixStack) {
+        float timePer = this.menu.getData().get(4) / (float) this.menu.getData().get(5);
+        this.blit(matrixStack, this.leftPos + 73, this.topPos + 52, 220, 16, (int) (timePer * 22), 5);
     }
 
     @Override

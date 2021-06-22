@@ -6,16 +6,20 @@ import lazy.exnihiloauto.inventory.InvHandler;
 import lazy.exnihiloauto.inventory.container.AutoSilkerContainer;
 import lazy.exnihiloauto.setup.ModItems;
 import lazy.exnihiloauto.setup.ModTiles;
+import lombok.val;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.IIntArray;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -34,6 +38,42 @@ public class AutoSilkerTile extends AutoTileEntity implements ITickableTileEntit
     public static final int INV_SIZE = 6;
     protected final LazyOptional<IItemHandlerModifiable>[] invCap = SidedInvWrapper.create(tileInv, Direction.UP, Direction.DOWN, Direction.SOUTH);
 
+    public static final String TAG_SILKWORM_TIMER = "silkworm_effect_time";
+    public int silkwormTimer = 0;
+
+    public static final int DATA_SIZE = 6;
+    protected final IIntArray data = new IIntArray() {
+        @Override
+        public int get(int index) {
+            switch (index) {
+                case 0:
+                    return storage.getEnergyStored();
+                case 1:
+                    return storage.getMaxEnergyStored();
+                case 2:
+                    return timer;
+                case 3:
+                    return calcTime();
+                case 4:
+                    return silkwormTimer;
+                case 5:
+                    return calcTime() / 4;
+                default:
+                    return -1;
+            }
+        }
+
+        @Override
+        public void set(int index, int value) {
+
+        }
+
+        @Override
+        public int getCount() {
+            return DATA_SIZE;
+        }
+    };
+
     public AutoSilkerTile() {
         super(ModTiles.AUTO_SILKER.get(), "tiles.title.silker");
     }
@@ -48,18 +88,50 @@ public class AutoSilkerTile extends AutoTileEntity implements ITickableTileEntit
                 if (!this.tileInv.isSlotFull(2)) {
                     if (this.storage.canExtractAmount(1)) {
                         this.incrementTimer();
+                        this.incrementSilkwormTime();
                         this.storage.decreaseEnergy(1);
                     }
                     if (this.isDone()) {
                         this.tileInv.extractItem(0, 1, false);
-                        this.tileInv.extractItem(1, 1, false);
+                        this.resetTimer();
+                    }
+                    if(this.isSilkwormDone()){
                         int count = this.hasUpgrade(ModItems.BONUS_UPGRADE) && this.level.random.nextFloat() < (.25f * this.getCountOf(ModItems.BONUS_UPGRADE)) ? 2 : 1;
                         this.tileInv.insertItem(2, new ItemStack(Items.STRING, count), false);
-                        this.resetTimer();
+                        this.tileInv.extractItem(1, 1, false);
+                        this.resetSilkwormTimer();
                     }
                 }
             }
         }
+    }
+
+    public void incrementSilkwormTime(){
+        this.silkwormTimer++;
+        this.setChanged();
+    }
+
+    public boolean isSilkwormDone(){
+        return this.silkwormTimer >= this.calcTime() / 4;
+    }
+
+    public void resetSilkwormTimer(){
+        this.silkwormTimer = 0;
+        this.setChanged();
+    }
+
+    @Override
+    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
+        super.load(state, nbt);
+        this.silkwormTimer = nbt.getInt(TAG_SILKWORM_TIMER);
+    }
+
+    @Nonnull
+    @Override
+    public CompoundNBT save(@Nonnull CompoundNBT compound) {
+        val nbt = super.save(compound);
+        nbt.putInt(TAG_SILKWORM_TIMER, this.silkwormTimer);
+        return nbt;
     }
 
     @Override

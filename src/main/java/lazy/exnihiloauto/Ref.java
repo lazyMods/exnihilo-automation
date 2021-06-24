@@ -13,7 +13,7 @@ public class Ref {
     public static final ItemGroup GROUP = new ItemGroup("exnihiloauto") {
         @Override
         @Nonnull
-        public ItemStack createIcon() {
+        public ItemStack makeIcon() {
             return new ItemStack(ModItems.AUTO_HAMMER.get());
         }
     };

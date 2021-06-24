@@ -40,23 +40,23 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
     protected abstract void createTables();
 
     public void lootTableWithOneOfItself(String regName, RegistryObject<Block> block) {
-        this.blockLootTables.put(block.get(), LootTable.builder().addLootPool(new LootPool.Builder().name(regName).addEntry(ItemLootEntry.builder(block.get()))));
+        this.blockLootTables.put(block.get(), LootTable.lootTable().withPool(new LootPool.Builder().name(regName).add(ItemLootEntry.lootTableItem(block.get()))));
     }
 
     public void compressedBlockTables(RegistryObject<CompressedBlock> block, Block toDrop) {
         var regName = Objects.requireNonNull(block.get().getRegistryName()).toString();
         int tierAmt = block.get().getTier().tierBelow != null ? Objects.requireNonNull(block.get().getTier().tierBelow).tierAmt : 9;
-        this.blockLootTables.put(block.get(), LootTable.builder().addLootPool(new LootPool.Builder().name(regName)
-                .addEntry(ItemLootEntry.builder(toDrop)
-                        .acceptFunction(SetCount.builder(RandomValueRange.of(tierAmt, tierAmt))))));
+        this.blockLootTables.put(block.get(), LootTable.lootTable().withPool(new LootPool.Builder().name(regName)
+                .add(ItemLootEntry.lootTableItem(toDrop)
+                        .apply(SetCount.setCount(RandomValueRange.between(tierAmt, tierAmt))))));
     }
 
     @Override
-    public void act(@Nonnull DirectoryCache cache) {
+    public void run(@Nonnull DirectoryCache cache) {
         this.createTables();
 
         Map<ResourceLocation, LootTable> tables = new HashMap<>();
-        blockLootTables.forEach((block, builder) -> tables.put(block.getLootTable(), builder.setParameterSet(LootParameterSets.BLOCK).build()));
+        blockLootTables.forEach((block, builder) -> tables.put(block.getLootTable(), builder.setParamSet(LootParameterSets.BLOCK).build()));
 
         this.writeTables(cache, tables);
     }
@@ -66,7 +66,7 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
         tables.forEach((key, lootTable) -> {
             Path path = outputFolder.resolve("data/" + key.getNamespace() + "/loot_tables/" + key.getPath() + ".json");
             try {
-                IDataProvider.save(GSON, cache, LootTableManager.toJson(lootTable), path);
+                IDataProvider.save(GSON, cache, LootTableManager.serialize(lootTable), path);
             } catch (IOException e) {
                 LOGGER.error("Couldn't write loot table {}", path, e);
             }

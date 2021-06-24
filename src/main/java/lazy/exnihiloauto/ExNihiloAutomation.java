@@ -24,8 +24,8 @@ public class ExNihiloAutomation {
     }
 
     private void setupClient(FMLClientSetupEvent event) {
-        ScreenManager.registerFactory(ModContainers.AUTO_SIEVE.get(), AutoSieveScreen::new);
-        ScreenManager.registerFactory(ModContainers.AUTO_HAMMER.get(), AutoHammerScreen::new);
-        ScreenManager.registerFactory(ModContainers.AUTO_SILKER.get(), AutoSilkerScreen::new);
+        ScreenManager.register(ModContainers.AUTO_SIEVE.get(), AutoSieveScreen::new);
+        ScreenManager.register(ModContainers.AUTO_HAMMER.get(), AutoHammerScreen::new);
+        ScreenManager.register(ModContainers.AUTO_SILKER.get(), AutoSilkerScreen::new);
     }
 }

@@ -17,6 +17,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.RegistryObject;
+import novamachina.exnihilosequentia.api.ExNihiloTags;
 import novamachina.exnihilosequentia.common.init.ExNihiloBlocks;
 import novamachina.exnihilosequentia.common.init.ExNihiloItems;
 import novamachina.exnihilosequentia.common.item.tools.crook.EnumCrook;
@@ -33,89 +34,89 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
     }
 
     @Override
-    protected void registerRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shapedRecipe(ModBlocks.AUTO_SIEVE.get())
-                .patternLine("iri")
-                .patternLine("rsr")
-                .patternLine("iri")
-                .key('r', Tags.Items.DUSTS_REDSTONE)
-                .key('s', ExNihiloBlocks.SIEVE.get())
-                .key('i', Tags.Items.INGOTS_IRON)
-                .addCriterion("canCraft", InventoryChangeTrigger.Instance.forItems(
+    protected void buildShapelessRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shaped(ModBlocks.AUTO_SIEVE.get())
+                .pattern("iri")
+                .pattern("rsr")
+                .pattern("iri")
+                .define('r', Tags.Items.DUSTS_REDSTONE)
+                .define('s', ExNihiloTags.SIEVE)
+                .define('i', Tags.Items.INGOTS_IRON)
+                .unlockedBy("canCraft", InventoryChangeTrigger.Instance.hasItems(
                         Items.IRON_INGOT,
                         Items.REDSTONE,
-                        ExNihiloItems.SIEVE.get())
+                        ExNihiloItems.SIEVE_OAK.get())
                 )
-                .build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(ModBlocks.AUTO_HAMMER.get())
-                .patternLine("iri")
-                .patternLine("rhr")
-                .patternLine("iri")
-                .key('r', Tags.Items.DUSTS_REDSTONE)
-                .key('h', EnumHammer.DIAMOND.getRegistryObject().get())
-                .key('i', Tags.Items.INGOTS_IRON)
-                .addCriterion("canCraft", InventoryChangeTrigger.Instance.forItems(
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(ModBlocks.AUTO_HAMMER.get())
+                .pattern("iri")
+                .pattern("rhr")
+                .pattern("iri")
+                .define('r', Tags.Items.DUSTS_REDSTONE)
+                .define('h', EnumHammer.DIAMOND.getRegistryObject().get())
+                .define('i', Tags.Items.INGOTS_IRON)
+                .unlockedBy("canCraft", InventoryChangeTrigger.Instance.hasItems(
                         Items.IRON_INGOT,
                         Items.REDSTONE,
                         EnumHammer.STONE.getRegistryObject().get())
                 )
-                .build(consumer);
+                .save(consumer);
 
-        ShapedRecipeBuilder.shapedRecipe(ModBlocks.AUTO_SILKER.get())
-                .patternLine("iri")
-                .patternLine("rcr")
-                .patternLine("iri")
-                .key('r', Tags.Items.DUSTS_REDSTONE)
-                .key('c', EnumCrook.DIAMOND.getRegistryObject().get())
-                .key('i', Tags.Items.INGOTS_IRON)
-                .addCriterion("canCraft", InventoryChangeTrigger.Instance.forItems(
+        ShapedRecipeBuilder.shaped(ModBlocks.AUTO_SILKER.get())
+                .pattern("iri")
+                .pattern("rcr")
+                .pattern("iri")
+                .define('r', Tags.Items.DUSTS_REDSTONE)
+                .define('c', EnumCrook.DIAMOND.getRegistryObject().get())
+                .define('i', Tags.Items.INGOTS_IRON)
+                .unlockedBy("canCraft", InventoryChangeTrigger.Instance.hasItems(
                         Items.IRON_INGOT,
                         Items.REDSTONE,
                         EnumCrook.STONE.getRegistryObject().get())
                 )
-                .build(consumer);
+                .save(consumer);
 
-        ShapedRecipeBuilder.shapedRecipe(ModItems.SPEED_UPGRADE.get())
-                .patternLine("iri")
-                .patternLine("rcr")
-                .patternLine("iri")
-                .key('r', Items.SUGAR)
-                .key('c', Tags.Items.DUSTS_REDSTONE)
-                .key('i', Tags.Items.INGOTS_IRON)
-                .addCriterion("canCraft", InventoryChangeTrigger.Instance.forItems(
+        ShapedRecipeBuilder.shaped(ModItems.SPEED_UPGRADE.get())
+                .pattern("iri")
+                .pattern("rcr")
+                .pattern("iri")
+                .define('r', Items.SUGAR)
+                .define('c', Tags.Items.DUSTS_REDSTONE)
+                .define('i', Tags.Items.INGOTS_IRON)
+                .unlockedBy("canCraft", InventoryChangeTrigger.Instance.hasItems(
                         Items.IRON_INGOT,
                         Items.REDSTONE,
                         Items.SUGAR)
                 )
-                .build(consumer);
+                .save(consumer);
 
-        ShapedRecipeBuilder.shapedRecipe(ModItems.REINFORCED_UPGRADE.get())
-                .patternLine("iri")
-                .patternLine("rcr")
-                .patternLine("iri")
-                .key('r', Items.OBSIDIAN)
-                .key('c', Tags.Items.DUSTS_REDSTONE)
-                .key('i', Tags.Items.INGOTS_IRON)
-                .addCriterion("canCraft", InventoryChangeTrigger.Instance.forItems(
+        ShapedRecipeBuilder.shaped(ModItems.REINFORCED_UPGRADE.get())
+                .pattern("iri")
+                .pattern("rcr")
+                .pattern("iri")
+                .define('r', Items.OBSIDIAN)
+                .define('c', Tags.Items.DUSTS_REDSTONE)
+                .define('i', Tags.Items.INGOTS_IRON)
+                .unlockedBy("canCraft", InventoryChangeTrigger.Instance.hasItems(
                         Items.IRON_INGOT,
                         Items.REDSTONE,
                         Items.OBSIDIAN)
                 )
-                .build(consumer);
+                .save(consumer);
 
-        ShapedRecipeBuilder.shapedRecipe(ModItems.BONUS_UPGRADE.get())
-                .patternLine("iri")
-                .patternLine("rcr")
-                .patternLine("iri")
-                .key('r', Items.EMERALD)
-                .key('c', Tags.Items.DUSTS_REDSTONE)
-                .key('i', Tags.Items.INGOTS_IRON)
-                .addCriterion("canCraft", InventoryChangeTrigger.Instance.forItems(
+        ShapedRecipeBuilder.shaped(ModItems.BONUS_UPGRADE.get())
+                .pattern("iri")
+                .pattern("rcr")
+                .pattern("iri")
+                .define('r', Items.EMERALD)
+                .define('c', Tags.Items.DUSTS_REDSTONE)
+                .define('i', Tags.Items.INGOTS_IRON)
+                .unlockedBy("canCraft", InventoryChangeTrigger.Instance.hasItems(
                         Items.IRON_INGOT,
                         Items.REDSTONE,
                         Items.EMERALD)
                 )
-                .build(consumer);
+                .save(consumer);
 
 
         this.createCompressedBlockRecipe(consumer);
@@ -140,23 +141,23 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 
     private void compressedBlockRecipes(RegistryObject<CompressedBlock> block, Block compressed, Consumer<IFinishedRecipe> consumer) {
         var compressedBlock = block.get();
-        ShapedRecipeBuilder.shapedRecipe(compressedBlock).patternLine("aaa").patternLine("aaa").patternLine("aaa")
-                .key('a', compressed)
-                .addCriterion("canCraft", InventoryChangeTrigger.Instance.forItems(compressed))
-                .build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(compressed, 9)
-                .addIngredient(compressedBlock)
-                .addCriterion("can", InventoryChangeTrigger.Instance.forItems(compressedBlock))
-                .build(consumer, "decompress_".concat(Objects.requireNonNull(compressedBlock.getRegistryName(), "Compressed block is null!").getPath()));
+        ShapedRecipeBuilder.shaped(compressedBlock).pattern("aaa").pattern("aaa").pattern("aaa")
+                .define('a', compressed)
+                .unlockedBy("canCraft", InventoryChangeTrigger.Instance.hasItems(compressed))
+                .save(consumer);
+        ShapelessRecipeBuilder.shapeless(compressed, 9)
+                .requires(compressedBlock)
+                .unlockedBy("can", InventoryChangeTrigger.Instance.hasItems(compressedBlock))
+                .save(consumer, "decompress_".concat(Objects.requireNonNull(compressedBlock.getRegistryName(), "Compressed block is null!").getPath()));
     }
 
     private void createSmithingRecipe(EnumHammer baseHammer, RegistryObject<ReinforcedHammerItem> hammer, Consumer<IFinishedRecipe> consumer) {
-        SmithingRecipeBuilder.smithingRecipe(
-                Ingredient.fromItems(baseHammer.getRegistryObject().get()),
-                Ingredient.fromTag(Tags.Items.OBSIDIAN),
+        SmithingRecipeBuilder.smithing(
+                Ingredient.of(baseHammer.getRegistryObject().get()),
+                Ingredient.of(Tags.Items.OBSIDIAN),
                 hammer.get())
-                .addCriterion("has_diamond_hammer", InventoryChangeTrigger.Instance.forItems(baseHammer.getRegistryObject().get()))
-                .build(consumer, this.modLoc(Objects.requireNonNull(hammer.get().getRegistryName()).getPath()));
+                .unlocks("has_diamond_hammer", InventoryChangeTrigger.Instance.hasItems(baseHammer.getRegistryObject().get()))
+                .save(consumer, this.modLoc(Objects.requireNonNull(hammer.get().getRegistryName()).getPath()));
     }
 
     private ResourceLocation modLoc(String path) {

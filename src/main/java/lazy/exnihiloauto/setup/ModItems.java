@@ -17,11 +17,11 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Ref.MOD_ID);
 
     public static RegistryObject<Item> AUTO_SIEVE = ITEMS.register("auto_sieve",
-            () -> new BlockItem(ModBlocks.AUTO_SIEVE.get(), new Item.Properties().group(Ref.GROUP)));
+            () -> new BlockItem(ModBlocks.AUTO_SIEVE.get(), new Item.Properties().tab(Ref.GROUP)));
     public static RegistryObject<Item> AUTO_HAMMER = ITEMS.register("auto_hammer",
-            () -> new BlockItem(ModBlocks.AUTO_HAMMER.get(), new Item.Properties().group(Ref.GROUP)));
+            () -> new BlockItem(ModBlocks.AUTO_HAMMER.get(), new Item.Properties().tab(Ref.GROUP)));
     public static RegistryObject<Item> AUTO_SILKER = ITEMS.register("auto_silker",
-            () -> new BlockItem(ModBlocks.AUTO_SILKER.get(), new Item.Properties().group(Ref.GROUP)));
+            () -> new BlockItem(ModBlocks.AUTO_SILKER.get(), new Item.Properties().tab(Ref.GROUP)));
 
     public static RegistryObject<Item> REINFORCED_UPGRADE = ITEMS.register("reinforcement_upgrade", ReinforcementUpgradeItem::new);
     public static RegistryObject<Item> SPEED_UPGRADE = ITEMS.register("speed_upgrade", SpeedUpgradeItem::new);

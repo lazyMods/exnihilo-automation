@@ -39,7 +39,7 @@ public class AutoHammerContainer extends Container {
                         stack.getItem() instanceof HammerBaseItem));
 
         this.addSlot(new ValidSlot(tileInv, 1, 98, 34, stack -> {
-            if (stack.getItem() instanceof BlockItem && ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(Block.getBlockFromItem(stack.getItem())))
+            if (stack.getItem() instanceof BlockItem && ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(Block.byItem(stack.getItem())))
                 return true;
             return stack.getItem() instanceof BlockItem && hasUpgrade(new ItemStack(ModItems.REINFORCED_UPGRADE.get()));
         }));
@@ -60,7 +60,7 @@ public class AutoHammerContainer extends Container {
             this.addSlot(new Slot(inventory, k, 8 + k * 18, 142));
         }
 
-        this.trackIntArray(this.data);
+        this.addDataSlots(this.data);
     }
 
     public AutoHammerContainer(int windowID, PlayerInventory inventory) {
@@ -70,44 +70,44 @@ public class AutoHammerContainer extends Container {
     @SuppressWarnings("ConstantConditions")
     @Override
     @Nonnull
-    public ItemStack transferStackInSlot(@Nonnull PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(@Nonnull PlayerEntity playerIn, int index) {
         var itemstack = ItemStack.EMPTY;
-        var slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            var stackInSlot = slot.getStack();
+        var slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
+            var stackInSlot = slot.getItem();
             itemstack = stackInSlot.copy();
             boolean isHammerable = stackInSlot.getItem() instanceof BlockItem
-                    && ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(Block.getBlockFromItem(stackInSlot.getItem()));
+                    && ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(Block.byItem(stackInSlot.getItem()));
 
             if (index == 2) {
-                if (!this.mergeItemStack(stackInSlot, 3, 39, true)) {
+                if (!this.moveItemStackTo(stackInSlot, 3, 39, true)) {
                     return ItemStack.EMPTY;
                 }
-                slot.onSlotChange(stackInSlot, itemstack);
+                slot.onQuickCraft(stackInSlot, itemstack);
             } else if (index != 1 && index != 0) {
                 if (stackInSlot.getItem() instanceof HammerBaseItem) {
-                    if (!this.mergeItemStack(stackInSlot, 0, 1, false)) {
+                    if (!this.moveItemStackTo(stackInSlot, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (isHammerable) {
-                    if (!this.mergeItemStack(stackInSlot, 1, 2, false)) {
+                    if (!this.moveItemStackTo(stackInSlot, 1, 2, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (index >= 3 && index < 30) {
-                    if (!this.mergeItemStack(stackInSlot, 30, 39, false)) {
+                    if (!this.moveItemStackTo(stackInSlot, 30, 39, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index >= 30 && index < 39 && !this.mergeItemStack(stackInSlot, 3, 30, false)) {
+                } else if (index >= 30 && index < 39 && !this.moveItemStackTo(stackInSlot, 3, 30, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.mergeItemStack(stackInSlot, 3, 39, false)) {
+            } else if (!this.moveItemStackTo(stackInSlot, 3, 39, false)) {
                 return ItemStack.EMPTY;
             }
 
             if (stackInSlot.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             } else {
-                slot.onSlotChanged();
+                slot.setChanged();
             }
 
             if (stackInSlot.getCount() == itemstack.getCount()) {
@@ -125,13 +125,13 @@ public class AutoHammerContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(@Nonnull PlayerEntity playerIn) {
+    public boolean stillValid(@Nonnull PlayerEntity playerIn) {
         return true;
     }
 
     public boolean hasUpgrade(ItemStack stack) {
-        return this.tileInv.getStackInSlot(AutoHammerTile.INV_SIZE - 3).getItem() == stack.getItem()
-                || this.tileInv.getStackInSlot(AutoHammerTile.INV_SIZE - 2).getItem() == stack.getItem()
-                || this.tileInv.getStackInSlot(AutoHammerTile.INV_SIZE - 1).getItem() == stack.getItem();
+        return this.tileInv.getItem(AutoHammerTile.INV_SIZE - 3).getItem() == stack.getItem()
+                || this.tileInv.getItem(AutoHammerTile.INV_SIZE - 2).getItem() == stack.getItem()
+                || this.tileInv.getItem(AutoHammerTile.INV_SIZE - 1).getItem() == stack.getItem();
     }
 }

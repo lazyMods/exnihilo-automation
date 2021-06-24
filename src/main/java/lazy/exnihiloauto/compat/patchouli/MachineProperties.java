@@ -38,9 +38,9 @@ public class MachineProperties implements ICustomComponent {
         int index = 0;
         for (String s : this.text) {
             var parse = TextBuilder.parse(s);
-            val fontRenderer = Minecraft.getInstance().fontRenderer;
-            for (IReorderingProcessor iReorderingProcessor : fontRenderer.trimStringToWidth(new StringTextComponent(parse), 145)) {
-                fontRenderer.func_238422_b_(matrixStack, iReorderingProcessor, x, y + index * (fontRenderer.FONT_HEIGHT + 3), 0);
+            val fontRenderer = Minecraft.getInstance().font;
+            for (IReorderingProcessor iReorderingProcessor : fontRenderer.split(new StringTextComponent(parse), 145)) {
+                fontRenderer.draw(matrixStack, iReorderingProcessor, x, y + index * (fontRenderer.lineHeight + 3), 0);
                 index++;
             }
         }

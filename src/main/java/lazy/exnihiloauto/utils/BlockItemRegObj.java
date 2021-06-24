@@ -29,6 +29,6 @@ public class BlockItemRegObj<T extends Block> {
     }
 
     private RegistryObject<BlockItem> createBlockItem(String regName, RegistryObject<T> block) {
-        return ModItems.ITEMS.register(regName, () -> new BlockItem(block.get(), new Item.Properties().group(Ref.GROUP)));
+        return ModItems.ITEMS.register(regName, () -> new BlockItem(block.get(), new Item.Properties().tab(Ref.GROUP)));
     }
 }

@@ -18,13 +18,13 @@ import java.util.List;
 public class CompressedGravelBlock extends CompressedBlock {
 
     public CompressedGravelBlock(CompressionTier tier) {
-        super(AbstractBlock.Properties.from(Blocks.GRAVEL), tier);
+        super(AbstractBlock.Properties.copy(Blocks.GRAVEL), tier);
     }
 
     @Override
-    public void addInformation(@Nonnull ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
         var toDisplay = String.format("Contains %s of %s.", this.getTier().tierAmt, new TranslationTextComponent("compressed.gravel").getString());
         tooltip.add(new StringTextComponent(toDisplay));
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 }

@@ -32,21 +32,21 @@ public abstract class InvHandler implements ISidedInventory, INBTSerializable<Co
     public List<ItemStack> getStackFromTo(int fromIndex, int toIndex) {
         var itemStacks = new ArrayList<ItemStack>();
         for (int i = fromIndex; i < toIndex + 1; i++) {
-            itemStacks.add(this.getStackInSlot(i));
+            itemStacks.add(this.getItem(i));
         }
         return itemStacks;
     }
 
-    public Item getItem(int slot) {
-        return this.getStackInSlot(slot).getItem();
+    public Item get(int slot) {
+        return this.getItem(slot).getItem();
     }
 
     public Block getBlockItem(int slot) {
-        return Block.getBlockFromItem(this.getItem(slot));
+        return Block.byItem(this.get(slot));
     }
 
     public boolean isSlotEmpty(int slot) {
-        return this.getStackInSlot(slot).isEmpty();
+        return this.getItem(slot).isEmpty();
     }
 
     public boolean hasEmptySlot() {
@@ -72,7 +72,7 @@ public abstract class InvHandler implements ISidedInventory, INBTSerializable<Co
         for (int i = 0; i < this.stacks.size(); i++) {
             if (this.canInsertOn(i)) {
                 var stackAt = this.stacks.get(i);
-                if (ItemStack.areItemsEqual(stackAt, stack) && stackAt.getCount() != stackAt.getMaxStackSize()) {
+                if (ItemStack.isSame(stackAt, stack) && stackAt.getCount() != stackAt.getMaxStackSize()) {
                     return i;
                 }
             }
@@ -82,15 +82,15 @@ public abstract class InvHandler implements ISidedInventory, INBTSerializable<Co
 
     public boolean isSlotFull(int slot) {
         if (this.isSlotEmpty(slot)) return false;
-        return this.getStackInSlot(slot).getCount() == this.getStackInSlot(slot).getMaxStackSize();
+        return this.getItem(slot).getCount() == this.getItem(slot).getMaxStackSize();
     }
 
     public boolean canInsertItemOnSlot(int slot, ItemStack stack) {
-        return (ItemStack.areItemsEqual(this.stacks.get(slot), stack) || this.stacks.get(slot).isEmpty()) && this.stacks.get(slot).getCount() != stack.getMaxStackSize();
+        return (ItemStack.isSame(this.stacks.get(slot), stack) || this.stacks.get(slot).isEmpty()) && this.stacks.get(slot).getCount() != stack.getMaxStackSize();
     }
 
     public boolean canInsertAll(List<ItemStack> stacks) {
-        if (stacks.size() > this.getSizeInventory()) return false;
+        if (stacks.size() > this.getContainerSize()) return false;
         if (this.isEmpty()) return true;
         int added = 0;
         for (ItemStack itemStack : stacks) {
@@ -113,7 +113,7 @@ public abstract class InvHandler implements ISidedInventory, INBTSerializable<Co
     }
 
     public int getStackLimit(int slot, ItemStack stack) {
-        return this.getStackInSlot(slot).getMaxStackSize();
+        return this.getItem(slot).getMaxStackSize();
     }
 
     @Nonnull
@@ -198,9 +198,10 @@ public abstract class InvHandler implements ISidedInventory, INBTSerializable<Co
     }
 
     //IInventory
+    
 
     @Override
-    public int getSizeInventory() {
+    public int getContainerSize() {
         return this.stacks.size();
     }
 
@@ -211,40 +212,40 @@ public abstract class InvHandler implements ISidedInventory, INBTSerializable<Co
 
     @Override
     @Nonnull
-    public ItemStack getStackInSlot(int index) {
+    public ItemStack getItem(int index) {
         return this.stacks.get(index);
     }
 
     @Override
     @Nonnull
-    public ItemStack decrStackSize(int index, int count) {
-        return ItemStackHelper.getAndSplit(this.stacks, index, count);
+    public ItemStack removeItem(int index, int count) {
+        return ItemStackHelper.removeItem(this.stacks, index, count);
     }
 
     @Override
     @Nonnull
-    public ItemStack removeStackFromSlot(int index) {
-        return ItemStackHelper.getAndRemove(this.stacks, index);
+    public ItemStack removeItemNoUpdate(int index) {
+        return ItemStackHelper.takeItem(this.stacks, index);
     }
 
     @Override
     @ParametersAreNonnullByDefault
-    public void setInventorySlotContents(int index, ItemStack stack) {
+    public void setItem(int index, ItemStack stack) {
         this.stacks.set(index, stack);
     }
 
     @Override
-    public void markDirty() {
+    public void setChanged() {
 
     }
 
     @Override
-    public boolean isUsableByPlayer(@Nonnull PlayerEntity player) {
+    public boolean stillValid(@Nonnull PlayerEntity player) {
         return true;
     }
 
     @Override
-    public void clear() {
+    public void clearContent() {
         this.stacks.clear();
     }
 
@@ -256,7 +257,7 @@ public abstract class InvHandler implements ISidedInventory, INBTSerializable<Co
             if (!stacks.get(i).isEmpty()) {
                 CompoundNBT itemTag = new CompoundNBT();
                 itemTag.putInt("Slot", i);
-                stacks.get(i).write(itemTag);
+                stacks.get(i).setTag(itemTag);
                 nbtTagList.add(itemTag);
             }
         }
@@ -275,7 +276,7 @@ public abstract class InvHandler implements ISidedInventory, INBTSerializable<Co
             int slot = itemTags.getInt("Slot");
 
             if (slot >= 0 && slot < stacks.size()) {
-                stacks.set(slot, ItemStack.read(itemTags));
+                stacks.set(slot, ItemStack.of(itemTags));
             }
         }
         onLoad();

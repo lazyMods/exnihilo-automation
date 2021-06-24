@@ -20,7 +20,7 @@ public class AutoSieveScreen extends ContainerScreen<AutoSieveContainer> {
 
     public AutoSieveScreen(AutoSieveContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
-        this.xSize = 204;
+        this.imageWidth = 204;
     }
 
     @Override
@@ -28,50 +28,50 @@ public class AutoSieveScreen extends ContainerScreen<AutoSieveContainer> {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         if (this.hoveredSlot != null) {
-            if (!this.hoveredSlot.getHasStack()) {
-                if (this.hoveredSlot.slotNumber == 0) {
+            if (!this.hoveredSlot.hasItem()) {
+                if (this.hoveredSlot.index == 0) {
                     this.renderTooltip(matrixStack, new TranslationTextComponent("sieve.input"), mouseX, mouseY);
-                } else if (this.hoveredSlot.slotNumber == 1) {
+                } else if (this.hoveredSlot.index == 1) {
                     this.renderTooltip(matrixStack, new TranslationTextComponent("sieve.mesh"), mouseX, mouseY);
                 }
             } else {
-                this.renderTooltip(matrixStack, this.hoveredSlot.getStack(), mouseX, mouseY);
+                this.renderTooltip(matrixStack, this.hoveredSlot.getItem(), mouseX, mouseY);
             }
         }
-        if (mouseX > this.guiLeft + 7 && mouseX < this.guiLeft + 7 + 18 && mouseY > this.guiTop + 15 && mouseY < this.guiTop + 15 + 54) {
-            this.renderTooltip(matrixStack, new TranslationTextComponent("tiles.energy").append(new StringTextComponent(this.container.getData().get(0) + "/" + this.container.getData().get(1))), mouseX, mouseY);
+        if (mouseX > this.leftPos + 7 && mouseX < this.leftPos + 7 + 18 && mouseY > this.topPos + 15 && mouseY < this.topPos + 15 + 54) {
+            this.renderTooltip(matrixStack, new TranslationTextComponent("tiles.energy").append(new StringTextComponent(this.menu.getData().get(0) + "/" + this.menu.getData().get(1))), mouseX, mouseY);
         }
-        if(mouseX > this.guiLeft + 181 && mouseX < this.guiLeft + 181 + 18 && mouseY > this.guiTop + 69 && mouseY < this.guiTop + 69 + 16){
+        if(mouseX > this.leftPos + 181 && mouseX < this.leftPos + 181 + 18 && mouseY > this.topPos + 69 && mouseY < this.topPos + 69 + 16){
             this.renderTooltip(matrixStack, new TranslationTextComponent("tiles.openbookentry"), mouseX, mouseY);
         }
     }
 
     @SuppressWarnings("deprecation")
     @Override
-    protected void drawGuiContainerBackgroundLayer(@Nonnull MatrixStack matrixStack, float partialTicks, int x, int y) {
-        GlStateManager.color4f(1f, 1f, 1f, 1f);
+    protected void renderBg(@Nonnull MatrixStack matrixStack, float partialTicks, int x, int y) {
+        GlStateManager._color4f(1f, 1f, 1f, 1f);
         if (this.minecraft != null) {
-            this.minecraft.getTextureManager().bindTexture(BACK);
-            this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+            this.minecraft.getTextureManager().bind(BACK);
+            this.blit(matrixStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
             this.renderEnergyBar(matrixStack);
             this.renderSieveTimer(matrixStack);
         }
     }
 
     private void renderEnergyBar(MatrixStack matrixStack) {
-        float energyPer = this.container.getData().get(0) / (float) this.container.getData().get(1);
-        int startY = this.guiTop + 16 + 52 - (int) (energyPer * 52);
-        this.blit(matrixStack, this.guiLeft + 8, startY, 204, 14, 16, (int) (energyPer * 52));
+        float energyPer = this.menu.getData().get(0) / (float) this.menu.getData().get(1);
+        int startY = this.topPos + 16 + 52 - (int) (energyPer * 52);
+        this.blit(matrixStack, this.leftPos + 8, startY, 204, 14, 16, (int) (energyPer * 52));
     }
 
     private void renderSieveTimer(MatrixStack matrixStack) {
-        float timePer = this.container.getData().get(2) / (float) this.container.getData().get(3);
-        this.blit(matrixStack, this.guiLeft + 54, this.guiTop + 36, 220, 0, 14, (int) (timePer * 14));
+        float timePer = this.menu.getData().get(2) / (float) this.menu.getData().get(3);
+        this.blit(matrixStack, this.leftPos + 54, this.topPos + 36, 220, 0, 14, (int) (timePer * 14));
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if(mouseX > this.guiLeft + 181 && mouseX < this.guiLeft + 181 + 18 && mouseY > this.guiTop + 69 && mouseY < this.guiTop + 69 + 16){
+        if(mouseX > this.leftPos + 181 && mouseX < this.leftPos + 181 + 18 && mouseY > this.topPos + 69 && mouseY < this.topPos + 69 + 16){
             if(button != 0) return super.mouseClicked(mouseX, mouseY, button);
             PatchouliAPI.get().openBookEntry(new ResourceLocation(Ref.MOD_ID, "docs"), new ResourceLocation(Ref.MOD_ID, "autosieve"), 0);
             return true;

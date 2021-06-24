@@ -27,7 +27,7 @@ public class AutoBlock extends Block {
     private final Supplier<TileEntity> tileEntitySupplier;
 
     public AutoBlock(Supplier<TileEntity> tileEntitySupplier) {
-        super(Properties.create(Material.IRON));
+        super(Properties.of(Material.HEAVY_METAL));
         this.tileEntitySupplier = tileEntitySupplier;
     }
 
@@ -45,12 +45,12 @@ public class AutoBlock extends Block {
     @Override
     @SuppressWarnings({"deprecation", "NullableProblems"})
     @Nonnull
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (worldIn.isRemote) {
+    public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if (worldIn.isClientSide) {
             return ActionResultType.SUCCESS;
         } else {
-            if (worldIn.getTileEntity(pos) instanceof AutoTileEntity) {
-                player.openContainer((INamedContainerProvider) worldIn.getTileEntity(pos));
+            if (worldIn.getBlockEntity(pos) instanceof AutoTileEntity) {
+                player.openMenu((INamedContainerProvider) worldIn.getBlockEntity(pos));
             }
             return ActionResultType.CONSUME;
         }
@@ -58,13 +58,13 @@ public class AutoBlock extends Block {
 
     @Override
     @ParametersAreNonnullByDefault
-    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
-        super.onBlockHarvested(worldIn, pos, state, player);
-        if (!worldIn.isRemote) {
-            if (worldIn.getTileEntity(pos) instanceof AutoTileEntity) {
-                var tileEntity = (AutoTileEntity) worldIn.getTileEntity(pos);
+    public void playerWillDestroy(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+        super.playerWillDestroy(worldIn, pos, state, player);
+        if (!worldIn.isClientSide) {
+            if (worldIn.getBlockEntity(pos) instanceof AutoTileEntity) {
+                var tileEntity = (AutoTileEntity) worldIn.getBlockEntity(pos);
                 Objects.requireNonNull(tileEntity);
-                InventoryHelper.dropInventoryItems(worldIn, pos, tileEntity.getTileInv());
+                InventoryHelper.dropContents(worldIn, pos, tileEntity.getTileInv());
             }
         }
     }

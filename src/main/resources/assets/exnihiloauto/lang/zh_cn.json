@@ -43,7 +43,7 @@
   "tiles.title.hammer": "自动锤",
   "tiles.title.sieve": "自动筛子",
   "tiles.title.silker": "自动产线器",
-  "upgrade.bonus.apply_to": "\u00A7e适用于：\u00A7r自动锤，自动筛子。",
+  "upgrade.bonus.apply_to": "\u00A7e适用于：\u00A7r自动锤，自动产线器。",
   "upgrade.bonus.effect": "\u00A76效果：\u00A7r有几率双倍产出。",
   "upgrade.reinforcement.apply_to": "\u00A7e适用于：\u00A7r自动锤。",
   "upgrade.reinforcement.effect": "\u00A76效果：\u00A7r能够锤压缩方块。",

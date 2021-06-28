@@ -92,6 +92,7 @@ dependencies {
     //compileOnly fg.deobf("novamachina:exnihilosequentia:${exnihilo_version}")
 
     compile fg.deobf("curse.maven:exnihilosequentia-${exnihilo_version_curse}")
+    compile fg.deobf("curse.maven:jade-${jade_version_curse}")
 }
 
 jar {

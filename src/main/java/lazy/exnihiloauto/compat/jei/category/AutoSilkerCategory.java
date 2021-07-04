@@ -1,6 +1,7 @@
-package lazy.exnihiloauto.compat.jei.autosilker;
+package lazy.exnihiloauto.compat.jei.category;
 
 import lazy.exnihiloauto.Ref;
+import lazy.exnihiloauto.compat.jei.utils.TwoToOneRecipe;
 import lazy.exnihiloauto.setup.ModBlocks;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -9,15 +10,25 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.Tags;
+import novamachina.exnihilosequentia.common.init.ExNihiloItems;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-public class AutoSilkerCategory implements IRecipeCategory<AutoSilkerRecipe> {
+public class AutoSilkerCategory implements IRecipeCategory<TwoToOneRecipe> {
 
     public static final ResourceLocation UID = new ResourceLocation(Ref.MOD_ID, "auto_silker");
+
+    public static final List<TwoToOneRecipe> RECIPES = Collections.singletonList(
+            new TwoToOneRecipe(Ingredient.of(ItemTags.LEAVES), Ingredient.of(ExNihiloItems.SILKWORM.get()), Ingredient.of(Tags.Items.STRING))
+    );
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -35,8 +46,8 @@ public class AutoSilkerCategory implements IRecipeCategory<AutoSilkerRecipe> {
 
     @Override
     @Nonnull
-    public Class<? extends AutoSilkerRecipe> getRecipeClass() {
-        return AutoSilkerRecipe.class;
+    public Class<? extends TwoToOneRecipe> getRecipeClass() {
+        return TwoToOneRecipe.class;
     }
 
     @Override
@@ -58,13 +69,13 @@ public class AutoSilkerCategory implements IRecipeCategory<AutoSilkerRecipe> {
     }
 
     @Override
-    public void setIngredients(AutoSilkerRecipe recipe, IIngredients ingredients) {
+    public void setIngredients(TwoToOneRecipe recipe, IIngredients ingredients) {
         ingredients.setInputIngredients(Arrays.asList(recipe.primaryInput, recipe.secondaryInput));
         ingredients.setOutput(VanillaTypes.ITEM, recipe.output.getItems()[0]);
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, AutoSilkerRecipe recipe, @Nonnull IIngredients ingredients) {
+    public void setRecipe(IRecipeLayout recipeLayout, TwoToOneRecipe recipe, @Nonnull IIngredients ingredients) {
         recipeLayout.getItemStacks().init(0, true, 0, 0);
         recipeLayout.getItemStacks().init(1, true, 44, 0);
         recipeLayout.getItemStacks().init(2, false, 80, 0);

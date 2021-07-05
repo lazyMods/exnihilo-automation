@@ -16,6 +16,7 @@ public class ExNihiloAutomation {
         ModBlocks.init();
         ModItems.init();
         ModTiles.init();
+        ModTags.init();
         ModContainers.init();
         ModToolTypes.init();
         Configs.registerAndLoadConfig();

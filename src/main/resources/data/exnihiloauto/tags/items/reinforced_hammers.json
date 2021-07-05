@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "exnihiloauto:wooden_reinforced_hammer",
+    "exnihiloauto:stone_reinforced_hammer",
+    "exnihiloauto:iron_reinforced_hammer",
+    "exnihiloauto:golden_reinforced_hammer",
+    "exnihiloauto:diamond_reinforced_hammer",
+    "exnihiloauto:netherite_reinforced_hammer"
+  ]
+}

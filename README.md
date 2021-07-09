@@ -19,4 +19,5 @@ _**ExNihilo Sequentia:**_ https://github.com/NovaMachina-Mods/ExNihiloSequentia
 - Reinforced Hammers;
 - Upgrading system.
 - Patchouli support.
+- Jei support.
 - More comming soon.

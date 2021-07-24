@@ -1,5 +1,6 @@
 package lazy.exnihiloauto.inventory;
 
+import lombok.val;
 import lombok.var;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
@@ -251,7 +252,7 @@ public abstract class InvHandler implements ISidedInventory, INBTSerializable<Co
     public CompoundNBT serializeNBT() {
         var nbtTagList = new ListNBT();
         for (int i = 0; i < stacks.size(); i++) {
-            ItemStack stackAt = stacks.get(i);
+            val stackAt = stacks.get(i);
             if (!stackAt.isEmpty()) {
                 CompoundNBT itemTag = new CompoundNBT();
                 itemTag.putInt("Slot", i);
@@ -262,7 +263,7 @@ public abstract class InvHandler implements ISidedInventory, INBTSerializable<Co
                 nbtTagList.add(itemTag);
             }
         }
-        var nbt = new CompoundNBT();
+        val nbt = new CompoundNBT();
         nbt.put("Items", nbtTagList);
         nbt.putInt("Size", stacks.size());
         return nbt;

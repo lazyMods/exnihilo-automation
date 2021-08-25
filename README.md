@@ -1,4 +1,4 @@
-# ExNihilo: Automation
+# ExNihilo: Automation [1.16.5]
 ###### Addon for ExNihilo: Sequentia
 
 Legend that created the logo: https://github.com/NoraTheGamer

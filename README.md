@@ -1,4 +1,4 @@
-# ExNihilo: Automation
+# ExNihilo: Automation [1.16.5]
 ###### Addon for ExNihilo: Sequentia
 
 Legend that created the logo: https://github.com/NoraTheGamer
@@ -19,4 +19,5 @@ _**ExNihilo Sequentia:**_ https://github.com/NovaMachina-Mods/ExNihiloSequentia
 - Reinforced Hammers;
 - Upgrading system.
 - Patchouli support.
+- Jei support.
 - More comming soon.

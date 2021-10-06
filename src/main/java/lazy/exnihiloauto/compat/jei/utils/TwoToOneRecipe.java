@@ -12,4 +12,13 @@ public class TwoToOneRecipe {
         this.secondaryInput = secondaryInput;
         this.output = output;
     }
+
+    @Override
+    public String toString() {
+        return "TwoToOneRecipe{" +
+                "primaryInput=" + primaryInput.getItems()[0].toString() +
+                ", secondaryInput=" + secondaryInput.getItems()[0].toString() +
+                ", output=" + output.getItems()[0] +
+                '}';
+    }
 }

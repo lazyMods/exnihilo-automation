@@ -1,8 +1,8 @@
 package lazy.exnihiloauto.compat.jei;
 
 import lazy.exnihiloauto.Ref;
-import lazy.exnihiloauto.compat.jei.autosilker.AutoSilkerCategory;
-import lazy.exnihiloauto.compat.jei.autosilker.AutoSilkerRecipe;
+import lazy.exnihiloauto.compat.jei.category.AutoHammerCategory;
+import lazy.exnihiloauto.compat.jei.category.AutoSilkerCategory;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
@@ -23,10 +23,12 @@ public class ExNihiloAutoPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new AutoSilkerCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new AutoHammerCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        registration.addRecipes(AutoSilkerRecipe.RECIPES, AutoSilkerCategory.UID);
+        registration.addRecipes(AutoSilkerCategory.RECIPES, AutoSilkerCategory.UID);
+        registration.addRecipes(AutoHammerCategory.RECIPES, AutoHammerCategory.UID);
     }
 }

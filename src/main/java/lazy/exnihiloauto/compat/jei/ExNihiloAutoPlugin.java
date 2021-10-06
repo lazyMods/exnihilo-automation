@@ -2,12 +2,14 @@ package lazy.exnihiloauto.compat.jei;
 
 import lazy.exnihiloauto.Ref;
 import lazy.exnihiloauto.compat.jei.category.AutoHammerCategory;
+import lazy.exnihiloauto.compat.jei.category.AutoSieveCategory;
 import lazy.exnihiloauto.compat.jei.category.AutoSilkerCategory;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.util.ResourceLocation;
+import novamachina.exnihilosequentia.api.ExNihiloRegistries;
 
 import javax.annotation.Nonnull;
 
@@ -24,11 +26,13 @@ public class ExNihiloAutoPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new AutoSilkerCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new AutoHammerCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new AutoSieveCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         registration.addRecipes(AutoSilkerCategory.RECIPES, AutoSilkerCategory.UID);
         registration.addRecipes(AutoHammerCategory.RECIPES, AutoHammerCategory.UID);
+        registration.addRecipes(ExNihiloRegistries.SIEVE_REGISTRY.getDryRecipeList(), AutoSieveCategory.UID);
     }
 }

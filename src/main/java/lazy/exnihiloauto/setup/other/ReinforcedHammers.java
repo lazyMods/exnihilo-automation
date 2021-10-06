@@ -13,16 +13,25 @@ public class ReinforcedHammers {
 
     public static List<RegistryObject<ReinforcedHammerItem>> HAMMERS = new ArrayList<>();
 
+    public static RegistryObject<ReinforcedHammerItem> WOODEN;
+    public static RegistryObject<ReinforcedHammerItem> STONE;
+    public static RegistryObject<ReinforcedHammerItem> IRON;
+    public static RegistryObject<ReinforcedHammerItem> GOLDEN;
+    public static RegistryObject<ReinforcedHammerItem> DIAMOND;
+    public static RegistryObject<ReinforcedHammerItem> NETHERITE;
+
     public static void init() {
-        createHammer("wooden_reinforced_hammer", ItemTier.WOOD, EnumHammer.WOOD, "Wooden", 228);
-        createHammer("stone_reinforced_hammer", ItemTier.STONE, EnumHammer.STONE, "Stone", 356);
-        createHammer("iron_reinforced_hammer", ItemTier.IRON, EnumHammer.IRON, "Iron", 612);
-        createHammer("golden_reinforced_hammer", ItemTier.GOLD, EnumHammer.GOLD, "Golden", 164);
-        createHammer("diamond_reinforced_hammer", ItemTier.DIAMOND, EnumHammer.DIAMOND, "Diamond", 4196);
-        createHammer("netherite_reinforced_hammer", ItemTier.NETHERITE, EnumHammer.NETHERITE, "Netherite", 8292);
+        WOODEN = createHammer("wooden_reinforced_hammer", ItemTier.WOOD, EnumHammer.WOOD, "Wooden", 228);
+        STONE = createHammer("stone_reinforced_hammer", ItemTier.STONE, EnumHammer.STONE, "Stone", 356);
+        IRON = createHammer("iron_reinforced_hammer", ItemTier.IRON, EnumHammer.IRON, "Iron", 612);
+        GOLDEN = createHammer("golden_reinforced_hammer", ItemTier.GOLD, EnumHammer.GOLD, "Golden", 164);
+        DIAMOND = createHammer("diamond_reinforced_hammer", ItemTier.DIAMOND, EnumHammer.DIAMOND, "Diamond", 4196);
+        NETHERITE = createHammer("netherite_reinforced_hammer", ItemTier.NETHERITE, EnumHammer.NETHERITE, "Netherite", 8292);
     }
 
-    private static void createHammer(String regName, ItemTier tier, EnumHammer base, String displayName, int durability) {
-        HAMMERS.add(ModItems.ITEMS.register(regName, () -> new ReinforcedHammerItem(tier, base, displayName, durability)));
+    private static RegistryObject<ReinforcedHammerItem> createHammer(String regName, ItemTier tier, EnumHammer base, String displayName, int durability) {
+        RegistryObject<ReinforcedHammerItem> itemRegistryObject;
+        HAMMERS.add(itemRegistryObject = ModItems.ITEMS.register(regName, () -> new ReinforcedHammerItem(tier, base, displayName, durability)));
+        return itemRegistryObject;
     }
 }

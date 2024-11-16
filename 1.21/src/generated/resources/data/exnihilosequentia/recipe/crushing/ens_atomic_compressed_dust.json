@@ -1,0 +1,64 @@
+{
+  "type": "exnihilosequentia:crushing",
+  "input": {
+    "item": "exnihiloauto:atomic_compressed_dust"
+  },
+  "results": [
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 99,
+        "id": "exnihilosequentia:dust"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 99,
+        "id": "exnihilosequentia:dust"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 99,
+        "id": "exnihilosequentia:dust"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 99,
+        "id": "exnihilosequentia:dust"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 99,
+        "id": "exnihilosequentia:dust"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 99,
+        "id": "exnihilosequentia:dust"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 99,
+        "id": "exnihilosequentia:dust"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 36,
+        "id": "exnihilosequentia:dust"
+      }
+    }
+  ]
+}

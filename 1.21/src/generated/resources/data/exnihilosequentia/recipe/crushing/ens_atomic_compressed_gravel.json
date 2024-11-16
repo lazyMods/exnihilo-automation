@@ -1,0 +1,64 @@
+{
+  "type": "exnihilosequentia:crushing",
+  "input": {
+    "item": "exnihiloauto:atomic_compressed_gravel"
+  },
+  "results": [
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 99,
+        "id": "minecraft:gravel"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 99,
+        "id": "minecraft:gravel"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 99,
+        "id": "minecraft:gravel"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 99,
+        "id": "minecraft:gravel"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 99,
+        "id": "minecraft:gravel"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 99,
+        "id": "minecraft:gravel"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 99,
+        "id": "minecraft:gravel"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 36,
+        "id": "minecraft:gravel"
+      }
+    }
+  ]
+}

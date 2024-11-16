@@ -1,0 +1,11 @@
+{
+  "name": "docs.name",
+  "landing_text": "docs.landing_text",
+  "subtitle": "docs.subtitle",
+  "version": "1",
+  "creative_tab": "exnihiloauto:exnihiloauto",
+  "show_progress": false,
+  "book_texture": "patchouli:textures/gui/book_blue.png",
+  "model": "exnihiloauto:patchouli_book",
+  "use_resource_pack": true
+}

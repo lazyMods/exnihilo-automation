@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "custom",
+      "class": "net.marcosantos.exnihiloauto.compat.MachineProperties",
+      "x": 5,
+      "y": 5
+    }
+  ]
+}

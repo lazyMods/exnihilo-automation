@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:limit_count",
+              "limit": 729
+            }
+          ],
+          "name": "exnihilosequentia:dust"
+        }
+      ],
+      "name": "exnihiloauto:atomic_compressed_dust",
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "exnihiloauto:blocks/atomic_compressed_dust"
+}

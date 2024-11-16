@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "exnihiloauto:block/highly_compressed_gravel"
+  }
+}

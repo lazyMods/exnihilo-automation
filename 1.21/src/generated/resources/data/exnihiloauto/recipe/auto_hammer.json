@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "h": {
+      "item": "exnihilosequentia:diamond_hammer"
+    },
+    "i": {
+      "tag": "c:ingots/iron"
+    },
+    "r": {
+      "tag": "c:dusts/redstone"
+    }
+  },
+  "pattern": [
+    "iri",
+    "rhr",
+    "iri"
+  ],
+  "result": {
+    "count": 1,
+    "id": "exnihiloauto:auto_hammer"
+  }
+}

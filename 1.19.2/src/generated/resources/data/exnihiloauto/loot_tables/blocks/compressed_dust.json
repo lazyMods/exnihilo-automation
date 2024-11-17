@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "exnihiloauto:compressed_dust"
+        }
+      ],
+      "name": "exnihiloauto:compressed_dust",
+      "rolls": 1.0
+    }
+  ]
+}

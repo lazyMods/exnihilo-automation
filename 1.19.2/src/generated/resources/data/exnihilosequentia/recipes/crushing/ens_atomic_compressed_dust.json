@@ -1,0 +1,48 @@
+{
+  "type": "exnihilosequentia:hammer",
+  "input": {
+    "item": "exnihiloauto:atomic_compressed_dust"
+  },
+  "results": [
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "exnihilosequentia:dust"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "exnihilosequentia:dust"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "exnihilosequentia:dust"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "exnihilosequentia:dust"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "exnihilosequentia:dust"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "exnihilosequentia:dust"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "exnihilosequentia:dust"
+    },
+    {
+      "chance": 1.0,
+      "count": 36,
+      "item": "exnihilosequentia:dust"
+    }
+  ]
+}

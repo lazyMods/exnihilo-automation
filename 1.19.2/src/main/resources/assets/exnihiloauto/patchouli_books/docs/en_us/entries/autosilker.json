@@ -1,0 +1,21 @@
+{
+  "name": "Auto Silker",
+  "category": "exnihiloauto:machines",
+  "icon": "exnihiloauto:auto_silker",
+  "pages": [
+    {
+      "type": "text",
+      "text": " $(l)$(6)Function:$() Giving it silkworms and some leaves, the $(5)Automatic Silker$() produces string. $(br2) $(l)$(6)Same as:$() Right clicking with a $(5)silkworm$() on leaves then using a $(5)crook $()to get the string."
+    },
+    {
+      "type": "crafting",
+      "title": "Recipe",
+      "text": "$(li)$(l)$(6)Extra info:$() This uses two slots, magenta and blue for input. Magenta is the silkworm input and blue is for leaves or block that can be silked.",
+      "recipe": "exnihiloauto:auto_silker"
+    },
+    {
+      "type": "machine_props",
+      "machine_type": "autosilker"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "type": "exnihilosequentia:hammer",
+  "input": {
+    "item": "exnihiloauto:atomic_compressed_cobble"
+  },
+  "results": [
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "minecraft:cobblestone"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "minecraft:cobblestone"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "minecraft:cobblestone"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "minecraft:cobblestone"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "minecraft:cobblestone"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "minecraft:cobblestone"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "minecraft:cobblestone"
+    },
+    {
+      "chance": 1.0,
+      "count": 36,
+      "item": "minecraft:cobblestone"
+    }
+  ]
+}

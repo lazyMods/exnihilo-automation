@@ -1,0 +1,13 @@
+{
+  "type": "exnihilosequentia:hammer",
+  "input": {
+    "item": "exnihiloauto:compressed_cobble"
+  },
+  "results": [
+    {
+      "chance": 1.0,
+      "count": 9,
+      "item": "minecraft:cobblestone"
+    }
+  ]
+}

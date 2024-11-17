@@ -1,0 +1,21 @@
+{
+  "name": "Auto Hammer",
+  "category": "exnihiloauto:machines",
+  "icon": "exnihiloauto:auto_hammer",
+  "pages": [
+    {
+      "type": "text",
+      "text": " $(l)$(6)Function:$() Hammers the block. $(br2) $(l)$(6)Same as:$() Destroying a hammerable block with a $(5)Hammer$()."
+    },
+    {
+      "type": "crafting",
+      "title": "Recipe",
+      "recipe": "exnihiloauto:auto_hammer",
+      "text": "$(li)$(l)$(6)Extra info:$() This uses one slot, (Blue | Top Face) that can input both Hammers and blocks that can be hammered."
+    },
+    {
+      "type": "machine_props",
+      "machine_type": "autohammer"
+    }
+  ]
+}

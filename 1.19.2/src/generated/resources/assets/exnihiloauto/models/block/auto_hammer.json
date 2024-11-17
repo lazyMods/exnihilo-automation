@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "exnihiloauto:block/auto_bottom",
+    "east": "exnihiloauto:block/auto_side",
+    "north": "exnihiloauto:block/auto_side",
+    "particle": "minecraft:block/stone",
+    "south": "exnihiloauto:block/auto_silker_insert",
+    "up": "exnihiloauto:block/auto_top",
+    "west": "exnihiloauto:block/auto_side"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "exnihilosequentia:hammer",
+  "input": {
+    "item": "exnihiloauto:highly_compressed_sand"
+  },
+  "results": [
+    {
+      "chance": 1.0,
+      "count": 81,
+      "item": "minecraft:sand"
+    }
+  ]
+}

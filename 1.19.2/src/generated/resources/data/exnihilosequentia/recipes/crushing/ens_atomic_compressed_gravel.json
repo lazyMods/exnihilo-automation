@@ -1,0 +1,48 @@
+{
+  "type": "exnihilosequentia:hammer",
+  "input": {
+    "item": "exnihiloauto:atomic_compressed_gravel"
+  },
+  "results": [
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "minecraft:gravel"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "minecraft:gravel"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "minecraft:gravel"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "minecraft:gravel"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "minecraft:gravel"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "minecraft:gravel"
+    },
+    {
+      "chance": 1.0,
+      "count": 99,
+      "item": "minecraft:gravel"
+    },
+    {
+      "chance": 1.0,
+      "count": 36,
+      "item": "minecraft:gravel"
+    }
+  ]
+}

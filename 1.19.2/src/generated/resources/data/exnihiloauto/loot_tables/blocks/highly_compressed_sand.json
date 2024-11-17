@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "exnihiloauto:highly_compressed_sand"
+        }
+      ],
+      "name": "exnihiloauto:highly_compressed_sand",
+      "rolls": 1.0
+    }
+  ]
+}

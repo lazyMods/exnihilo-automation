@@ -1,0 +1,15 @@
+{
+  "name": "Compressed Blocks",
+  "category": "exnihiloauto:blocks",
+  "icon": "exnihiloauto:compressed_cobble",
+  "pages": [
+    {
+      "type": "text",
+      "text": " Compressed versions of blocks that can be hammered. $(br2) Variants: $(br) $(li) Compressed; $(li) Highly Compressed; $(li) Atomic Compressed;"
+    },
+    {
+      "type": "text",
+      "text": "$(br) Available blocks: $(br2) $(li) Cobblestone; $(li) Gravel; $(li) Sand; $(li) Dust;"
+    }
+  ]
+}

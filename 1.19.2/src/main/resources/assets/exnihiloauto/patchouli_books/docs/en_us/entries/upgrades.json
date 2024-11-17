@@ -1,0 +1,26 @@
+{
+  "name": "Upgrades",
+  "category": "exnihiloauto:machines",
+  "icon": "exnihiloauto:speed_upgrade",
+  "pages": [
+    {
+      "type": "text",
+      "text": " We just need to make them better. UhUh upgrades. $(br) $(li) Speed Upgrade $(li) Bonus Upgrade $(li) Reinforcement Upgrade"
+    },
+    {
+      "type": "spotlight",
+      "item": "exnihiloauto:speed_upgrade",
+      "text": "$(br) §l§4Can apply on:§r All. $(br2) §l§6Effect:§r Pretty much explanatory. (But... It reduces 20 ticks for each speed upgrade)"
+    },
+    {
+      "type": "spotlight",
+      "item": "exnihiloauto:bonus_upgrade",
+      "text": "$(br) §l§4Can apply on:§r Auto Sieve, Auto Hammer. $(br2) §l§6Effect:§r 25% chance of getting a double output for each bonus upgrade."
+    },
+    {
+      "type": "spotlight",
+      "item": "exnihiloauto:reinforcement_upgrade",
+      "text": "$(br) §l§4Can apply on:§r Auto Hammer. $(br2) §l§6Effect:§r Ability to hammer the compressed blocks."
+    }
+  ]
+}

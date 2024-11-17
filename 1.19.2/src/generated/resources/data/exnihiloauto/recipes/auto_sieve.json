@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "i": {
+      "tag": "forge:ingots/iron"
+    },
+    "r": {
+      "tag": "forge:dusts/redstone"
+    },
+    "s": {
+      "tag": "exnihilosequentia:sieves"
+    }
+  },
+  "pattern": [
+    "iri",
+    "rsr",
+    "iri"
+  ],
+  "result": {
+    "item": "exnihiloauto:auto_sieve"
+  }
+}

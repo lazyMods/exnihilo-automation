@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "c": {
+      "tag": "forge:dusts/redstone"
+    },
+    "i": {
+      "tag": "forge:ingots/iron"
+    },
+    "r": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "pattern": [
+    "iri",
+    "rcr",
+    "iri"
+  ],
+  "result": {
+    "item": "exnihiloauto:reinforcement_upgrade"
+  }
+}

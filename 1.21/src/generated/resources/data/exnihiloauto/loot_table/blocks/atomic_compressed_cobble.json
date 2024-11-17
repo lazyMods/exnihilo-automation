@@ -3,19 +3,18 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:limit_count",
-              "limit": 729
-            }
-          ],
-          "name": "minecraft:cobblestone"
+          "name": "exnihiloauto:atomic_compressed_cobble"
         }
       ],
-      "name": "exnihiloauto:atomic_compressed_cobble",
+      "name": "main",
       "rolls": 1.0
     }
   ],

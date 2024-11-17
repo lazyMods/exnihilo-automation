@@ -3,19 +3,18 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:limit_count",
-              "limit": 81
-            }
-          ],
-          "name": "minecraft:sand"
+          "name": "exnihiloauto:highly_compressed_sand"
         }
       ],
-      "name": "exnihiloauto:highly_compressed_sand",
+      "name": "main",
       "rolls": 1.0
     }
   ],

@@ -30,20 +30,20 @@ public class ModBlockLootProvider extends BlockLootTables {
 		this.add(this::createSingleItemTable,
 				blockDef(ModBlocks.AUTO_HAMMER, ModItems.AUTO_HAMMER),
 				blockDef(ModBlocks.AUTO_SIEVE, ModItems.AUTO_SIEVE),
-				blockDef(ModBlocks.AUTO_SILKER, ModItems.AUTO_SILKER)
+				blockDef(ModBlocks.AUTO_SILKER, ModItems.AUTO_SILKER),
+				blockDef(ModBlocks.COMPRESSED_COBBLE, ModItems.COMPRESSED_COBBLE),
+				blockDef(ModBlocks.HIGHLY_COMPRESSED_COBBLE, ModItems.HIGHLY_COMPRESSED_COBBLE),
+				blockDef(ModBlocks.ATOMIC_COMPRESSED_COBBLE, ModItems.ATOMIC_COMPRESSED_COBBLE),
+				blockDef(ModBlocks.COMPRESSED_GRAVEL, ModItems.COMPRESSED_GRAVEL),
+				blockDef(ModBlocks.HIGHLY_COMPRESSED_GRAVEL, ModItems.HIGHLY_COMPRESSED_GRAVEL),
+				blockDef(ModBlocks.ATOMIC_COMPRESSED_GRAVEL, ModItems.ATOMIC_COMPRESSED_GRAVEL),
+				blockDef(ModBlocks.COMPRESSED_SAND, ModItems.COMPRESSED_SAND),
+				blockDef(ModBlocks.HIGHLY_COMPRESSED_SAND, ModItems.HIGHLY_COMPRESSED_SAND),
+				blockDef(ModBlocks.ATOMIC_COMPRESSED_SAND, ModItems.ATOMIC_COMPRESSED_SAND),
+				blockDef(ModBlocks.COMPRESSED_DUST, ModItems.COMPRESSED_DUST),
+				blockDef(ModBlocks.HIGHLY_COMPRESSED_DUST, ModItems.HIGHLY_COMPRESSED_DUST),
+				blockDef(ModBlocks.ATOMIC_COMPRESSED_DUST, ModItems.ATOMIC_COMPRESSED_DUST)
 		);
-		this.compressedBlockTables(ModBlocks.COMPRESSED_COBBLE, Blocks.COBBLESTONE, ModItems.COMPRESSED_COBBLE);
-		this.compressedBlockTables(ModBlocks.HIGHLY_COMPRESSED_COBBLE, Blocks.COBBLESTONE, ModItems.HIGHLY_COMPRESSED_COBBLE);
-		this.compressedBlockTables(ModBlocks.ATOMIC_COMPRESSED_COBBLE, Blocks.COBBLESTONE, ModItems.ATOMIC_COMPRESSED_COBBLE);
-		this.compressedBlockTables(ModBlocks.COMPRESSED_GRAVEL, Blocks.GRAVEL, ModItems.COMPRESSED_GRAVEL);
-		this.compressedBlockTables(ModBlocks.HIGHLY_COMPRESSED_GRAVEL, Blocks.GRAVEL, ModItems.HIGHLY_COMPRESSED_GRAVEL);
-		this.compressedBlockTables(ModBlocks.ATOMIC_COMPRESSED_GRAVEL, Blocks.GRAVEL, ModItems.ATOMIC_COMPRESSED_GRAVEL);
-		this.compressedBlockTables(ModBlocks.COMPRESSED_SAND, Blocks.SAND, ModItems.COMPRESSED_SAND);
-		this.compressedBlockTables(ModBlocks.HIGHLY_COMPRESSED_SAND, Blocks.SAND, ModItems.HIGHLY_COMPRESSED_SAND);
-		this.compressedBlockTables(ModBlocks.ATOMIC_COMPRESSED_SAND, Blocks.SAND, ModItems.ATOMIC_COMPRESSED_SAND);
-		this.compressedBlockTables(ModBlocks.COMPRESSED_DUST, EXNBlocks.DUST.block(), ModItems.COMPRESSED_DUST);
-		this.compressedBlockTables(ModBlocks.HIGHLY_COMPRESSED_DUST, EXNBlocks.DUST.block(), ModItems.HIGHLY_COMPRESSED_DUST);
-		this.compressedBlockTables(ModBlocks.ATOMIC_COMPRESSED_DUST, EXNBlocks.DUST.block(), ModItems.ATOMIC_COMPRESSED_DUST);
 	}
 
 	private <T extends Block> BlockDefinition<T> blockDef(DeferredBlock<T> b, DeferredItem<BlockItem> i) {

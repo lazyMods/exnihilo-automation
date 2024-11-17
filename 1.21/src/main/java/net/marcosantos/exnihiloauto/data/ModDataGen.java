@@ -3,6 +3,7 @@ package net.marcosantos.exnihiloauto.data;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -28,6 +29,7 @@ public class ModDataGen {
 
 		generator.addProvider(event.includeServer(), new ModRecipeProvider(pack, lookup));
 		generator.addProvider(event.includeServer(), new ModLootProvider(pack, lookup));
+		generator.addProvider(event.includeServer(), new ModTags(pack, Registries.BLOCK, lookup, exFile));
 
 		generator.addProvider(event.includeClient(), new ModItemModelProvider(pack, exFile));
 		generator.addProvider(event.includeClient(), new ModBlockStateProvider(pack, exFile));

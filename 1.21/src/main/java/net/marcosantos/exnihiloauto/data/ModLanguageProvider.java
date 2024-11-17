@@ -71,6 +71,6 @@ public class ModLanguageProvider extends LanguageProvider {
 	}
 
 	private void createCompressedBlockTrans(DeferredBlock<CompressedBlock> obj, String compressed) {
-		this.add(obj.get(), obj.get().tier.name + compressed);
+		this.add(obj.get(), obj.get().tier.name + " " + compressed);
 	}
 }

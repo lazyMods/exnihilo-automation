@@ -16,8 +16,8 @@ public class CompressedBlock extends Block {
 
 	public enum Tier {
 		COMPRESSED(9, "Compressed", null),
-		HIGHLY_COMPRESSED(81, "Highly Compressed ", COMPRESSED),
-		ATOMIC_COMPRESSION(729, "Atomic Compressed ", HIGHLY_COMPRESSED);
+		HIGHLY_COMPRESSED(81, "Highly Compressed", COMPRESSED),
+		ATOMIC_COMPRESSION(729, "Atomic Compressed", HIGHLY_COMPRESSED);
 
 		public final int amt;
 		public final String name;

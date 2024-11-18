@@ -43,24 +43,30 @@ public class AutoHammerBlockEntity extends AutoBlockEntity {
 
 			boolean hasHammer = !self.tileInv.isSlotEmpty(0);
 			boolean hasBlockToHammer = !self.tileInv.isSlotEmpty(1);
-			if (hasHammer && hasBlockToHammer) {
-				boolean canHammer = canHammerCompressedBlocks() || ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(tileInv.getBlockItem(1));
-				if (canHammer) {
-					var drop = getDrop();
-					if (self.tileInv.canInsertItemOnSlot(2, drop)) {
-						if (self.storage.canExtractAmount(1)) {
-							incrementTimer();
-							self.storage.decreaseEnergy(1);
-						}
-						if (isDone()) {
-							int dmg = tileInv.getBlockItem(1) instanceof CompressedBlock ? 9 : 1;
-							self.tileInv.insertItem(2, drop, false);
-							self.tileInv.extractItem(1, 1, false);
-							self.tileInv.getItem(0).hurtAndBreak(dmg, (ServerLevel) level, fakePlayer, player -> {});
-							resetTimer();
-						}
+
+			var block = self.tileInv.getBlockItem(1);
+			boolean canHammer = ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(block);
+			if (canHammer && (block instanceof CompressedBlock && !hasUpgrade(ModItems.REINFORCED_UPGRADE))) {
+				canHammer = false;
+			}
+
+			if (hasHammer && hasBlockToHammer && canHammer) {
+				var drop = getDrop();
+				if (self.tileInv.canInsertItemOnSlot(2, drop)) {
+					if (self.storage.canExtractAmount(1)) {
+						incrementTimer();
+						self.storage.decreaseEnergy(1);
+					}
+					if (isDone()) {
+						int dmg = tileInv.getBlockItem(1) instanceof CompressedBlock ? 9 : 1;
+						self.tileInv.insertItem(2, drop, false);
+						self.tileInv.extractItem(1, 1, false);
+						self.tileInv.getItem(0).hurtAndBreak(dmg, (ServerLevel) level, fakePlayer, player -> {});
+						resetTimer();
 					}
 				}
+			} else {
+				resetTimer();
 			}
 		}
 	}

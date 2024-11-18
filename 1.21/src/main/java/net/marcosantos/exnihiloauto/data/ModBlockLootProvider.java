@@ -6,7 +6,6 @@ import net.marcosantos.exnihiloauto.world.level.block.CompressedBlock;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -14,7 +13,6 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
-import novamachina.exnihilosequentia.world.level.block.EXNBlocks;
 import novamachina.novacore.data.loot.table.BlockLootTables;
 import novamachina.novacore.world.level.block.BlockDefinition;
 

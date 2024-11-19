@@ -13,7 +13,7 @@
       "recipe": "exnihiloauto:auto_sieve"
     },
     {
-      "type": "machine_props",
+      "type": "exnihiloauto:machine_props",
       "machine_type": "autosieve"
     }
   ]

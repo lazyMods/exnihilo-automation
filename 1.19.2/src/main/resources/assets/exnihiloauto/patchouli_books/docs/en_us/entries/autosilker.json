@@ -10,11 +10,11 @@
     {
       "type": "crafting",
       "title": "Recipe",
-      "text": "$(li)$(l)$(6)Extra info:$() This uses two slots, magenta and blue for input. Magenta is the silkworm input and blue is for leaves or block that can be silked.",
+      "text": "$(li)$(l)$(6)Extra info:$() This block uses the (Blue | Top Face) to input both Silkworms and Leaves.",
       "recipe": "exnihiloauto:auto_silker"
     },
     {
-      "type": "machine_props",
+      "type": "exnihiloauto:machine_props",
       "machine_type": "autosilker"
     }
   ]

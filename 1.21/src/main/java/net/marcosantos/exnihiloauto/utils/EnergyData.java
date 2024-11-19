@@ -20,7 +20,7 @@ public class EnergyData extends EnergyStorage {
 	}
 
 	public boolean canExtractAmount(int amount) {
-		return this.energy - amount >= 0;
+		return energy > 0 && this.energy - amount >= 0;
 	}
 
 	public void decreaseEnergy(int amount) {

@@ -27,7 +27,7 @@
     },
     {
       "type": "text",
-      "text": "$(br) Currently we have 4 colors representing inputs and outputs: $(br) $(li) §4Power:§r placed on the horizontal sides of the block; $(li) §9Input:§r represented with blue on the top side of the block; $(li) §aOutput:§r represented with green on the bottom side of the block; $(li) §dInput:§r represented with magenta on one of the sides of the block is a secondary input slot;"
+      "text": "$(br) Currently we have 3 colors representing inputs and outputs: $(br) $(li) §4Power:§r placed on the horizontal sides of the block; $(li) §9Input:§r represented with blue on the top side of the block; $(li) §aOutput:§r represented with green on the bottom side of the block;"
     },
     {
       "type": "image",

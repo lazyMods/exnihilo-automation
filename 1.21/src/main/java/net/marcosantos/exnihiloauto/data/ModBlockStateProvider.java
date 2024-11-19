@@ -54,7 +54,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 								this.modLoc("block/auto_bottom"),
 								this.modLoc("block/auto_top"),
 								this.modLoc("block/auto_side"),
-								this.modLoc("block/auto_silker_insert"),
+								this.modLoc("block/auto_side"),
 								this.modLoc("block/auto_side"),
 								this.modLoc("block/auto_side"))
 						.texture("particle", "minecraft:block/stone"));

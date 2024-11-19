@@ -41,7 +41,7 @@ public class AutoBlock extends Block implements EntityBlock {
 	@Override
 	@ParametersAreNonnullByDefault
 	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-		return ((level1, blockPos, blockState, t) -> ((AutoBlockEntity) t).tick(level, blockPos, blockState, (AutoBlockEntity) t));
+		return level.isClientSide ? null : ((level1, blockPos, blockState, t) -> ((AutoBlockEntity) t).tick(level, blockPos, blockState, (AutoBlockEntity) t));
 	}
 
 	@Override

@@ -31,42 +31,62 @@ public class AutoHammerBlockEntity extends AutoBlockEntity {
 
 	public static final int INV_SIZE = 6;
 
+	public static final int HAMMER_SLOT = 0;
+	public static final int INPUT_SLOT = 1;
+	public static final int OUTPUT_SLOT = 2;
+
+	public static final int ENERGY_PER_TICK = 1;
+
 	public AutoHammerBlockEntity(BlockPos pos, BlockState state) {
 		super(ModBlockEntities.AUTO_HAMMER.get(), pos, state, "tiles.title.hammer", INV_SIZE);
 	}
 
 	@Override
 	public void tick(Level level, BlockPos pos, BlockState state, AutoBlockEntity self) {
-		Preconditions.checkNotNull(level);
 		if (!level.isClientSide) {
-			setFakePlayer((ServerLevel) level, "FakeHammer");
 
-			boolean hasHammer = !self.tileInv.isSlotEmpty(0);
-			boolean hasBlockToHammer = !self.tileInv.isSlotEmpty(1);
-
-			var block = self.tileInv.getBlockItem(1);
-			boolean canHammer = ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(block);
-			if (canHammer && (block instanceof CompressedBlock && !hasUpgrade(ModItems.REINFORCED_UPGRADE))) {
-				canHammer = false;
+			if (!storage.canExtractAmount(ENERGY_PER_TICK) || tileInv.isSlotFull(OUTPUT_SLOT)) {
+				resetTimer();
+				return;
 			}
 
-			if (hasHammer && hasBlockToHammer && canHammer) {
-				var drop = getDrop();
-				if (self.tileInv.canInsertItemOnSlot(2, drop)) {
-					if (self.storage.canExtractAmount(1)) {
-						incrementTimer();
-						self.storage.decreaseEnergy(1);
-					}
-					if (isDone()) {
-						int dmg = tileInv.getBlockItem(1) instanceof CompressedBlock ? 9 : 1;
-						self.tileInv.insertItem(2, drop, false);
-						self.tileInv.extractItem(1, 1, false);
-						self.tileInv.getItem(0).hurtAndBreak(dmg, fakePlayer, player -> {});
-						resetTimer();
-					}
-				}
-			} else {
+			setFakePlayer((ServerLevel) level, "FakeHammer");
+
+			boolean hasHammer = !tileInv.isSlotEmpty(HAMMER_SLOT);
+			boolean hasBlockToHammer = !tileInv.isSlotEmpty(INPUT_SLOT);
+
+			if (!hasHammer || !hasBlockToHammer) {
 				resetTimer();
+				return;
+			}
+
+			var block = tileInv.getBlockItem(INPUT_SLOT);
+			boolean canHammer = ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(block);
+
+			if (!canHammer) {
+				resetTimer();
+				return;
+			}
+
+			boolean isCompressed = block instanceof CompressedBlock;
+
+			if (isCompressed && !hasUpgrade(ModItems.REINFORCED_UPGRADE)) {
+				resetTimer();
+				return;
+			}
+
+			incrementTimer();
+			storage.decreaseEnergy(ENERGY_PER_TICK);
+
+			if (isDone()) {
+				var drop = getDrop();
+				if (tileInv.canInsertItemOnSlot(OUTPUT_SLOT, drop)) {
+					int dmg = isCompressed ? 9 : 1;
+					tileInv.insertItem(OUTPUT_SLOT, drop, false);
+					tileInv.extractItem(INPUT_SLOT, 1, false);
+					tileInv.getItem(HAMMER_SLOT).hurtAndBreak(dmg, fakePlayer, player -> {});
+					resetTimer();
+				}
 			}
 		}
 	}
@@ -85,45 +105,46 @@ public class AutoHammerBlockEntity extends AutoBlockEntity {
 	public InvHandler createInventory() {
 		return new InvHandler(INV_SIZE) {
 			@Override
-			public int[] insertSlots() {
-				return new int[] { 2 };
+			public int[] outputSlots() {
+				return new int[] { OUTPUT_SLOT };
 			}
 
 			@Override
-			public boolean canInsertOn(int slot) {
-				return slot == 2;
+			public boolean isOutputSlot(int slot) {
+				return slot == OUTPUT_SLOT;
 			}
 
 			@Override
 			@Nonnull
 			public int[] getSlotsForFace(@Nonnull Direction side) {
 				if (side == Direction.UP) {
-					return new int[] { 0, 1 };
+					return new int[] { HAMMER_SLOT, INPUT_SLOT };
 				} else if (side == Direction.DOWN) {
-					return new int[] { 2 };
+					return new int[] { OUTPUT_SLOT };
 				}
 				return new int[0];
 			}
 
 			@Override
 			public boolean canPlaceItemThroughFace(int index, @Nonnull ItemStack itemStackIn, Direction direction) {
-				if (index == 2)
+				if (index == OUTPUT_SLOT)
 					return false;
-				return index == 0 && itemStackIn.getItem() instanceof HammerBaseItem
-						|| index == 1 && (itemStackIn.getItem() instanceof BlockItem
+				return index == HAMMER_SLOT && itemStackIn.getItem() instanceof HammerBaseItem
+						|| index == INPUT_SLOT && (itemStackIn.getItem() instanceof BlockItem
 								&& ExNihiloRegistries.HAMMER_REGISTRY.isHammerable(Block.byItem(itemStackIn.getItem())) || canHammerCompressedBlocks());
 			}
 
 			@Override
 			public boolean canTakeItemThroughFace(int index, @Nonnull ItemStack stack, @Nonnull Direction direction) {
-				return index == 2;
+				return index == OUTPUT_SLOT;
 			}
 		};
 	}
 
 	@Override
 	public List<ItemStack> getUpgradeSlots() {
-		return this.tileInv.getStackFromTo(3, 5);
+		// Note: 'to' isn't inclusive
+		return this.tileInv.getStackFromTo(3, 6);
 	}
 
 	@Nullable @Override
@@ -132,14 +153,15 @@ public class AutoHammerBlockEntity extends AutoBlockEntity {
 	}
 
 	private boolean canHammerCompressedBlocks() {
-		return this.hasUpgrade(ModItems.REINFORCED_UPGRADE) && this.tileInv.getBlockItem(1) instanceof CompressedBlock;
+		return this.hasUpgrade(ModItems.REINFORCED_UPGRADE) && this.tileInv.getBlockItem(INPUT_SLOT) instanceof CompressedBlock;
 	}
 
 	private ItemStack getDrop() {
 		Preconditions.checkNotNull(this.level);
+		var input = tileInv.getBlockItem(INPUT_SLOT);
 		int count = this.hasUpgrade(ModItems.BONUS_UPGRADE) && this.level.random.nextFloat() < (.25f * this.getCountOf(ModItems.BONUS_UPGRADE)) ? 2 : 1;
-		if (this.canHammerCompressedBlocks() && this.tileInv.getBlockItem(1) instanceof CompressedBlock)
-			return new ItemStack(EnumCompressedBlocks.getCompressed((CompressedBlock) this.tileInv.getBlockItem(1)), 9);
-		return new ItemStack(EXNUtils.getHammeredOutput(this.tileInv.getBlockItem(1)).getItem(), count);
+		if (this.canHammerCompressedBlocks() && input instanceof CompressedBlock)
+			return new ItemStack(EnumCompressedBlocks.getCompressed((CompressedBlock) input), 9);
+		return new ItemStack(EXNUtils.getHammeredOutput(input).getItem(), count);
 	}
 }

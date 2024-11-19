@@ -5,7 +5,7 @@
     "east": "exnihiloauto:block/auto_side",
     "north": "exnihiloauto:block/auto_side",
     "particle": "minecraft:block/stone",
-    "south": "exnihiloauto:block/auto_silker_insert",
+    "south": "exnihiloauto:block/auto_side",
     "up": "exnihiloauto:block/auto_top",
     "west": "exnihiloauto:block/auto_side"
   }

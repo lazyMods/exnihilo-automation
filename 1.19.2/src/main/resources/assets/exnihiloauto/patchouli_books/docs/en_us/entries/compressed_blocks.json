@@ -9,7 +9,7 @@
     },
     {
       "type": "text",
-      "text": "$(br) Available blocks: $(br2) $(li) Cobblestone; $(li) Gravel; $(li) Sand; $(li) Dust;"
+      "text": "$(br) $(6)Available blocks:$() $(br) $(li) Cobblestone; $(li) Gravel; $(li) Sand; $(li) Dust; $(br2) You can use the ExNihilo Hammers to get the output of each compressed block or use the required to get the block item."
     }
   ]
 }

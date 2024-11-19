@@ -21,7 +21,7 @@ public abstract class InvHandler implements WorldlyContainer {
 		this.stacks = NonNullList.withSize(size, ItemStack.EMPTY);
 	}
 
-	public abstract boolean canInsertOn(int slot);
+	public abstract boolean isOutputSlot(int slot);
 
 	public List<ItemStack> getStackFromTo(int fromIndex, int toIndex) {
 		var itemStacks = new ArrayList<ItemStack>();
@@ -44,8 +44,8 @@ public abstract class InvHandler implements WorldlyContainer {
 	}
 
 	public int checkAndGetStackInsertSlots(ItemStack stack) {
-		for (int i : insertSlots()) {
-			if (this.canInsertOn(i)) {
+		for (int i : outputSlots()) {
+			if (this.isOutputSlot(i)) {
 				var stackAt = this.stacks.get(i);
 				if (ItemStack.isSame(stackAt, stack) && stackAt.getCount() != stackAt.getMaxStackSize()) {
 					return i;
@@ -65,10 +65,10 @@ public abstract class InvHandler implements WorldlyContainer {
 		return (ItemStack.isSame(this.stacks.get(slot), stack) || this.stacks.get(slot).isEmpty()) && this.stacks.get(slot).getCount() != stack.getMaxStackSize();
 	}
 
-	public abstract int[] insertSlots();
+	public abstract int[] outputSlots();
 
 	public int getEmptyInsertSlot() {
-		for (int slot : insertSlots()) {
+		for (int slot : outputSlots()) {
 			if (isSlotEmpty(slot))
 				return slot;
 		}

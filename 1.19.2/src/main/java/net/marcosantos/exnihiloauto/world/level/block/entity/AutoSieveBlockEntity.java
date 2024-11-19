@@ -24,6 +24,14 @@ import org.jetbrains.annotations.Nullable;
 public class AutoSieveBlockEntity extends AutoBlockEntity {
 
 	public static final int INV_SIZE = 17;
+
+	public static final int ENERGY_PER_TICK = 1;
+
+	public static final int INPUT_SLOT = 0;
+	public static final int MESH_SLOT = 1;
+
+	public static final int[] OUTPUT_SLOTS = new int[] { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+
 	private List<ItemStack> sieveDrops;
 
 	public AutoSieveBlockEntity(BlockPos pos, BlockState state) {
@@ -33,32 +41,44 @@ public class AutoSieveBlockEntity extends AutoBlockEntity {
 	@Override
 	public void tick(Level level, BlockPos pos, BlockState state, AutoBlockEntity self) {
 		if (!level.isClientSide) {
-			if (!self.storage.canExtractAmount(1))
+
+			if (!storage.canExtractAmount(ENERGY_PER_TICK)) {
+				resetTimer();
 				return;
-			self.setFakePlayer((ServerLevel) level, "FakeSiever");
-			boolean hasSiftable = !self.tileInv.isSlotEmpty(0);
-			boolean hasMesh = !self.tileInv.isSlotEmpty(1);
-			if (hasSiftable && hasMesh) {
-				self.incrementTimer();
-				self.storage.decreaseEnergy(1);
-				if (self.isDone()) {
-					var siftable = self.tileInv.get(0);
-					var meshItem = (MeshItem) self.tileInv.get(1);
-					if (sieveDrops == null || sieveDrops.isEmpty()) {
-						sieveDrops = EXNUtils.getWithMeshChance(siftable, meshItem.getType(), level.random.nextFloat());
-					}
+			}
 
-					if (self.tileInv.tryInsertMany(sieveDrops)) {
-						if (Config.enableMeshDurability())
-							self.tileInv.getItem(2).hurtAndBreak(1, self.fakePlayer, (item) -> {});
+			setFakePlayer((ServerLevel) level, "FakeSiever");
 
-						self.tileInv.extractItem(0, 1, false);
-						self.resetTimer();
-						sieveDrops.clear();
-					}
+			boolean hasInput = !tileInv.isSlotEmpty(INPUT_SLOT);
+			boolean hasMesh = !tileInv.isSlotEmpty(MESH_SLOT);
+
+			if (!hasInput || !hasMesh) {
+				resetTimer();
+				return;
+			}
+
+			incrementTimer();
+			storage.decreaseEnergy(ENERGY_PER_TICK);
+
+			if (isDone()) {
+
+				if (sieveDrops == null || sieveDrops.isEmpty()) {
+					var input = tileInv.getBlockItem(INPUT_SLOT);
+					var mesh = (MeshItem) tileInv.get(MESH_SLOT);
+					sieveDrops = EXNUtils.getWithMeshChance(input, mesh.getType(), level.random.nextFloat());
 				}
-			} else {
-				self.resetTimer();
+
+				if (tileInv.tryInsertMany(sieveDrops)) {
+
+					if (Config.enableMeshDurability()) {
+						tileInv.getItem(MESH_SLOT).hurtAndBreak(1, fakePlayer, (item) -> {});
+					}
+
+					tileInv.extractItem(INPUT_SLOT, 1, false);
+
+					resetTimer();
+					sieveDrops.clear();
+				}
 			}
 		}
 	}
@@ -77,42 +97,43 @@ public class AutoSieveBlockEntity extends AutoBlockEntity {
 	public InvHandler createInventory() {
 		return new InvHandler(INV_SIZE) {
 			@Override
-			public int[] insertSlots() {
-				return new int[] { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+			public int[] outputSlots() {
+				return OUTPUT_SLOTS;
 			}
 
 			@Override
-			public boolean canInsertOn(int slot) {
-				return slot > 1;
+			public boolean isOutputSlot(int slot) {
+				return slot > 1 && slot < 14;
 			}
 
 			@Override
 			@ParametersAreNonnullByDefault
 			public int @NotNull [] getSlotsForFace(Direction side) {
 				if (side == Direction.DOWN)
-					return new int[] { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+					return OUTPUT_SLOTS;
 				else if (side == Direction.UP)
-					return new int[] { 0 };
+					return new int[] { INPUT_SLOT };
 				return new int[0];
 			}
 
 			@Override
 			@ParametersAreNonnullByDefault
 			public boolean canPlaceItemThroughFace(int i, ItemStack itemStack, @Nullable Direction direction) {
-				return direction == Direction.UP && i == 0;
+				return direction == Direction.UP && i == INPUT_SLOT;
 			}
 
 			@Override
 			@ParametersAreNonnullByDefault
 			public boolean canTakeItemThroughFace(int i, ItemStack itemStack, Direction direction) {
-				return direction == Direction.DOWN && i > 1;
+				return direction == Direction.DOWN && i > 1 && i < 14;
 			}
 		};
 	}
 
 	@Override
 	public List<ItemStack> getUpgradeSlots() {
-		return tileInv.getStackFromTo(13, 15);
+		// Note: 'to' isn't inclusive
+		return tileInv.getStackFromTo(14, 17);
 	}
 
 	@Override

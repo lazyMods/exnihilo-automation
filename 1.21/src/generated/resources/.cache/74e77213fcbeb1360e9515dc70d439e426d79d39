@@ -1,4 +1,4 @@
-// 1.21	2024-11-16T02:17:48.9466877	Block States: exnihiloauto
+// 1.21	2024-11-19T17:20:38.0517733	Block States: exnihiloauto
 c8a728562f2673fa4b2f539ed66847b74b1b7e0f assets/exnihiloauto/blockstates/atomic_compressed_cobble.json
 3ec83d4bfa8ac91bba577323e907aa1f9ff77503 assets/exnihiloauto/blockstates/atomic_compressed_dust.json
 6434879e5fd8c35c9824c2f4830aa93bdf6c3c57 assets/exnihiloauto/blockstates/atomic_compressed_gravel.json
@@ -18,9 +18,9 @@ f4bba776c41da2c7adfb098405030cdabe574cf7 assets/exnihiloauto/blockstates/highly_
 4bc8228f33a7f86edb25b32b012e6ef13745efb3 assets/exnihiloauto/models/block/atomic_compressed_dust.json
 a78949289d901fbe25095fdee705e89e7f261f16 assets/exnihiloauto/models/block/atomic_compressed_gravel.json
 b0d16290576982860c2e8696f99c9f559a08f9a8 assets/exnihiloauto/models/block/atomic_compressed_sand.json
-a84bb28470d7db85785e250b2ff4646e7ea86a0c assets/exnihiloauto/models/block/auto_hammer.json
-a84bb28470d7db85785e250b2ff4646e7ea86a0c assets/exnihiloauto/models/block/auto_sieve.json
-a84bb28470d7db85785e250b2ff4646e7ea86a0c assets/exnihiloauto/models/block/auto_silker.json
+f1914b39f19d8095b3767ee700040cf09880811d assets/exnihiloauto/models/block/auto_hammer.json
+f1914b39f19d8095b3767ee700040cf09880811d assets/exnihiloauto/models/block/auto_sieve.json
+f1914b39f19d8095b3767ee700040cf09880811d assets/exnihiloauto/models/block/auto_silker.json
 f50d9980576cbbe15ab6be5911b9830404a82140 assets/exnihiloauto/models/block/compressed_cobble.json
 2d40753010d7c0b09386988f4fc1573b7664dc22 assets/exnihiloauto/models/block/compressed_dust.json
 d6aaf58b552eee895762d9b9fc452e542d8a7690 assets/exnihiloauto/models/block/compressed_gravel.json

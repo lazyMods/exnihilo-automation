@@ -25,7 +25,7 @@ public abstract class InvHandler implements WorldlyContainer {
 
 	public List<ItemStack> getStackFromTo(int fromIndex, int toIndex) {
 		var itemStacks = new ArrayList<ItemStack>();
-		for (int i = fromIndex; i < toIndex + 1; i++) {
+		for (int i = fromIndex; i < toIndex; i++) {
 			itemStacks.add(this.getItem(i));
 		}
 		return itemStacks;
